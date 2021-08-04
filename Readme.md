@@ -10,6 +10,7 @@ Laura Bertassi
         Materia
         Controlador Materia
         Tela Materia
+        Pessoa
 
 Leonardo De Brida
     Atribuição de Implementação:
@@ -19,3 +20,4 @@ Leonardo De Brida
         Tarefa
         Controlador Tarefa
         Tela Tarefa
+        Tela Abstrata
