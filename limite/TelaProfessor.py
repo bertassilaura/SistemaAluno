@@ -11,3 +11,15 @@ class TelaProfessor(TelaAbstrata):
 
         opcao = int(input("Digite a opção escolhida: "))
         return opcao
+
+    def pega_dados():
+        print("***** DADOS DO PROFESSOR *****")
+        print("Insira os dados:")
+        nome = str(input("Nome: "))
+        email = str(input("Email: "))
+        telefone = str(input("Telefone: "))
+
+        return {"nome": nome, "email": email, "telefone": telefone}
+
+   
+        
