@@ -4,18 +4,18 @@ class Pessoa():
         self.__nome = nome
         self.__email = email
 
-@property
-def nome(self):
-    return self.__nome 
+    @property
+    def nome(self):
+        return self.__nome 
 
-@nome.setter
-def nome(self, nome: str):
-    self.__nome = nome
+    @nome.setter
+    def nome(self, nome: str):
+        self.__nome = nome
 
-@property
-def email(self):
-    return self.__email
+    @property
+    def email(self):
+        return self.__email
 
-@email.setter
-def email(self, email: str):
-    self.__email = email
+    @email.setter
+    def email(self, email: str):
+        self.__email = email
