@@ -11,3 +11,5 @@ class Professor(Pessoa):
     @telefone.setter
     def telefone(self, telefone: str):
         self.__telefone = telefone
+
+    
