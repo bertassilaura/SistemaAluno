@@ -7,7 +7,7 @@ class TelaAluno(TelaAbstrata):
 
     def tela_opcoes(self):
         print("**** Você está na página Aluno! ****")
-        print("O que você deeseja fazer? Escolha uma opção")
+        print("O que você deseja fazer? Escolha uma opção:")
         print("1 - Criar aluno")
         print("2 - Mostrar aluno")
         print("0 - Retornar")
