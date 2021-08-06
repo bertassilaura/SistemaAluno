@@ -17,3 +17,7 @@ class TelaAbstrata():
     @abstractmethod
     def mostra_dados():
         pass
+    
+    @abstractmethod
+    def mostra_mensagem():
+        pass
