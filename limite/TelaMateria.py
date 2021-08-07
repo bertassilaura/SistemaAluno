@@ -1,8 +1,13 @@
+from controlador.ControladorProfessor import ControladorProfessor
 from limite.TelaAbstrata import TelaAbstrata
+from controlador.ControladorMateria import ControladorMateria
 
 
 class TelaMateria(TelaAbstrata):
-
+    def __init__(self, controlador_materia: ControladorMateria):
+        self.__controlador_materia = controlador_materia
+    
+    # Fazer tratamento de dados na recpçao de dados na opcao
     def tela_opcoes():
         print("***** Você está na página Matéria! *****")
         print("O que você deseja fazer? Escolha uma opção:")

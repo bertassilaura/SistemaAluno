@@ -1,6 +1,6 @@
 from ABC import ABC, abstractmethod
 
-class TelaAbstrata():
+class TelaAbstrata(ABC):
 
     @abstractmethod
     def tela_opcoes():
