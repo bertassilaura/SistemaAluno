@@ -15,62 +15,70 @@ class Materia():
         return self.__nome
 
     @nome.setter
-    def nome(self, nome):
-        self.__nome = nome
+    def nome(self, nome: str):
+        if isinstance(nome, str):
+            self.__nome = nome
 
     @property
     def semestre(self):
         return self.__semestre
     
     @semestre.setter
-    def semestre(self, semestre):
-        self.__semestre = semestre
+    def semestre(self, semestre: str):
+        if isinstance(semestre, str):
+            self.__semestre = semestre
 
     @property
     def dia_da_semana(self):
         return self.__dia_da_semana
     
     @dia_da_semana.setter
-    def dia_da_semana(self, dia_da_semana):
-        return self.__dia_da_semana
+    def dia_da_semana(self, dia_da_semana: str):
+        if isinstance(dia_da_semana, str):
+            self.__dia_da_semana
 
     @property
     def horario(self):
         return self.__horario
 
     @horario.setter
-    def horario(self, horario):
-        self.__horario = horario
+    def horario(self, horario: str):
+        if isinstance(horario, str):
+            self.__horario = horario
 
     @property
     def link(self):
         return self.__link
 
     @link.setter
-    def link(self, link):
-        self.__link = link
+    def link(self, link: str):
+        if isinstance(link, str):
+            self.__link = link
 
     @property
     def classificacao(self):
         return self.__classificacao
 
     @classificacao.setter
-    def classificacao(self, classificacao):
-        self.__classificacao = classificacao
+    def classificacao(self, classificacao: str):
+        if isinstance(classificacao, str):
+            self.__classificacao = classificacao
 
     @property
     def criterio_de_presenca(self):
         return self.__criterio_de_presenca
 
     @criterio_de_presenca.setter
-    def criterio_de_presenca(self, criterio_de_presenca):
-        self.__criterio_de_presenca = criterio_de_presenca
+    def criterio_de_presenca(self, criterio_de_presenca: str):
+        if isinstance(criterio_de_presenca, str):
+            self.__criterio_de_presenca = criterio_de_presenca
 
     @property
     def numero_avaliacoes(self):
         return self.__numero_avaliacoes
 
     @numero_avaliacoes.setter
-    def numero_avaliacoes(self, numero_avaliacoes):
-        self.__numero_avaliacoes = numero_avaliacoes
+    def numero_avaliacoes(self, numero_avaliacoes: str):
+        if isinstance(numero_avaliacoes, str):
+            self.__numero_avaliacoes = numero_avaliacoes
 

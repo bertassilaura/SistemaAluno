@@ -10,4 +10,5 @@ class Aluno(Pessoa):
 
     @matricula.setter
     def matricula(self, matricula: str):
-        self.__matricula = matricula
+        if isinstance(matricula, str):
+            self.__matricula = matricula
