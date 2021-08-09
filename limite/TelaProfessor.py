@@ -19,13 +19,14 @@ class TelaProfessor(TelaAbstrata):
 
     # Fazer tratamento de dados aqui
     def pega_dados(self):
-        print("***** DADOS DO PROFESSOR *****")
+        print("***** RECEBENDO DADOS DO PROFESSOR *****")
         print("Insira os dados:")
         nome = str(input("Nome: "))
         email = str(input("Email: "))
         telefone = str(input("Telefone: "))
 
-        return {"nome": nome, "email": email, "telefone": telefone}
+        dados_professor = {"nome": nome, "email": email, "telefone": telefone}
+        return dados_professor
 
    
     def mostra_dados(self, dados_professor):

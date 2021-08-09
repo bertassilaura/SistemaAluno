@@ -28,3 +28,7 @@ class ControladorAluno():
 
     def abre_tela(self):
         lista_opcoes = {1: self.criar_aluno, 2: self.mostra_aluno, 0: self.retornar}
+
+        continua = True
+        while continua:
+            lista_opcoes[self.__tela_aluno.tela_opcoes()]()

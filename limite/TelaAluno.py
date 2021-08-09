@@ -27,12 +27,12 @@ class TelaAluno(TelaAbstrata):
         dados_aluno = {"nome":nome, "email":email, "matricula": matricula}
         return dados_aluno
 
-    # Fazer tratamento de dados aqui
     def mostra_dados(self, dados_aluno):
         print("**** DADOS DO AUNO ****")
         print("Nome do aluno: ", dados_aluno["nome"])
         print("Email do aluno", dados_aluno["email"])
         print("Matricula do aluno", dados_aluno["matrícula"])
-        
+        print('\n')
+
     #def verifica_valor()
     #def verifica_dados()

@@ -1,3 +1,5 @@
+from entidade.Pessoa import Pessoa
+
 class Professor(Pessoa):
 
     def __init__(self, telefone: str):

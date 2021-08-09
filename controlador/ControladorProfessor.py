@@ -19,7 +19,7 @@ class ControladorProfessor():
     def adicionar_professor(self):
         dados_professor = self.__TelaProfessor.pega_dados()
         professor = Professor(dados_professor["nome"], dados_professor["email"], dados_professor["telefone"])
-        self.__lista_professores.append(professor)
+        self.__lista_de_professores.append(professor)
 
     def listar_professores(self):
         for professor in self.__lista_de_professores:
