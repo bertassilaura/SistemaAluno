@@ -1,8 +1,11 @@
+from entidade.Pessoa import Pessoa
+
 class Aluno(Pessoa):
 
-    def __init__(self, matricula: str):
+    def __init__(self, nome: str, email: str, matricula: str):
         super().__init__(nome, email)
-        self.__matricula = matricula
+        if isinstance(matricula, str):
+            self.__matricula = matricula
 
     @property
     def matricula(self):
