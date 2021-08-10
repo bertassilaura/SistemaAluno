@@ -39,9 +39,10 @@ class ContorladorMateria():
         else:
             self.__tela_materia.mostra_mensagem("ATENÇÃO: Materia não existente")
     
-    def listar_por_professor(self):
+    def listar_por_professor(self, professor):
         for materia in self.__lista_materias:
-            self.__tela_materia.mostra_dados({"professor": materia.professor})
+            if materia.professor == professor:
+                self.__tela_materia.mostra_dados({"professor": materia.professor})
                      
 
 '''

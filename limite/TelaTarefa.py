@@ -29,5 +29,5 @@ class TelaTarefa(TelaAbstrata):
         status_realizado = str(input("Está feita ou não?: "))
         nota = str(input("Nota: "))
 
-        dados_aluno = {"nome":nome, "email":email, "matricula": matricula}
-        return dados_aluno
+        dados_tarefa = {"nome da tarefa": nome_tarefa, "Data do prazo": data_prazo, "Horário do prazo": horario_prazo, "Descricao": descricao, "Materia correspondente": materia_correspondente, "status de realização": status_realizado, "nota": nota}
+        return dados_tarefa
