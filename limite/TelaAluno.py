@@ -1,9 +1,6 @@
 from limite.TelaAbstrata import TelaAbstrata
-from controlador.ControladorAluno import ControladorAluno
 
 class TelaAluno(TelaAbstrata):
-    def __init__(self, controlador_aluno: ControladorAluno):
-        self.__controlador_aluno = controlador_aluno
 
     # Fazer tratamento de dados na recpçao de dados na opcao
     def tela_opcoes(self):

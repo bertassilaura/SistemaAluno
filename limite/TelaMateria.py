@@ -1,12 +1,9 @@
-from entidade.Professor import Professor
 from controlador.ControladorProfessor import ControladorProfessor
 from limite.TelaAbstrata import TelaAbstrata
-from controlador.ControladorMateria import ControladorMateria
 
 
 class TelaMateria(TelaAbstrata):
-    def __init__(self, controlador_materia: ControladorMateria):
-        self.__controlador_materia = controlador_materia
+    def __init__(self):
         self.__controlador_professor = ControladorProfessor
     
     # Fazer tratamento de dados na recpçao de dados para a opcao

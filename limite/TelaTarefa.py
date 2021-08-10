@@ -1,10 +1,7 @@
 from limite.TelaAbstrata import TelaAbstrata
-from controlador.ControladorTarefa import ControladorTarefa
 
 class TelaTarefa(TelaAbstrata):
-    def __init__(self, controlador_tarefa: ControladorTarefa):
-        self.__controlador_tarefa = controlador_tarefa
-    
+        
     # Fazer tratamento de dados na recpçao de dados na opcao
     def tela_opcoes(self):
         print("**** Você está na página Tarefa! ****")
