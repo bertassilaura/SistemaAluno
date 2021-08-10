@@ -1,10 +1,10 @@
 from controlador.ControladorProfessor import ControladorProfessor
 from limite.TelaAbstrata import TelaAbstrata
 
-
 class TelaMateria(TelaAbstrata):
     def __init__(self):
         self.__controlador_professor = ControladorProfessor
+        self.__tela_professor = TelaProfessor
     
     # Fazer tratamento de dados na recpçao de dados para a opcao
     def tela_opcoes():
@@ -28,7 +28,9 @@ class TelaMateria(TelaAbstrata):
         print("**** DADOS DA MATERIA ****")
         print("Insira os dados")
         nome = str(input("Nome: "))
-        professor = self.__controlador_professor.adicionar_professor() #### nao faço ideia se isso ta certo
+        self.__controlador_professor.listar_professores()
+        posicao_professor = self.__tela_professor.selecionar_professor()
+        professor = self.__controlador_professor.retornar_professor(posicao_professor)
         semestre = str(input("Semestre:"))
         dia_da_semana = str(input("Dia da semana: "))
         horario = str(input("Horario: "))

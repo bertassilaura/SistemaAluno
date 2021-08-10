@@ -22,8 +22,9 @@ class ControladorProfessor():
         self.__lista_de_professores.append(professor)
 
     def listar_professores(self):
-        for professor in self.__lista_de_professores:
-            self.__TelaProfessor.mostra_dados({"nome": professor.nome, "email": professor.email, "telefone": professor.telefone})
+        for i in range(len(self.__lista_de_professores)):
+            professor = self.__lista_de_professores[i]
+            self.__TelaProfessor.mostra_dados({"nome": professor.nome, "email": professor.email, "telefone": professor.telefone, "posicao": i})
 
     def retornar(self):
         self.__ControladorSistema.abre_tela()
@@ -58,4 +59,8 @@ class ControladorProfessor():
             self.listar_professores()
         else:
             self.__TelaProfessor.mostra_mensagem("ATENÇÃO: Professor não existente")
+    
+    def retornar_professor(self, posicao):
+        return self.__lista_de_professores[posicao-1]
+
 
