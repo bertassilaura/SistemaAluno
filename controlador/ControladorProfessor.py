@@ -45,7 +45,6 @@ class ControladorProfessor():
             professor.email = novos_dados_professor["email"]
             professor.telefone = novos_dados_professor["telefone"]
             self.listar_professores()
-
         else:
             self.__TelaProfessor.mostra_mensagem("ATENÇÃO: Professor não existente")
 
@@ -57,7 +56,6 @@ class ControladorProfessor():
         if(professor is not None):
             self.__lista_de_professores.remove(professor)
             self.listar_professores()
-
         else:
             self.__TelaProfessor.mostra_mensagem("ATENÇÃO: Professor não existente")
 

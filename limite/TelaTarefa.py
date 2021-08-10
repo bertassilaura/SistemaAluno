@@ -29,5 +29,13 @@ class TelaTarefa(TelaAbstrata):
         status_realizado = str(input("Está feita ou não?: "))
         nota = str(input("Nota: "))
 
-        dados_aluno = {"nome":nome, "email":email, "matricula": matricula}
-        return dados_aluno
+        return {"nome_tarefa":nome_tarefa, "data_prazo":data_prazo, "horario_prazo":horario_prazo,
+                "descricao":descricao, "materia_correspondente":materia_correspondente, "status_realizado":status_realizado,
+                "nota":nota}
+
+    def selecionar_tarefa(self):
+        nome = str(input("Nome da Tarefa que deseja selecionar: "))
+        return nome
+    
+    def mostra_mensagem(self, msg):
+        print(msg)

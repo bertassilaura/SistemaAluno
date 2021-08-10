@@ -5,7 +5,6 @@ from controlador.ControladorTarefa import ControladorTarefa
 from controlador.ControladorProfessor import ControladorProfessor
 
 class ControladorSistema():
-
     def __init__(self):
         self.__ControladorAluno = ControladorAluno
         self.__ControladorMateria = ControladorMateria

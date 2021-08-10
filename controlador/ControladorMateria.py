@@ -2,17 +2,17 @@ from limite.TelaMateria import TelaMateria
 from entidade.Materia import Materia
 from controlador.ControladorSistema import ControladorSistema
 
-class ContorladorMateria():
+class ControladorMateria():
     def __init__(self, controlador_sistema: ControladorSistema):
         self.__controlador_sistema = controlador_sistema
         self.__tela_materia = TelaMateria
         self.__lista_materias = []
     
     def adicionar_materia(self):
-        dados = self.__tela_materia.pega_dados()
-        materia = Materia(dados['nome'], dados['professor'], dados['semestre'], dados['dia_da_semana'], 
-        dados['horario'], dados['link'], dados['classificacao'], 
-        dados['criterio_de_presenca'], dados['numero_avaliacoes'])
+        dados_materia = self.__tela_materia.pega_dados()
+        materia = Materia(dados_materia['nome'], dados_materia['professor'], dados_materia['semestre'], dados_materia['dia_da_semana'], 
+        dados_materia['horario'], dados_materia['link'], dados_materia['classificacao'], 
+        dados_materia['criterio_de_presenca'], dados_materia['numero_avaliacoes'])
         self.__lista_materias.append(materia)
 
     def listar_materias(self):
@@ -35,21 +35,28 @@ class ContorladorMateria():
         if(materia is not None):
             self.__lista_materias.remove(materia)
             self.listar_materias()
-
         else:
             self.__tela_materia.mostra_mensagem("ATENÇÃO: Materia não existente")
     
+    # Tenho duvida se esses metodos estao corretos
     def listar_por_professor(self):
         for materia in self.__lista_materias:
-            self.__tela_materia.mostra_dados({"professor": materia.professor})
-                     
-
-'''
-    def listar_por_semestre():
-    def listar_por_professor()
-    def listar_por_dia_da_semana()
-    def listar_por_semana()
+            self.__tela_materia.mostra_dados({"professor": materia.professor}) 
     
-    def abre_tela()
-    def retornar()
-'''
+    def listar_por_semestre(self):
+        for materia in self.__lista_materias:
+            self.__tela_materia.mostra_dados({"semestre": materia.semestre})
+    
+    def listar_por_dia_da_semana(self):
+        for materia in self.__lista_materias:
+            self.__tela_materia.mostra_dados({"dia_da_semana": materia.dia_da_semana})
+    
+    def abre_tela(self):
+        lista_opcoes = {1: self.adicionar_materia, 2: self.excluir_materia, 3: self.listar_materias, 4: self.listar_por_professor, 
+                        5:self.listar_por_semestre , 6: self.listar_por_dia_da_semana, 0: self.retornar}
+        continua = True
+        while continua:
+            lista_opcoes[self.__tela_materia.tela_opcoes()]()
+
+    def retornar(self):
+        self.__controlador_sistema.abre_tela()

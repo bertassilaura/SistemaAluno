@@ -38,12 +38,11 @@ class TelaMateria(TelaAbstrata):
         link = str(input("Link: "))
         classificacao = str(input("Classificacao: "))
         criterio_de_presenca = str(input("Criterio de presenca:"))
-        numero_avaliacoes = str(input("Numero de avaliacoes: "))
+        numero_avaliacoes = int(input("Numero de avaliacoes: "))
         
-        dados_materia = {"nome": nome, "professor" : professor, "semestre": semestre, "dia_da_semana": dia_da_semana,
+        return {"nome": nome, "professor" : professor, "semestre": semestre, "dia_da_semana": dia_da_semana,
                         "horario": horario, "link": link, "classificacao": classificacao,
                         "criterio_de_presenca": criterio_de_presenca, "numero_avaliacoes": numero_avaliacoes}
-        return dados_materia
     
     def mostra_dados(self, dados_materia):
         print("**** DADOS DO ALUNO ****")
