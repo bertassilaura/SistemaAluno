@@ -1,5 +1,4 @@
-from limite.TelaAbstrata import TelaAbstrata
-
+from limite.tela_abstrata import TelaAbstrata
 
 class TelaProfessor(TelaAbstrata):
 
@@ -27,16 +26,14 @@ class TelaProfessor(TelaAbstrata):
         return dados_professor
    
     def mostra_dados(self, dados_professor):
-        print("POSIÇÃO DO PROFESSOR: ", dados_professor["posicao"])
         print("NOME DO PROFESSOR: ", dados_professor["nome"])
         print("EMAIL DO PROFESSOR: ", dados_professor["email"])
         print("TELEFONE DO PROFESSOR: ", dados_professor["telefone"])
         print("\n")
 
-    # Fazer tratamento de dados aqui
     def selecionar_professor(self):
-        posicao = int(input("Posicao do professor que deseja selecionar: "))
-        return posicao
+        nome = int(input("Nome do professor que deseja selecionar: "))
+        return nome
 
     def mostra_mensagem(self, msg):
         print(msg)

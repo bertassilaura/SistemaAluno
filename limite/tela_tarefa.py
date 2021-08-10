@@ -1,9 +1,6 @@
-from limite.TelaAbstrata import TelaAbstrata
-from controlador.ControladorTarefa import ControladorTarefa
+from limite.tela_abstrata import TelaAbstrata
 
 class TelaTarefa(TelaAbstrata):
-    def __init__(self, controlador_tarefa: ControladorTarefa):
-        self.__controlador_tarefa = controlador_tarefa
     
     # Fazer tratamento de dados na recpçao de dados na opcao
     def tela_opcoes(self):
@@ -29,5 +26,21 @@ class TelaTarefa(TelaAbstrata):
         status_realizado = str(input("Está feita ou não?: "))
         nota = str(input("Nota: "))
 
-        dados_tarefa = {"nome da tarefa": nome_tarefa, "Data do prazo": data_prazo, "Horário do prazo": horario_prazo, "Descricao": descricao, "Materia correspondente": materia_correspondente, "status de realização": status_realizado, "nota": nota}
+        dados_tarefa = {"Nome da tarefa": nome_tarefa, "Data do prazo": data_prazo, "Horario do prazo": horario_prazo, "Descricao": descricao, "Materia correspondente": materia_correspondente, "Status de realizacao": status_realizado, "Nota": nota}
         return dados_tarefa
+
+    def mostra_dados(self, dados_tarefa):
+        print("NOME DA TAREFA: ", dados_tarefa["Nome da tarefa"])
+        print("DATA DO PRAZO ", dados_tarefa["Data do prazo"])
+        print("HORÁRIO DO PRAZO: ", dados_tarefa["Horario do prazo"])
+        print("DESCRICAO: ", dados_tarefa["Descricao"])
+        print("MATERIA CORRESPONDENTE: ", dados_tarefa["Materia correspondente"])
+        print("STATUS DE REALIZAÇÃO: ", dados_tarefa["Status de realizacao"])
+        print("NOTA ", dados_tarefa["Nota"])
+        
+    def seleciona_tarefa(self):
+        nome = str(input("Nome da tarefa que deseja selecionar: "))
+        return nome
+
+    def mostra_mensagem(self, msg):
+        print(msg)

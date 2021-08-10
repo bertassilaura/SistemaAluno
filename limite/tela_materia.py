@@ -1,16 +1,8 @@
-from entidade.Professor import Professor
-from controlador.ControladorProfessor import ControladorProfessor
-from limite.TelaAbstrata import TelaAbstrata
-from controlador.ControladorMateria import ControladorMateria
-from limite.TelaProfessor import TelaProfessor
-
+from limite.tela_abstrata import TelaAbstrata
+from controlador.controlador_professor import ControladorProfessor
 
 class TelaMateria(TelaAbstrata):
-    def __init__(self, controlador_materia: ControladorMateria):
-        self.__controlador_materia = controlador_materia
-        self.__controlador_professor = ControladorProfessor
-        self.__tela_professor = TelaProfessor
-    
+
     # Fazer tratamento de dados na recpçao de dados para a opcao
     def tela_opcoes():
         print("***** Você está na página Matéria! *****")
@@ -19,10 +11,9 @@ class TelaMateria(TelaAbstrata):
         print("2 - Excluir Matéria")
         print("3 - Listar as matérias do semestre")
         print("4 - Listar as matérias por professor")
-        print("5 - Listar as matérias por dia específico")
-        print("6 - Listar as matérias da semana")
-        print("7 - Calcular média final de uma matéria")
-        print("8 - Ver dados de uma matéria")
+        print("5 - Listar as matérias por semana")
+        print("6 - Calcular média final de uma matéria")
+        print("7 - Ver matérias")
         print("0 - Retornar")
 
         opcao = int(input("Digite a opção escolhida:"))
@@ -33,10 +24,8 @@ class TelaMateria(TelaAbstrata):
         print("**** DADOS DA MATERIA ****")
         print("Insira os dados")
         nome = str(input("Nome: "))
-        self.__controlador_professor.listar_professores()
-        posicao_professor = self.__tela_professor.selecionar_professor()
-        professor = self.__controlador_professor.retornar_professor(posicao_professor)
         semestre = str(input("Semestre:"))
+        codigo = str(input("Codigo: "))
         dia_da_semana = str(input("Dia da semana: "))
         horario = str(input("Horario: "))
         link = str(input("Link: "))
@@ -44,7 +33,7 @@ class TelaMateria(TelaAbstrata):
         criterio_de_presenca = str(input("Criterio de presenca:"))
         numero_avaliacoes = str(input("Numero de avaliacoes: "))
         
-        dados_materia = {"nome": nome, "professor" : professor, "semestre": semestre, "dia_da_semana": dia_da_semana,
+        dados_materia = {"nome": nome, "semestre": semestre, "codigo": codigo, "dia_da_semana": dia_da_semana,
                         "horario": horario, "link": link, "classificacao": classificacao,
                         "criterio_de_presenca": criterio_de_presenca, "numero_avaliacoes": numero_avaliacoes}
         return dados_materia
@@ -53,13 +42,14 @@ class TelaMateria(TelaAbstrata):
         print("**** DADOS DO ALUNO ****")
         print("NOME DA MATÉRIA: ", dados_materia['nome'])
         print("PROFESSOR QUE MINISTRA: ", dados_materia['professor'])
-        print("SEMESTRE", dados_materia['semestre'])
-        print("DIA DA SEMANA", dados_materia['dia_da_semana'])
-        print("HORARIO", dados_materia['horario'])
-        print("LINK", dados_materia['link'])
-        print("CLASSIFICACAO", dados_materia['classificacao'])
-        print("CRITERIO DE PRESENCA", dados_materia['criterio_de_presenca'])
-        print("NUMERO AVALIACOES", dados_materia['numero_avaliacoes'])
+        print("SEMESTRE: ", dados_materia['semestre'])
+        print("CODIGO DA MATERIA: ", dados_materia['codigo'])
+        print("DIA DA SEMANA: ", dados_materia['dia_da_semana'])
+        print("HORARIO: ", dados_materia['horario'])
+        print("LINK: ", dados_materia['link'])
+        print("CLASSIFICACAO: ", dados_materia['classificacao'])
+        print("CRITERIO DE PRESENCA: ", dados_materia['criterio_de_presenca'])
+        print("NUMERO AVALIACOES: ", dados_materia['numero_avaliacoes'])
         print('\n')
     
     # Fazer tratamento de dados

@@ -7,10 +7,6 @@ class TelaAbstrata(ABC):
         pass
 
     @abstractmethod
-    def le_num_inteiro():
-        pass
-
-    @abstractmethod
     def pega_dados():
         pass
 

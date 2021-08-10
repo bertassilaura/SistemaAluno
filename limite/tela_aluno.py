@@ -1,8 +1,6 @@
-from limite.TelaAbstrata import TelaAbstrata
+from limite.tela_abstrata import TelaAbstrata
 
 class TelaAluno(TelaAbstrata):
-    def __init__(self, controlador_aluno):
-        self.__controlador_aluno = controlador_aluno
 
     # Fazer tratamento de dados na recpçao de dados na opcao
     def tela_opcoes(self):
@@ -23,7 +21,7 @@ class TelaAluno(TelaAbstrata):
         email = str(input("Email: "))
         matricula = str(input("Matrícula: "))
 
-        dados_aluno = {"nome":nome, "email":email, "matricula": matricula}
+        dados_aluno = {"nome": nome, "email": email, "matricula": matricula}
         return dados_aluno
 
     def mostra_dados(self, dados_aluno):
@@ -32,6 +30,9 @@ class TelaAluno(TelaAbstrata):
         print("Email do aluno", dados_aluno["email"])
         print("Matricula do aluno", dados_aluno["matrícula"])
         print('\n')
+
+    def mostra_mensagem(self, msg):
+        print(msg)
 
     #def verifica_valor()
     #def verifica_dados()

@@ -1,10 +1,11 @@
-from entidade.Pessoa import Pessoa
+from entidade.pessoa import Pessoa
 
 class Professor(Pessoa):
 
-    def __init__(self, telefone: str):
-        super().__init__()
-        self.__telefone = telefone
+    def __init__(self, nome: str, email: str, telefone: str):
+        super().__init__(nome, email)
+        if isinstance(telefone, str):
+            self.__telefone = telefone
 
     @property
     def telefone(self):
