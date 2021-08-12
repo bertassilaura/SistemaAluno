@@ -4,7 +4,7 @@ from controlador.controlador_professor import ControladorProfessor
 class TelaMateria(TelaAbstrata):
 
     # Fazer tratamento de dados na recpçao de dados para a opcao
-    def tela_opcoes():
+    def tela_opcoes(self):
         print("***** Você está na página Matéria! *****")
         print("O que você deseja fazer? Escolha uma opção:")
         print("1 - Adicionar Matéria")
@@ -25,6 +25,8 @@ class TelaMateria(TelaAbstrata):
         print("Insira os dados")
         nome = str(input("Nome: "))
         semestre = str(input("Semestre:"))
+        prof_temporario =  str(input("Digite o nome do professor: "))
+        professor = ControladorProfessor.pega_professor_por_nome(prof_temporario)
         codigo = str(input("Codigo: "))
         dia_da_semana = str(input("Dia da semana: "))
         horario = str(input("Horario: "))
@@ -33,7 +35,7 @@ class TelaMateria(TelaAbstrata):
         criterio_de_presenca = str(input("Criterio de presenca:"))
         numero_avaliacoes = str(input("Numero de avaliacoes: "))
         
-        dados_materia = {"nome": nome, "semestre": semestre, "codigo": codigo, "dia_da_semana": dia_da_semana,
+        dados_materia = {"nome": nome, "semestre": semestre, "professor": professor, "codigo": codigo, "dia_da_semana": dia_da_semana,
                         "horario": horario, "link": link, "classificacao": classificacao,
                         "criterio_de_presenca": criterio_de_presenca, "numero_avaliacoes": numero_avaliacoes}
         return dados_materia

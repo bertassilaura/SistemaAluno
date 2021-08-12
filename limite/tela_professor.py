@@ -32,7 +32,7 @@ class TelaProfessor(TelaAbstrata):
         print("\n")
 
     def selecionar_professor(self):
-        nome = int(input("Nome do professor que deseja selecionar: "))
+        nome = str(input("Nome do professor que deseja selecionar: "))
         return nome
 
     def mostra_mensagem(self, msg):

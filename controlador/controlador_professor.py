@@ -16,6 +16,7 @@ class ControladorProfessor():
 
     #listar professores e seus atributos
     def listar_professores(self):
+        print(self.__lista_de_professores)
         for professor in self.__lista_de_professores:
             self.__tela_professor.mostra_dados({"nome": professor.nome, "email": professor.email, "telefone": professor.telefone})
 
@@ -32,7 +33,6 @@ class ControladorProfessor():
 
     #alterar dados do professor
     def alterar_professor(self):
-        self.listar_professores()
         nome_professor = self.__tela_professor.selecionar_professor()
         professor = self.pega_professor_por_nome(nome_professor)
 
@@ -59,7 +59,7 @@ class ControladorProfessor():
 
     #abre tela de opçoes professor
     def abre_tela(self):
-        lista_opcoes = {1: self.adicionar_professor, 2: self.excluir_professor, 3: self.listar_professores, 0: self.retornar()}
+        lista_opcoes = {1: self.adicionar_professor, 2: self.excluir_professor, 3: self.listar_professores, 0: self.retornar}
 
         continua = True
         while continua:
