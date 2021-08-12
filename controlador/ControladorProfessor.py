@@ -1,13 +1,13 @@
-from controlador.ControladorSistema import ControladorSistema
 from limite.TelaProfessor import TelaProfessor
 from entidade.Professor import Professor
 
 class ControladorProfessor():
 
-    def __init__(self, Controlador_Sistema):
+    def __init__(self, controlador_sistema):
+        self.__controlador_sistema = controlador_sistema
         self.__lista_de_professores = []
         self.__TelaProfessor = TelaProfessor()
-        self.__ControladorSistema = ControladorSistema
+        
 
     def abre_tela(self):
         lista_opcoes = {1: self.adicionar_professor, 2: self.excluir_professor, 3: self.listar_professores, 0: self.retornar()}
@@ -27,7 +27,7 @@ class ControladorProfessor():
             self.__TelaProfessor.mostra_dados({"nome": professor.nome, "email": professor.email, "telefone": professor.telefone, "posicao": i})
 
     def retornar(self):
-        self.__ControladorSistema.abre_tela()
+        self.__controlador_sistema.abre_tela()
 
     def pega_professor_por_nome(self, nome: str):
         for professor in self.__lista_de_professores:

@@ -2,7 +2,7 @@ from datetime import date, time
 from entidade.Materia import Materia 
 
 class Tarefa:
-    def __init__(self, nome_tarefa: str, data_prazo: date , horario_prazo: time, descricao: str, materia_corresponde: Materia, status_realizado: bool, peso: float, nota: int):
+    def __init__(self, nome_tarefa: str, data_prazo: date , horario_prazo: time, descricao: str, materia_corresponde: Materia, status_realizado: bool, peso: float, nota: float):
         self.__nome_tarefa = nome_tarefa
         self.__data_prazo = data_prazo
         self.__horario_prazo = horario_prazo
@@ -54,8 +54,8 @@ class Tarefa:
         return self.__nota
     
     @nota.setter
-    def nota(self, nota: int):
-        if isinstance(nota, int):
+    def nota(self, nota: float):
+        if isinstance(nota, float):
             self.__nota = nota
     
     @property

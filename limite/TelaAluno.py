@@ -21,8 +21,8 @@ class TelaAluno(TelaAbstrata):
         email = str(input("Email: "))
         matricula = str(input("Matrícula: "))
 
-        dados_aluno = {"nome":nome, "email":email, "matricula": matricula}
-        return dados_aluno
+        
+        return {"nome":nome, "email":email, "matricula": matricula}
 
     def mostra_dados(self, dados_aluno):
         print("**** DADOS DO AUNO ****")
@@ -30,6 +30,3 @@ class TelaAluno(TelaAbstrata):
         print("Email do aluno", dados_aluno["email"])
         print("Matricula do aluno", dados_aluno["matricula"])
         print('\n')
-
-    #def verifica_valor()
-    #def verifica_dados()

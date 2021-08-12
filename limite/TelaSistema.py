@@ -9,5 +9,6 @@ class TelaSistema(TelaAbstrata):
         print("2 - Professor")
         print("3 - Matéria")
         print("4 - Tarefa")
+        
         opcao = int(input("Digite a opção escolhida: "))
         return opcao

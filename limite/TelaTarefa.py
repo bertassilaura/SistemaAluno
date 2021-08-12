@@ -19,7 +19,7 @@ class TelaTarefa(TelaAbstrata):
         print("**** RECEBENDO DADOS DA TAREFA ****")
         print("Insira os dados:")
         nome_tarefa = str(input("Nome: "))
-        data_prazo = str(input("Data prazo para entrega: ")) # Verificar como receber com o tipo date e no formato correto
+        data_prazo = str(input("Data prazo para entrega: "))
         horario_prazo = str(input("Horário prazo para entrega: ")) # Verificar como receber com o tipo time e no formato correto
         descricao = str(input("Descrição resumida da tarefa: "))
         materia_correspondente = str(input("De qual materia?: ")) # Verificar como fazer a relação com a classe Materia

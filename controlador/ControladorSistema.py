@@ -10,6 +10,7 @@ class ControladorSistema():
         self.__ControladorMateria = ControladorMateria
         self.__ControladorTarefa = ControladorTarefa
         self.__ControladorProfessor = ControladorProfessor
+        self.__tela_sistema = TelaSistema()
 
     def inicializa_sistema(self):
         self.abre_tela()
@@ -33,7 +34,7 @@ class ControladorSistema():
         lista_opcoes = {1: self.cadastra_aluno, 2: self.cadastra_professor, 3: self.cadastra_tarefa, 4: self.cadastra_materia, 0: self.encerra_sistema}
 
         while True:
-            opcao_escolhida = self.__TelaSistema.tela_opcoes()
+            opcao_escolhida = self.__tela_sistema.tela_opcoes()
             funcao_escolhida = lista_opcoes[opcao_escolhida]
             funcao_escolhida()
 

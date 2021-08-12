@@ -2,8 +2,8 @@ from entidade.Pessoa import Pessoa
 
 class Professor(Pessoa):
 
-    def __init__(self, telefone: str):
-        super().__init__()
+    def __init__(self, nome: str, email: str, telefone: str):
+        super().__init__(nome, email)
         self.__telefone = telefone
 
     @property
