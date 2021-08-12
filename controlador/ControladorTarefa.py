@@ -20,9 +20,9 @@ class ControladorTarefa():
             "descricao": tarefa.descricao, "materia_correspondente": tarefa.materia_correspondente, "status_realizado": tarefa.status_realizado,
             "nota": tarefa.nota})
 
-    def pega_tarefa_por_nome(self, nome: str):
+    def pega_tarefa_por_nome(self, nome_tarefa: str):
         for tarefa in self.__lista_tarefas:
-            if tarefa.nome == nome:
+            if tarefa.nome_tarefa == nome_tarefa:
                 return tarefa
             return None
 

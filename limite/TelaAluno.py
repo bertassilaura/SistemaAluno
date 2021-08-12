@@ -28,7 +28,7 @@ class TelaAluno(TelaAbstrata):
         print("**** DADOS DO AUNO ****")
         print("Nome do aluno: ", dados_aluno["nome"])
         print("Email do aluno", dados_aluno["email"])
-        print("Matricula do aluno", dados_aluno["matrícula"])
+        print("Matricula do aluno", dados_aluno["matricula"])
         print('\n')
 
     #def verifica_valor()
