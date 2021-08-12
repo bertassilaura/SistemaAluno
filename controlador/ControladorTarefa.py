@@ -46,9 +46,20 @@ class ControladorTarefa():
     def retornar(self):
         self.__controlador_sistema.abre_tela()
     
+    def listar_feito(self):
+        for tarefa in self.__lista_tarefas:
+            status = tarefa.status_realizado
+            if status == True:
+                self.__tela_tarefa.mostra_dados({"status_realizado": tarefa.status_realizado})
+    
+    def listar_a_fazer(self):
+        for tarefa in self.__lista_tarefas:
+            status = tarefa.status_realizado
+            if status == False:
+                self.__tela_tarefa.mostra_dados({"status_realizado": tarefa.status_realizado})
+        
+
 '''
-listar_feito
-listar_a_fazer
 listar_por_materia
 listar_da_semana
 '''
