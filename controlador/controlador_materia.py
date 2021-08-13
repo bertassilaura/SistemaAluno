@@ -6,7 +6,7 @@ class ContorladorMateria():
     def __init__(self, controlador_sistema):
         self.__controlador_sistema = controlador_sistema
         self.__tela_materia = TelaMateria()
-        self.__lista_materias = []
+        self.__lista_materias = [Materia]
     
     def adicionar_materia(self):
         dados_materia = self.__tela_materia.pega_dados()
@@ -39,7 +39,7 @@ class ContorladorMateria():
         else:
             self.__tela_materia.mostra_mensagem("ATENÇÃO: Materia não existente")
     
-    def listar_por_semestre(self, semestre):
+    def listar_por_semestre(self):
         qual_semestre = str(input("Digite o semestre desejado: "))
         for materia in self.__lista_materias:
             if materia.semestre == qual_semestre:
@@ -52,19 +52,19 @@ class ContorladorMateria():
                 print(materia)
 
     def calcular_media_final(self, codigo_materia):
-        codigo_materia = str(input("Digite o código da matéria desejada: "))
+        '''codigo_materia = str(input("Digite o código da matéria desejada: "))
         nota_total = 0
         peso_total = 0
         for materia in self.__lista_materias:
             nota_total += materia.nota
-            peso_total += materia.peso
+            peso_total += materia.peso '''
 
     
     def retornar(self):
         self.__controlador_sistema.abre_tela()
 
     def abre_tela(self):
-        lista_opcoes = {1: self.adicionar_materia, 2: self.excluir_materia, 3: self.listar_por_semestre, 4: self.listar_por_professor, 5: self.listar_por_semana, 6: self.calcular_media_final, 7: self.listar_materias, 0: self.retornar}
+        lista_opcoes = {1: self.adicionar_materia, 2: self.excluir_materia, 3: self.listar_por_semestre, 4: self.calcular_media_final, 5: self.listar_materias, 0: self.retornar}
 
         continua =True
         while continua:

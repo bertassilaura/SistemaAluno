@@ -10,10 +10,8 @@ class TelaMateria(TelaAbstrata):
         print("1 - Adicionar Matéria")
         print("2 - Excluir Matéria")
         print("3 - Listar as matérias do semestre")
-        print("4 - Listar as matérias por professor")
-        print("5 - Listar as matérias por semana")
-        print("6 - Calcular média final de uma matéria")
-        print("7 - Ver matérias")
+        print("4 - Calcular média final de uma matéria")
+        print("5 - Ver matérias")
         print("0 - Retornar")
 
         opcao = int(input("Digite a opção escolhida:"))
