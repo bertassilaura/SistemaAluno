@@ -58,9 +58,4 @@ class ControladorTarefa():
             status = tarefa.status_realizado
             if status == False:
                 self.__tela_tarefa.mostra_dados({"status_realizado": tarefa.status_realizado})
-        
 
-'''
-listar_por_materia
-listar_da_semana
-'''
