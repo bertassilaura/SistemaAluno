@@ -6,18 +6,11 @@ class ControladorAluno():
         self.__controlador_sistema = controlador_sistema
         self.__tela_aluno = TelaAluno()
         self.__aluno = None
-    
-    # Fazer tratamento de dados 
-    def criar_aluno(self, nome: str, email: str, matricula: int):
-        while True:
-            try:
-                if nome == int(nome) or email == int(email) or (matricula != int(matricula)):
-                    raise ValueError
-            except ValueError:
-                print("Valor incorreto: ""criar_aluno"" só aceita valores do tipo ""str"" como parâmetro !")
-            else:
-                self.__aluno = Aluno(nome, email, matricula)     
-    
+
+    def criar_aluno(self):
+        dados_aluno = self.__tela_aluno.pega_dados()
+        aluno = Aluno(dados_aluno["nome"], dados_aluno["email"], dados_aluno["matricula"])
+        self.__aluno = aluno    
     
     def mostra_aluno(self):
         return self.__tela_aluno.mostra_dados({"nome": self.__aluno.nome, "email": self.__aluno.email, "matricula": self.__aluno.matricula})

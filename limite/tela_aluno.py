@@ -19,9 +19,8 @@ class TelaAluno(TelaAbstrata):
         print("Insira os dados:")
         nome = str(input("Nome: "))
         email = str(input("Email: "))
-        matricula = str(input("Matrícula: "))
+        matricula = int(input("Matrícula: "))
 
-        
         return {"nome":nome, "email":email, "matricula": matricula}
 
     def mostra_dados(self, dados_aluno):

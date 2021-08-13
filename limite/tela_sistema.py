@@ -2,6 +2,7 @@ from limite.tela_abstrata import TelaAbstrata
 
 class TelaSistema(TelaAbstrata):
 
+    # Fazer tratamento de dados aqui
     def tela_opcoes(self):
         print("***** BEM-VINDO AO SEU SISTEMA DE ORGANIZAÇÃO :) *****")
         print("Para onde você quer ir? Escolha uma opção:")
