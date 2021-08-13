@@ -6,25 +6,25 @@ class ControladorProfessor():
     def __init__(self, controlador_sistema):
         self.__controlador_sistema = controlador_sistema
         self.__lista_de_professores = []
-        self.__TelaProfessor = TelaProfessor()
+        self.__tela_professor = TelaProfessor()
         
 
     def abre_tela(self):
-        lista_opcoes = {1: self.adicionar_professor, 2: self.excluir_professor, 3: self.listar_professores, 0: self.retornar()}
+        lista_opcoes = {1: self.adicionar_professor, 2: self.excluir_professor, 3: self.listar_professores, 0: self.retornar}
 
-        continua = True
-        while continua:
-            lista_opcoes[self.__TelaProfessor.tela_opcoes()]()
+        while True:
+            lista_opcoes[self.__tela_professor.tela_opcoes()]()
+            
 
     def adicionar_professor(self):
-        dados_professor = self.__TelaProfessor.pega_dados()
+        dados_professor = self.__tela_professor.pega_dados()
         professor = Professor(dados_professor["nome"], dados_professor["email"], dados_professor["telefone"])
         self.__lista_de_professores.append(professor)
 
     def listar_professores(self):
         for i in range(len(self.__lista_de_professores)):
             professor = self.__lista_de_professores[i]
-            self.__TelaProfessor.mostra_dados({"nome": professor.nome, "email": professor.email, "telefone": professor.telefone, "posicao": i})
+            self.__tela_professor.mostra_dados({"nome": professor.nome, "email": professor.email, "telefone": professor.telefone, "posicao": i})
 
     def retornar(self):
         self.__controlador_sistema.abre_tela()
@@ -37,28 +37,28 @@ class ControladorProfessor():
 
     def alterar_professor(self):
         self.listar_professores()
-        nome_professor = self.__TelaProfessor.selecionar_professor()
+        nome_professor = self.__tela_professor.selecionar_professor()
         professor = self.pega_professor_por_nome(nome_professor)
 
         if(professor is not None):
-            novos_dados_professor = self.__TelaProfessor.pega_dados()
+            novos_dados_professor = self.__tela_professor.pega_dados()
             professor.nome = novos_dados_professor["nome"]
             professor.email = novos_dados_professor["email"]
             professor.telefone = novos_dados_professor["telefone"]
             self.listar_professores()
         else:
-            self.__TelaProfessor.mostra_mensagem("ATENÇÃO: Professor não existente")
+            self.__tela_professor.mostra_mensagem("ATENÇÃO: Professor não existente")
 
     def excluir_professor(self):
         self.listar_professores()
-        nome_professor = self.__TelaProfessor.selecionar_professor()
+        nome_professor = self.__tela_professor.selecionar_professor()
         professor = self.pega_professor_por_nome(nome_professor)
 
         if(professor is not None):
             self.__lista_de_professores.remove(professor)
             self.listar_professores()
         else:
-            self.__TelaProfessor.mostra_mensagem("ATENÇÃO: Professor não existente")
+            self.__tela_professor.mostra_mensagem("ATENÇÃO: Professor não existente")
     
     def retornar_professor(self, posicao):
         return self.__lista_de_professores[posicao-1]

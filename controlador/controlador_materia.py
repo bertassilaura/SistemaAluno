@@ -4,7 +4,7 @@ from entidade.materia import Materia
 class ControladorMateria():
     def __init__(self, controlador_sistema):
         self.__controlador_sistema = controlador_sistema
-        self.__tela_materia = TelaMateria
+        self.__tela_materia = TelaMateria()
         self.__lista_materias = []
     
     def adicionar_materia(self):
@@ -51,11 +51,15 @@ class ControladorMateria():
             self.__tela_materia.mostra_dados({"dia_da_semana": materia.dia_da_semana})
     
     def abre_tela(self):
-        lista_opcoes = {1: self.adicionar_materia, 2: self.excluir_materia, 3: self.listar_materias, 4: self.listar_por_professor, 
-                        5:self.listar_por_semestre , 6: self.listar_por_dia_da_semana, 0: self.retornar}
-        continua = True
-        while continua:
+        lista_opcoes = {1: self.adicionar_materia, 2: self.excluir_materia, 3: self.listar_por_semestre, 4: self.listar_por_professor,
+                        5: self.listar_materias, 6: self.listar_por_dia_da_semana, 0: self.retornar}
+
+        while True:
             lista_opcoes[self.__tela_materia.tela_opcoes()]()
 
     def retornar(self):
         self.__controlador_sistema.abre_tela()
+    
+    
+    #def calular_media_final(self)
+    

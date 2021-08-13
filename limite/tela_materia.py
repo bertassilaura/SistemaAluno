@@ -59,3 +59,6 @@ class TelaMateria(TelaAbstrata):
     
     def mostra_mensagem(self, msg):
         print(msg)
+
+    def le_num_inteiro():
+        pass

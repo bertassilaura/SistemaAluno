@@ -4,7 +4,7 @@ from entidade.tarefa import Tarefa
 class ControladorTarefa():
     def __init__(self, controlador_sistema):
         self.__controlador_sistema = controlador_sistema
-        self.__tela_tarefa = TelaTarefa
+        self.__tela_tarefa = TelaTarefa()
         self.__lista_tarefas = []
     
     def adicionar_tarefa(self):
@@ -41,9 +41,8 @@ class ControladorTarefa():
         lista_opcoes = {1: self.adicionar_tarefa, 2: self.excluir_tarefa, 3: self.listar_tarefas, 0: self.retornar}
 
         while True:
-            opcao_escolhida = self.__tela_tarefa.tela_opcoes()
-            funcao_escolhida = lista_opcoes[opcao_escolhida]
-            funcao_escolhida()
+            lista_opcoes[self.__tela_tarefa.tela_opcoes()]()
+            
 
     def retornar(self):
         self.__controlador_sistema.abre_tela()
