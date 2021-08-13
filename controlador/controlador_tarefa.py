@@ -1,5 +1,5 @@
-from limite.TelaTarefa import TelaTarefa
-from entidade.Tarefa import Tarefa
+from limite.tela_tarefa import TelaTarefa
+from entidade.tarefa import Tarefa
 
 class ControladorTarefa():
     def __init__(self, controlador_sistema):
@@ -39,9 +39,11 @@ class ControladorTarefa():
     
     def abre_tela(self):
         lista_opcoes = {1: self.adicionar_tarefa, 2: self.excluir_tarefa, 3: self.listar_tarefas, 0: self.retornar}
-        continua = True
-        while continua:
-            lista_opcoes[self.__tela_tarefa.tela_opcoes()]()
+
+        while True:
+            opcao_escolhida = self.__tela_tarefa.tela_opcoes()
+            funcao_escolhida = lista_opcoes[opcao_escolhida]
+            funcao_escolhida()
 
     def retornar(self):
         self.__controlador_sistema.abre_tela()

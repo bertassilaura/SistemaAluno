@@ -1,4 +1,4 @@
-from limite.TelaAbstrata import TelaAbstrata
+from limite.tela_abstrata import TelaAbstrata
 
 class TelaTarefa(TelaAbstrata):
         

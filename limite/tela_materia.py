@@ -1,9 +1,9 @@
-from limite.TelaAbstrata import TelaAbstrata
+from limite.tela_abstrata import TelaAbstrata
 
 class TelaMateria(TelaAbstrata):
     
     # Fazer tratamento de dados na recpçao de dados para a opcao
-    def tela_opcoes():
+    def tela_opcoes(self):
         print("***** Você está na página Matéria! *****")
         print("O que você deseja fazer? Escolha uma opção:")
         print("1 - Adicionar Matéria")

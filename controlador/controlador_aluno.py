@@ -1,5 +1,5 @@
-from limite.TelaAluno import TelaAluno
-from entidade.Aluno import Aluno
+from limite.tela_aluno import TelaAluno
+from entidade.aluno import Aluno
 
 class ControladorAluno():
     def __init__(self, controlador_sistema):
@@ -16,7 +16,7 @@ class ControladorAluno():
             except ValueError:
                 print("Valor incorreto: ""criar_aluno"" só aceita valores do tipo ""str"" como parâmetro !")
             else:
-                self.__aluno = Aluno(nome, email, matricula)
+                self.__aluno = Aluno(nome, email, matricula)     
     
     
     def mostra_aluno(self):

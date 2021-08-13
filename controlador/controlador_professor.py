@@ -1,5 +1,5 @@
-from limite.TelaProfessor import TelaProfessor
-from entidade.Professor import Professor
+from limite.tela_professor import TelaProfessor
+from entidade.professor import Professor
 
 class ControladorProfessor():
 

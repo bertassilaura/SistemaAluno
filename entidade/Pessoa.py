@@ -1,8 +1,11 @@
 class Pessoa():
 
     def __init__(self, nome: str, email: str):
-        self.__nome = nome
-        self.__email = email
+        
+        if isinstance(nome, str):
+            self.__nome = nome
+        if isinstance(email, str):
+            self.__email = email
 
     @property
     def nome(self):

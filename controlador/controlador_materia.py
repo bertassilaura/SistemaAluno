@@ -1,5 +1,5 @@
-from limite.TelaMateria import TelaMateria
-from entidade.Materia import Materia
+from limite.tela_materia import TelaMateria
+from entidade.materia import Materia
 
 class ControladorMateria():
     def __init__(self, controlador_sistema):

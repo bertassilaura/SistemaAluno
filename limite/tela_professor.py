@@ -1,4 +1,4 @@
-from limite.TelaAbstrata import TelaAbstrata
+from limite.tela_abstrata import TelaAbstrata
 
 class TelaProfessor(TelaAbstrata):
     
@@ -39,3 +39,6 @@ class TelaProfessor(TelaAbstrata):
 
     def mostra_mensagem(self, msg):
         print(msg)
+
+    def le_num_inteiro():
+        pass

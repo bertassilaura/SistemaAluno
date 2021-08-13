@@ -1,4 +1,4 @@
-from limite.TelaAbstrata import TelaAbstrata
+from limite.tela_abstrata import TelaAbstrata
 
 class TelaAluno(TelaAbstrata):
 
@@ -30,3 +30,9 @@ class TelaAluno(TelaAbstrata):
         print("Email do aluno", dados_aluno["email"])
         print("Matricula do aluno", dados_aluno["matricula"])
         print('\n')
+
+    def le_num_inteiro():
+        pass
+    
+    def mostra_mensagem():
+        pass
