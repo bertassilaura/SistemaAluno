@@ -39,6 +39,12 @@ class ControladorSistema():
             funcao_escolhida = lista_opcoes[opcao_escolhida]
             funcao_escolhida()
 
-    
+    @property
+    def controlador_materia(self):
+        return self.__controlador_materia
+
+    @property
+    def controlador_professor(self):
+        return self.__controlador_professor
 
 

@@ -1,5 +1,4 @@
 from limite.tela_abstrata import TelaAbstrata
-from controlador.controlador_materia import ContorladorMateria
 
 class TelaTarefa(TelaAbstrata):
     
@@ -25,12 +24,12 @@ class TelaTarefa(TelaAbstrata):
         data_prazo = str(input("Data prazo para entrega: ")) # Verificar como receber com o tipo date e no formato correto
         horario_prazo = str(input("Horário prazo para entrega: ")) # Verificar como receber com o tipo time e no formato correto
         descricao = str(input("Descrição resumida da tarefa: "))
-        materia_temporaria = str(input("Digite o código da matéria correspondente: "))
-        materia_correspondente = ContorladorMateria.pega_materia_por_codigo(materia_temporaria) 
+        materia_correspondente = str(input("Digite o código da matéria correspondente: "))
         status_realizado = str(input("Está feita ou não?: "))
+        peso = int(input("Peso: "))
         nota = str(input("Nota: "))
 
-        dados_tarefa = {"Nome da tarefa": nome_tarefa, "Data do prazo": data_prazo, "Horario do prazo": horario_prazo, "Descricao": descricao, "Materia correspondente": materia_correspondente, "Status de realizacao": status_realizado, "Nota": nota}
+        dados_tarefa = {"nome_tarefa": nome_tarefa, "data_prazo": data_prazo, "horario_prazo": horario_prazo, "descricao": descricao, "materia_correspondente": materia_correspondente, "status_realizado": status_realizado, "peso": peso, "nota": nota}
         return dados_tarefa
 
     def mostra_dados(self, dados_tarefa):

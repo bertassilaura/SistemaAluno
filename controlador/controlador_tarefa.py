@@ -10,7 +10,10 @@ class ControladorTarefa():
 
   def adicionar_tarefa(self):
     dados_tarefa = self.__tela_tarefa.pega_dados()
-    tarefa = Tarefa(dados_tarefa["nome_tarefa"], dados_tarefa["data_prazo"], dados_tarefa["horario_prazo"], dados_tarefa["descricao"], dados_tarefa["materia_correspondente"], dados_tarefa["status_realizado"], dados_tarefa["nota"])
+    #Fazer tratamento dos dados, selecionar matéria a partir de string recebida
+    #Como eu preciso acessar um método de outro controlador, eu uso o atributo do controlador sistema para chegar no controlador matéria, assim usando o seu método
+    materia_correspondente = self.__controlador_sistema.controlador_materia.pega_materia_por_codigo(dados_tarefa["materia_correspondente"])
+    tarefa = Tarefa(dados_tarefa["nome_tarefa"], dados_tarefa["data_prazo"], dados_tarefa["horario_prazo"], dados_tarefa["descricao"], materia_correspondente, dados_tarefa["status_realizado"], dados_tarefa["peso"], dados_tarefa["nota"])
     self.__lista_tarefas.append(tarefa)
   
   def listar_tarefas(self):

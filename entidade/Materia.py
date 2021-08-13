@@ -104,3 +104,11 @@ class Materia():
         if isinstance(numero_avaliacoes, str):
             self.__numero_avaliacoes = numero_avaliacoes
 
+    @property
+    def codigo(self):
+        return self.__codigo
+
+    @codigo.setter
+    def codigo(self, codigo: str):
+        if isinstance(codigo, str):
+            self.__codigo = codigo
