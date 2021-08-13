@@ -10,7 +10,8 @@ class Pessoa():
 
     @nome.setter
     def nome(self, nome: str):
-        self.__nome = nome
+        if isinstance(nome, str):
+            self.__nome = nome
 
     @property
     def email(self):
@@ -18,4 +19,5 @@ class Pessoa():
 
     @email.setter
     def email(self, email: str):
-        self.__email = email
+        if isinstance(email, str):
+            self.__email = email

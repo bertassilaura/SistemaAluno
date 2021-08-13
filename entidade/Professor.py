@@ -1,8 +1,11 @@
+from entidade.pessoa import Pessoa
+
 class Professor(Pessoa):
 
-    def __init__(self, telefone: str):
+    def __init__(self, nome: str, email: str, telefone: str):
         super().__init__(nome, email)
-        self.__telefone = telefone
+        if isinstance(telefone, str):
+            self.__telefone = telefone
 
     @property
     def telefone(self):
@@ -10,6 +13,7 @@ class Professor(Pessoa):
 
     @telefone.setter
     def telefone(self, telefone: str):
-        self.__telefone = telefone
+        if isinstance(telefone, str):
+            self.__telefone = telefone
 
     
