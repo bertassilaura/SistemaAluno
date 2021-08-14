@@ -49,8 +49,7 @@ class ControladorProfessor():
     #excluir professor
     def excluir_professor(self):
         self.listar_professores()
-        nome_professor = self.__tela_professor.selecionar_professor()
-        professor = self.pega_professor_por_nome(nome_professor)
+        professor = self.pega_professor_por_nome()
 
         if(professor is not None):
             self.__lista_de_professores.remove(professor)
