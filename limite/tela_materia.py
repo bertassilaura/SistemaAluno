@@ -28,7 +28,7 @@ class TelaMateria(TelaAbstrata):
         link = str(input("Link: "))
         classificacao = str(input("Classificacao: "))
         criterio_de_presenca = str(input("Criterio de presenca: "))
-        numero_avaliacoes = str(input("Numero de avaliacoes: "))
+        numero_avaliacoes = int(input("Numero de avaliacoes: "))
         
         return {"nome": nome, "semestre": semestre, "codigo": codigo, "dia_da_semana": dia_da_semana,
                         "horario": horario, "link": link, "classificacao": classificacao,

@@ -16,9 +16,9 @@ class ControladorProfessor():
 
     #listar professores e seus atributos
     def listar_professores(self):
-        print(self.__lista_de_professores)
         for professor in self.__lista_de_professores:
             self.__tela_professor.mostra_dados({"nome": professor.nome, "email": professor.email, "telefone": professor.telefone})
+            print("\n")
 
     #retornar
     def retornar(self):
@@ -34,8 +34,7 @@ class ControladorProfessor():
 
     #alterar dados do professor
     def alterar_professor(self):
-        nome_professor = self.__tela_professor.selecionar_professor()
-        professor = self.pega_professor_por_nome(nome_professor)
+        professor = self.pega_professor_por_nome()
 
         if(professor is not None):
             novos_dados_professor = self.__tela_professor.pega_dados()
