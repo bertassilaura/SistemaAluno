@@ -11,15 +11,26 @@ class ContorladorMateria():
     
     def adicionar_materia(self):
         dados_materia = self.__tela_materia.pega_dados()
-        print("\n")
-        print("Adicione o professor ou selecione um professor já existente")
-        abre_tela_professor = self.__controlador_sistema.controlador_professor.abre_tela()
-        professor = abre_tela_professor.pegar_professor_por_nome()
-        dados_professor = {"professor": professor}
-        materia = Materia(dados_materia['nome'], dados_materia['semestre'], dados_professor["professor"], dados_materia["codigo"], dados_materia['dia_da_semana'], dados_materia['horario'], dados_materia['link'], dados_materia['classificacao'], dados_materia['criterio_de_presenca'], dados_materia['numero_avaliacoes'])
+        dados_professor = self.adicionar_professor_a_materia()
+        materia = Materia(dados_materia['nome'], dados_professor["professor"], dados_materia['semestre'], dados_materia["codigo"], dados_materia['dia_da_semana'], dados_materia['horario'], dados_materia['link'], dados_materia['classificacao'], dados_materia['criterio_de_presenca'], dados_materia['numero_avaliacoes'])
         self.__lista_materias.append(materia)
         print("Matéria criada!")
         print("\n")
+    
+    # Adicionar metodo ao diagrama
+    def adicionar_professor_a_materia(self):
+        print("\n")
+        print("Escolha 1 ou 2 para que a Materia tenha um Professor:")
+        print("1 - Adicionar(criar) um Professor e inclui-lo na matéria")
+        print("2 - Selecionar um já existente para inclui-lo na matéria")
+        opcao = int(input("Digite a opção escolhida:"))
+        if opcao == 1:
+            add_professor = self.__controlador_sistema.controlador_professor.adicionar_professor()
+            professor = self.__controlador_sistema.controlador_professor.pega_professor_por_nome()
+        elif opcao == 2:
+            professor = self.__controlador_sistema.controlador_professor.pega_professor_por_nome()
+
+        return {"professor": professor}
 
     def listar_materias(self):
         for materia in self.__lista_materias:
@@ -52,21 +63,20 @@ class ContorladorMateria():
             if materia.semestre == qual_semestre:
                 print(materia.nome)
     
-    def listar_por_dia_da_semana(self, dia_da_semana):
+    def listar_por_dia_da_semana(self):
         qual_dia = str(input("Digite o dia da semana desejado: "))
         for materia in self.__lista_materias:
             if materia.dia_da_semana == qual_dia:
                 print(materia)
 
-    def calcular_media_final(self, codigo_materia):
-        '''codigo_materia = str(input("Digite o código da matéria desejada: "))
+    def calcular_media_final(self):
+        #materia = self.__controlador_sistema
         nota_total = 0
         peso_total = 0
         for materia in self.__lista_materias:
             nota_total += materia.nota
-            peso_total += materia.peso '''
+            peso_total += materia.peso
 
-    
     def retornar(self):
         self.__controlador_sistema.abre_tela()
 
@@ -75,6 +85,4 @@ class ContorladorMateria():
 
         continua =True
         while continua:
-            lista_opcoes[self.__tela_materia.tela_opcoes()]()      
-
-
+            lista_opcoes[self.__tela_materia.tela_opcoes()]()

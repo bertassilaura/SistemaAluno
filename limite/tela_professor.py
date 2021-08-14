@@ -10,7 +10,6 @@ class TelaProfessor(TelaAbstrata):
         print("2 - Excluir um professor")
         print("3 - Listar Professores")
         print("4 - Alterar Professor")
-        print("5 - Pegar professor por nome")
         print("0 - Retornar")
 
         opcao = int(input("Digite a opção escolhida: "))

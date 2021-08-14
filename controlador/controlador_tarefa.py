@@ -10,10 +10,25 @@ class ControladorTarefa():
 
   def adicionar_tarefa(self):
     dados_tarefa = self.__tela_tarefa.pega_dados()
-    materia_correspondente = self.__controlador_sistema.controlador_materia.pega_materia_por_codigo(dados_tarefa["materia_correspondente"])
-    tarefa = Tarefa(dados_tarefa["nome_tarefa"], dados_tarefa["data_prazo"], dados_tarefa["horario_prazo"], dados_tarefa["descricao"], materia_correspondente, dados_tarefa["status_realizado"], dados_tarefa["peso"], dados_tarefa["nota"])
+    dados_materia = self.definir_materia_correspondente()
+    tarefa = Tarefa(dados_tarefa["nome_tarefa"], dados_tarefa["data_prazo"], dados_tarefa["horario_prazo"], dados_tarefa["descricao"], dados_materia["materia_correspondente"], dados_tarefa["status_realizado"], dados_tarefa["peso"], dados_tarefa["nota"])
     self.__lista_tarefas.append(tarefa)
   
+  # Adicionar metodo ao diagrama
+  # Requer tratamento de dados
+  def definir_materia_correspondente(self):
+    print("\n")
+    print("Escolha 1 para criar uma Tarefa com Materia, ou 2 para criar sem Materia:")
+    print("1 - Selecionar uma Materia já existente para inclui-la na Tarefa")
+    print("2 - Essa Tarefa que nao tem relação com nenhuma Materia")
+    opcao = int(input("Digite a opção escolhida:"))
+    if opcao == 1:
+      materia_correspondente = self.__controlador_sistema.controlador_materia.pega_materia_por_codigo()
+    elif opcao == 2:
+      materia_correspondente = None
+
+    return {"materia_correspondente": materia_correspondente}
+
   def listar_tarefas(self):
     for tarefa in self.__lista_tarefas:
       self.__tela_tarefa.mostra_dados({"nome_tarefa": tarefa.nome_tarefa, "data_prazo": tarefa.data_prazo, "horario_prazo":tarefa.horario_prazo,

@@ -1,5 +1,4 @@
 from limite.tela_abstrata import TelaAbstrata
-from controlador.controlador_professor import ControladorProfessor
 
 class TelaMateria(TelaAbstrata):
 

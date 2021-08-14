@@ -25,7 +25,8 @@ class ControladorProfessor():
         self.__controlador_sistema.abre_tela()
 
     #pega professor por nome
-    def pega_professor_por_nome(self, nome):
+    def pega_professor_por_nome(self):
+        nome = self.__tela_professor.selecionar_professor()
         for professor in self.__lista_de_professores:
             if(professor.nome == nome):
                 return professor
@@ -59,17 +60,8 @@ class ControladorProfessor():
 
     #abre tela de opçoes professor
     def abre_tela(self):
-        lista_opcoes = {1: self.adicionar_professor, 2: self.excluir_professor, 3: self.listar_professores, 4: self.alterar_professor, 5: self.pega_professor_por_nome, 0: self.retornar}
+        lista_opcoes = {1: self.adicionar_professor, 2: self.excluir_professor, 3: self.listar_professores, 4: self.alterar_professor, 0: self.retornar}
 
         continua = True
         while continua:
             lista_opcoes[self.__tela_professor.tela_opcoes()]()
-
-#*******************************************************************************************************
-
-    def abre_tela_para_materia(self):
-        lista_opcoes = {1: self.adicionar_professor, 2: self.pega_professor_por_nome, 0: self.retornar}
-
-        continua = True
-        while continua:
-            lista_opcoes[self.__tela_professor.tela_opcoes_para_materia()]()
