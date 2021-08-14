@@ -1,3 +1,4 @@
+from entidade.professor import Professor
 from limite.tela_materia import TelaMateria
 from entidade.materia import Materia
 
@@ -6,19 +7,25 @@ class ContorladorMateria():
     def __init__(self, controlador_sistema):
         self.__controlador_sistema = controlador_sistema
         self.__tela_materia = TelaMateria()
-        self.__lista_materias = [Materia]
+        self.__lista_materias = []
     
     def adicionar_materia(self):
         dados_materia = self.__tela_materia.pega_dados()
-        professor = self.__controlador_sistema.controlador_professor.pega_professor_por_nome(dados_materia["professor"])
-        materia = Materia(dados_materia['nome'], dados_materia['semestre'], professor, dados_materia["codigo"], dados_materia['dia_da_semana'], dados_materia['horario'], dados_materia['link'], dados_materia['classificacao'], dados_materia['criterio_de_presenca'], dados_materia['numero_avaliacoes'])
+        print("\n")
+        print("Adicione o professor ou selecione um professor já existente")
+        abre_tela_professor = self.__controlador_sistema.controlador_professor.abre_tela()
+        professor = abre_tela_professor.pegar_professor_por_nome()
+        dados_professor = {"professor": professor}
+        materia = Materia(dados_materia['nome'], dados_materia['semestre'], dados_professor["professor"], dados_materia["codigo"], dados_materia['dia_da_semana'], dados_materia['horario'], dados_materia['link'], dados_materia['classificacao'], dados_materia['criterio_de_presenca'], dados_materia['numero_avaliacoes'])
         self.__lista_materias.append(materia)
         print("Matéria criada!")
+        print("\n")
 
     def listar_materias(self):
         for materia in self.__lista_materias:
-            self.__tela_materia.mostra_dados({"nome": materia.nome, "professor": materia.professor.nome, "semestre": materia.semestre, "codigo": materia.codigo, "dia_da_semana": materia.dia_da_semana, "horario": materia.horario, "link": materia.link, "classificacao": materia.classificacao, "criterio_de_presenca": materia.criterio_de_presenca, "numero_avaliacoes": materia.numero_avaliacoes})
-    
+            return self.__tela_materia.mostra_dados({"nome": materia.nome, "professor": materia.professor, "semestre": materia.semestre, "codigo": materia.codigo, "dia_da_semana": materia.dia_da_semana, "horario": materia.horario, "link": materia.link, "classificacao": materia.classificacao, "criterio_de_presenca": materia.criterio_de_presenca, "numero_avaliacoes": materia.numero_avaliacoes})
+        print("\n")
+
     def pega_materia_por_codigo(self, codigo: str):
         for materia in self.__lista_materias:
             if materia.codigo == codigo:

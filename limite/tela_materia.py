@@ -22,25 +22,23 @@ class TelaMateria(TelaAbstrata):
         print("**** DADOS DA MATERIA ****")
         print("Insira os dados")
         nome = str(input("Nome: "))
-        semestre = str(input("Semestre:"))
-        professor = str(input("Nome do professor responsável: "))
+        semestre = str(input("Semestre: "))
         codigo = str(input("Codigo: "))
         dia_da_semana = str(input("Dia da semana: "))
         horario = str(input("Horario: "))
         link = str(input("Link: "))
         classificacao = str(input("Classificacao: "))
-        criterio_de_presenca = str(input("Criterio de presenca:"))
+        criterio_de_presenca = str(input("Criterio de presenca: "))
         numero_avaliacoes = str(input("Numero de avaliacoes: "))
         
-        dados_materia = {"nome": nome, "semestre": semestre, "professor": professor, "codigo": codigo, "dia_da_semana": dia_da_semana,
+        return {"nome": nome, "semestre": semestre, "codigo": codigo, "dia_da_semana": dia_da_semana,
                         "horario": horario, "link": link, "classificacao": classificacao,
                         "criterio_de_presenca": criterio_de_presenca, "numero_avaliacoes": numero_avaliacoes}
-        return dados_materia
     
-    def mostra_dados(self, dados_materia):
+    def mostra_dados(self, dados_materia, dados_professor):
         print("**** DADOS DO ALUNO ****")
         print("NOME DA MATÉRIA: ", dados_materia['nome'])
-        print("PROFESSOR QUE MINISTRA: ", dados_materia['professor'])
+        print("PROFESSOR QUE MINISTRA: ", dados_professor['professor'])
         print("SEMESTRE: ", dados_materia['semestre'])
         print("CODIGO DA MATERIA: ", dados_materia['codigo'])
         print("DIA DA SEMANA: ", dados_materia['dia_da_semana'])
@@ -58,3 +56,4 @@ class TelaMateria(TelaAbstrata):
     
     def mostra_mensagem(self, msg):
         print(msg)
+
