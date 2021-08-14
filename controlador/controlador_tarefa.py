@@ -13,13 +13,14 @@ class ControladorTarefa():
     #Fazer tratamento dos dados, selecionar matéria a partir de string recebida
     #Como eu preciso acessar um método de outro controlador, eu uso o atributo do controlador sistema para chegar no controlador matéria, assim usando o seu método
     materia_correspondente = self.__controlador_sistema.controlador_materia.pega_materia_por_codigo(dados_tarefa["materia_correspondente"])
-    tarefa = Tarefa(dados_tarefa["nome_tarefa"], dados_tarefa["data_prazo"], dados_tarefa["horario_prazo"], dados_tarefa["descricao"], materia_correspondente, dados_tarefa["status_realizado"], dados_tarefa["peso"], dados_tarefa["nota"])
+    tarefa = Tarefa(dados_tarefa["nome_tarefa"], dados_tarefa["data_prazo"], dados_tarefa["horario_prazo"], dados_tarefa["descricao"], dados_tarefa["status_realizado"], materia_correspondente, dados_tarefa["peso"], dados_tarefa["nota"])
+    print(f"materia da tarefa: {tarefa.materia_correspondente.nome}")
     self.__lista_tarefas.append(tarefa)
   
   def listar_tarefas(self):
     for tarefa in self.__lista_tarefas:
       self.__tela_tarefa.mostra_dados({"nome_tarefa": tarefa.nome_tarefa, "data_prazo": tarefa.data_prazo, "horario_prazo":tarefa.horario_prazo,
-      "descricao": tarefa.descricao, "materia_correspondente": tarefa.materia_correspondente, "status_realizado": tarefa.status_realizado,
+      "descricao": tarefa.descricao, "materia_correspondente": tarefa.materia_correspondente.nome, "status_realizado": tarefa.status_realizado, "peso": tarefa.peso,
       "nota": tarefa.nota})
 
   def pega_tarefa_por_nome(self, nome: str):

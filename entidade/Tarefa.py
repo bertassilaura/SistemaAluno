@@ -1,13 +1,12 @@
-from datetime import date, time
 from entidade.materia import Materia 
 
 class Tarefa:
-    def __init__(self, nome_tarefa: str, data_prazo: date , horario_prazo: time, descricao: str, status_realizado: bool, materia_correspondente: Materia = None, peso: float = -1, nota: float = -1):
+    def __init__(self, nome_tarefa: str, data_prazo: str , horario_prazo: str, descricao: str, status_realizado: bool, materia_correspondente: Materia = None, peso: float = -1, nota: float = -1):
         if isinstance(nome_tarefa, str):
             self.__nome_tarefa = nome_tarefa
-        if isinstance(data_prazo, date):
+        if isinstance(data_prazo, str):
             self.__data_prazo = data_prazo
-        if isinstance(horario_prazo, time):
+        if isinstance(horario_prazo, str):
             self.__horario_prazo = horario_prazo
         if isinstance(descricao, str):
             self.__descricao = descricao
@@ -15,6 +14,8 @@ class Tarefa:
             self.__materia_correspondente = materia_correspondente
         if isinstance(status_realizado, bool):
             self.__status_realizado = status_realizado
+        else:
+            self.__status_realizado = False
         if isinstance(peso, float):
             self.__peso = peso
         if isinstance(nota, float):
@@ -34,8 +35,8 @@ class Tarefa:
         return self.__data_prazo
     
     @data_prazo.setter
-    def data_prazo(self, data_prazo: date):
-        if isinstance(data_prazo, date):
+    def data_prazo(self, data_prazo: str):
+        if isinstance(data_prazo, str):
             self.__data_prazo = data_prazo
     
     @property
@@ -43,8 +44,8 @@ class Tarefa:
         return self.__horario_prazo
 
     @horario_prazo.setter
-    def horario_prazo(self, horario_prazo: time):
-        if isinstance(horario_prazo, time):
+    def horario_prazo(self, horario_prazo: str):
+        if isinstance(horario_prazo, str):
             self.__horario_prazo = horario_prazo
     
     @property

@@ -1,3 +1,4 @@
+#from controlador.controlador_sistema import ControladorSistema
 from limite.tela_materia import TelaMateria
 from entidade.materia import Materia
 
@@ -6,13 +7,16 @@ class ContorladorMateria():
     def __init__(self, controlador_sistema):
         self.__controlador_sistema = controlador_sistema
         self.__tela_materia = TelaMateria()
-        self.__lista_materias = [Materia]
+        self.__lista_materias = []
     
     def adicionar_materia(self):
         dados_materia = self.__tela_materia.pega_dados()
         professor = self.__controlador_sistema.controlador_professor.pega_professor_por_nome(dados_materia["professor"])
-        materia = Materia(dados_materia['nome'], dados_materia['semestre'], professor, dados_materia["codigo"], dados_materia['dia_da_semana'], dados_materia['horario'], dados_materia['link'], dados_materia['classificacao'], dados_materia['criterio_de_presenca'], dados_materia['numero_avaliacoes'])
+        print(f"O nome do professor é {professor.nome}")
+        #professor = ControladorProfessor.pega_professor_por_nome(dados_materia["professor"])
+        materia = Materia(dados_materia['nome'], professor, dados_materia['semestre'], dados_materia["codigo"], dados_materia['dia_da_semana'], dados_materia['horario'], dados_materia['link'], dados_materia['classificacao'], dados_materia['criterio_de_presenca'], dados_materia['numero_avaliacoes'])
         self.__lista_materias.append(materia)
+        print(f"Dentro da materia {materia.nome} existe um atributo professor com o nome de: {materia.professor.nome}")
         print("Matéria criada!")
 
     def listar_materias(self):

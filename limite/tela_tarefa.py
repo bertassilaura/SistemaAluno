@@ -26,20 +26,21 @@ class TelaTarefa(TelaAbstrata):
         descricao = str(input("Descrição resumida da tarefa: "))
         materia_correspondente = str(input("Digite o código da matéria correspondente: "))
         status_realizado = str(input("Está feita ou não?: "))
-        peso = int(input("Peso: "))
-        nota = str(input("Nota: "))
+        peso = float(input("Peso: "))
+        nota = float(input("Nota: "))
 
         dados_tarefa = {"nome_tarefa": nome_tarefa, "data_prazo": data_prazo, "horario_prazo": horario_prazo, "descricao": descricao, "materia_correspondente": materia_correspondente, "status_realizado": status_realizado, "peso": peso, "nota": nota}
         return dados_tarefa
 
     def mostra_dados(self, dados_tarefa):
-        print("NOME DA TAREFA: ", dados_tarefa["Nome da tarefa"])
-        print("DATA DO PRAZO ", dados_tarefa["Data do prazo"])
-        print("HORÁRIO DO PRAZO: ", dados_tarefa["Horario do prazo"])
-        print("DESCRICAO: ", dados_tarefa["Descricao"])
-        print("MATERIA CORRESPONDENTE: ", dados_tarefa["Materia correspondente"])
-        print("STATUS DE REALIZAÇÃO: ", dados_tarefa["Status de realizacao"])
-        print("NOTA ", dados_tarefa["Nota"])
+        print("NOME DA TAREFA: ", dados_tarefa["nome_tarefa"])
+        print("DATA DO PRAZO ", dados_tarefa["data_prazo"])
+        print("HORÁRIO DO PRAZO: ", dados_tarefa["horario_prazo"])
+        print("DESCRICAO: ", dados_tarefa["descricao"])
+        print("MATERIA CORRESPONDENTE: ", dados_tarefa["materia_correspondente"])
+        print("STATUS DE REALIZAÇÃO: ", dados_tarefa["status_realizado"])
+        print("PESO: ", dados_tarefa["peso"])
+        print("NOTA: ", dados_tarefa["nota"])
         
     def seleciona_tarefa(self):
         nome = str(input("Nome da tarefa que deseja selecionar: "))
