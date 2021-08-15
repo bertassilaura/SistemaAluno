@@ -13,8 +13,10 @@ class TelaMateria(TelaAbstrata):
                 return inteiro
             except ValueError:
                 print("Valor não existente: Digite um valor contido nas opções")
+                print("\n")
                 if inteiros_possiveis:
                     print("Inteiros possíveis: ", inteiros_possiveis)
+                    print("\n")
 
     def tela_opcoes(self):
         print("***** Você está na página Matéria! *****")
@@ -27,7 +29,8 @@ class TelaMateria(TelaAbstrata):
         print("6 - Alterar Materia")
         print("0 - Retornar")
 
-        opcao = self.le_numero_inteiro("Digite a opção escolhida:", [1,2,3,4,5,6,0])
+        opcao = self.le_numero_inteiro("Digite a opção escolhida: ", [1,2,3,4,5,6,0])
+        print("\n")
         return opcao
 
     def pega_dados(self):
@@ -43,6 +46,7 @@ class TelaMateria(TelaAbstrata):
         classificacao = str(input("Classificacao [assincrona/sincrona]: "))
         criterio_de_presenca = str(input("Criterio de presenca:"))
         numero_avaliacoes = str(input("Numero de avaliacoes: "))
+        print("\n")
         
         dados_materia = {"nome": nome, "semestre": semestre, "professor": professor, "codigo": codigo, "dia_da_semana": dia_da_semana,
                         "horario": horario, "link": link, "classificacao": classificacao,
@@ -65,6 +69,7 @@ class TelaMateria(TelaAbstrata):
 
     def selecionar_materia(self):
         nome = str(input("Código da materia que deseja selecionar: "))
+        print("\n")
         return nome
     
     def mostra_mensagem(self, msg):

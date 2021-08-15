@@ -13,18 +13,24 @@ class ContorladorMateria():
         dados_materia = self.__tela_materia.pega_dados()
         if dados_materia["professor"] == "":
             print("Criando uma matéria sem professor")
+            print("\n")
         else:
-            print("Foi tentado criar uma matéria com professor")
+            print("Criando uma matéria com professor")
+            print("\n")
 
         professor = self.__controlador_sistema.controlador_professor.pega_professor_por_nome(dados_materia["professor"])
         materia = Materia(dados_materia['nome'], dados_materia['semestre'], dados_materia["codigo"], dados_materia['dia_da_semana'], dados_materia['horario'], dados_materia['link'], dados_materia['classificacao'], dados_materia['criterio_de_presenca'], dados_materia['numero_avaliacoes'], professor)
+        print("Matéria adicionada! :)")
+        print("\n")
         self.__lista_materias.append(materia)
 
     def listar_materias(self):
         if self.__lista_materias == []:
             print("Ainda não existem matérias !")
+            print("\n")
         else:
             print("Matérias:")
+            print("\n")
             for materia in self.__lista_materias:
                 if materia.professor == None:
                     #mostra dados com "sem professor" no campo professor
@@ -39,11 +45,13 @@ class ContorladorMateria():
                 return materia
 
         print("Não existe uma matéria com esse código!")
+        print("\n")
         return None
   
     def excluir_materia(self):
         if self.__lista_materias == []:
             print("Ainda não existem matérias !")
+            print("\n")
         else:
             self.listar_materias()
             codigo_materia = self.__tela_materia.selecionar_materia()
@@ -52,23 +60,30 @@ class ContorladorMateria():
             if(materia is not None):
                 self.__lista_materias.remove(materia)
                 print("Matéria excluída!")
+                print("\n")
                 self.listar_materias()
 
             else:
                 self.__tela_materia.mostra_mensagem("ATENÇÃO: Materia não existente")
+                print("\n")
     
     def listar_por_semestre(self):
         if self.__lista_materias == []:
-            print("Ainda não existem matérias !!")
+            print("Ainda não existem matérias!")
+            print("\n")
         else:
             qual_semestre = str(input("Digite o semestre desejado: "))
+            print("\n")
             existe = 0
+            print("Matérias do semestre desejado:")
+            print("\n")
             for materia in self.__lista_materias:
                 if materia.semestre == qual_semestre:
                     existe = 1
                     print(materia.nome)
             if existe == 0:
                 print("Não foi encontrada nenhuma matéria nesse semestre.")
+                print("\n")
     
     def listar_por_dia_da_semana(self):
         qual_dia = str(input("Digite o dia da semana desejado: "))
@@ -79,6 +94,7 @@ class ContorladorMateria():
                 print(materia)
         if existe == 0:
             print("Não foi encontrada nenhuma matéria nesse dia.")
+            print("\n")
             
     def calcular_media_final(self):
         codigo_materia = str(input("Digite o código da matéria desejada: "))
@@ -92,7 +108,8 @@ class ContorladorMateria():
             peso_total += tarefa.peso
 
         media_final = nota_total / peso_total
-        print(f"Sua nota final na matéria desejada é {media_final}")
+        print(f"Sua nota final na matéria desejada é {media_final:.2f}")
+        print("\n")
     
     def alterar_materia(self):
         codigo_da_materia = self.__tela_materia.selecionar_materia()
@@ -110,6 +127,8 @@ class ContorladorMateria():
             materia.classificacao = novos_dados_materia["classificacao"]
             materia.criterio_de_presenca = novos_dados_materia["criterio_de_presenca"]
             materia.numero_avaliacoes = novos_dados_materia["numero_avaliacoes"]
+            print("Matéria alterada!")
+            print("\n")
 
     def retornar(self):
         self.__controlador_sistema.abre_tela()

@@ -12,8 +12,10 @@ class TelaTarefa(TelaAbstrata):
                 return inteiro
             except ValueError:
                 print("Valor não existente: Digite um valor contido nas opções")
+                print("\n")
                 if inteiros_possiveis:
                     print("Inteiros possíveis: ", inteiros_possiveis)
+                    print("\n")
     
     def tela_opcoes(self):
         print("**** Você está na página Tarefa! ****")
@@ -27,6 +29,7 @@ class TelaTarefa(TelaAbstrata):
         print("0 - Retornar")
         
         opcao = self.le_numero_inteiro("Digite a opção escolhida: ", [1,2,3,4,5,6,0])
+        print("\n")
         return opcao
 
     def pega_dados(self):
@@ -85,9 +88,11 @@ class TelaTarefa(TelaAbstrata):
         print("STATUS DE REALIZAÇÃO: ", dados_tarefa["status_realizado"])
         print("PESO: ", dados_tarefa["peso"])
         print("NOTA: ", dados_tarefa["nota"])
+        print("\n")
         
     def seleciona_tarefa(self):
         nome = str(input("Nome da tarefa que deseja selecionar: "))
+        print("\n")
         return nome
 
     def mostra_mensagem(self, msg):

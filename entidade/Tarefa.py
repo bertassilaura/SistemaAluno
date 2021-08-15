@@ -52,9 +52,8 @@ class Tarefa:
         return self.__nota
     
     @nota.setter
-    def nota(self, nota: int):
-        if isinstance(nota, int):
-            self.__nota = nota
+    def nota(self, nota: float):
+        self.__nota = nota
     
     @property
     def materia_correspondente(self):
@@ -80,8 +79,7 @@ class Tarefa:
     
     @peso.setter
     def peso(self, peso: float):
-        if isinstance(peso, float):
-            self.__peso = peso
+        self.__peso = peso
     
 
 
