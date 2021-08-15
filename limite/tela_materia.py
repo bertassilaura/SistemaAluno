@@ -37,7 +37,7 @@ class TelaMateria(TelaAbstrata):
     def mostra_dados(self, dados_materia):
         print("**** DADOS DA MATERIA ****")
         print("NOME DA MATÉRIA: ", dados_materia['nome'])
-        print("PROFESSOR QUE MINISTRA: ", dados_professor['professor'])
+        print("PROFESSOR QUE MINISTRA: ", dados_materia['professor'])
         print("SEMESTRE: ", dados_materia['semestre'])
         print("CODIGO DA MATERIA: ", dados_materia['codigo'])
         print("DIA DA SEMANA: ", dados_materia['dia_da_semana'])
