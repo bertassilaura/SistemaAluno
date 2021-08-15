@@ -1,16 +1,14 @@
 from entidade.professor import Professor
 
-
 class Materia:
 
-    def __init__(self, nome: str, professor: Professor, semestre: str, dia_da_semana: str, horario: str, link: str, classificacao: str, criterio_de_presenca: str, numero_avaliacoes: int):
-        
+    def __init__(self, nome: str, professor: Professor, semestre: str, codigo: str, dia_da_semana: str, horario: str, link: str, classificacao: str, criterio_de_presenca: str, numero_avaliacoes: int):
         if isinstance(nome, str):
             self.__nome = nome
-        if isinstance(professor, Professor):
-            self.__professor = professor
         if isinstance(semestre, str):
             self.__semestre = semestre
+        if isinstance(codigo, str):
+            self.__codigo = codigo
         if isinstance(dia_da_semana, str):
             self.__dia_da_semana = dia_da_semana
         if isinstance(horario, str):
@@ -23,6 +21,8 @@ class Materia:
             self.__criterio_de_presenca = criterio_de_presenca
         if isinstance(numero_avaliacoes, int):
             self.__numero_avaliacoes = numero_avaliacoes
+        if isinstance(professor, Professor):
+            self.__professor = professor
 
     @property
     def nome(self):
@@ -104,3 +104,11 @@ class Materia:
         if isinstance(numero_avaliacoes, int):
             self.__numero_avaliacoes = numero_avaliacoes
 
+    @property
+    def codigo(self):
+        return self.__codigo
+
+    @codigo.setter
+    def codigo(self, codigo: str):
+        if isinstance(codigo, str):
+            self.__codigo = codigo

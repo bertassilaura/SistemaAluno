@@ -2,8 +2,7 @@ from datetime import date, time
 from entidade.materia import Materia 
 
 class Tarefa:
-    def __init__(self, nome_tarefa: str, data_prazo: date , horario_prazo: time, descricao: str, materia_correspondente: Materia, status_realizado: bool, peso: float, nota: float):
-        
+    def __init__(self, nome_tarefa: str, data_prazo: date , horario_prazo: time, descricao: str, status_realizado: bool, materia_correspondente: Materia = None, peso: float = -1, nota: float = -1):
         if isinstance(nome_tarefa, str):
             self.__nome_tarefa = nome_tarefa
         if isinstance(data_prazo, date):

@@ -21,17 +21,18 @@ class TelaAluno(TelaAbstrata):
         email = str(input("Email: "))
         matricula = int(input("Matrícula: "))
 
-        return {"nome":nome, "email":email, "matricula": matricula}
+        dados_aluno = {"nome": nome, "email": email, "matricula": matricula}
+        return dados_aluno
 
     def mostra_dados(self, dados_aluno):
         print("**** DADOS DO AUNO ****")
         print("Nome do aluno: ", dados_aluno["nome"])
-        print("Email do aluno", dados_aluno["email"])
-        print("Matricula do aluno", dados_aluno["matricula"])
+        print("Email do aluno: ", dados_aluno["email"])
+        print("Matricula do aluno: ", dados_aluno["matricula"])
         print('\n')
 
-    def le_num_inteiro():
-        pass
-    
-    def mostra_mensagem():
-        pass
+    def mostra_mensagem(self, msg):
+        print(msg)
+
+    #def verifica_valor()
+    #def verifica_dados()
