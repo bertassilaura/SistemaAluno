@@ -14,7 +14,6 @@ class ContorladorMateria():
         dados_professor = self.adicionar_professor_a_materia()
         materia = Materia(dados_materia['nome'], dados_professor["professor"], dados_materia['semestre'], dados_materia["codigo"], dados_materia['dia_da_semana'], dados_materia['horario'], dados_materia['link'], dados_materia['classificacao'], dados_materia['criterio_de_presenca'], dados_materia['numero_avaliacoes'])
         self.__lista_materias.append(materia)
-        self.__tela_materia.mostra_dados()
         print("Matéria criada!")
         print("\n")
     
@@ -28,6 +27,7 @@ class ContorladorMateria():
         if opcao == 1:
             add_professor = self.__controlador_sistema.controlador_professor.adicionar_professor()
             professor = self.__controlador_sistema.controlador_professor.pega_professor_por_nome()
+
         elif opcao == 2:
             professor = self.__controlador_sistema.controlador_professor.pega_professor_por_nome()
 
@@ -35,7 +35,7 @@ class ContorladorMateria():
 
     def listar_materias(self):
         for materia in self.__lista_materias:
-            self.__tela_materia.mostra_dados({"nome": materia.nome, "semestre": materia.semestre, "codigo": materia.codigo, "dia_da_semana": materia.dia_da_semana, "horario": materia.horario, "link": materia.link, "classificacao": materia.classificacao, "criterio_de_presenca": materia.criterio_de_presenca, "numero_avaliacoes": materia.numero_avaliacoes},{"professor": materia.professor})
+            self.__tela_materia.mostra_dados({"nome": materia.nome, "semestre": materia.semestre, "codigo": materia.codigo, "dia_da_semana": materia.dia_da_semana, "horario": materia.horario, "link": materia.link, "classificacao": materia.classificacao, "criterio_de_presenca": materia.criterio_de_presenca, "numero_avaliacoes": materia.numero_avaliacoes},{"professor": materia.professor.nome})
             print("\n")
 
     def pega_materia_por_codigo(self, codigo: str):

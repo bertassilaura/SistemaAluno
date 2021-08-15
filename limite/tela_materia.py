@@ -35,7 +35,7 @@ class TelaMateria(TelaAbstrata):
                         "criterio_de_presenca": criterio_de_presenca, "numero_avaliacoes": numero_avaliacoes}
     
     def mostra_dados(self, dados_materia, dados_professor):
-        print("**** DADOS DO ALUNO ****")
+        print("**** DADOS DA MATÉRIA ****")
         print("NOME DA MATÉRIA: ", dados_materia['nome'])
         print("PROFESSOR QUE MINISTRA: ", dados_professor['professor'])
         print("SEMESTRE: ", dados_materia['semestre'])
