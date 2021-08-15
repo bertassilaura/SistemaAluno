@@ -2,7 +2,7 @@ from entidade.professor import Professor
 
 class Materia():
 
-    def __init__(self, nome: str, professor: Professor, semestre: str, codigo: str, dia_da_semana: str, horario: str, link: str, classificacao: str, criterio_de_presenca: str, numero_avaliacoes: int):
+    def __init__(self, nome: str, semestre: str, codigo: str, dia_da_semana: str, horario: str, link: str, classificacao: str, criterio_de_presenca: str, numero_avaliacoes: int, professor: Professor = None):
         if isinstance(nome, str):
             self.__nome = nome
         if isinstance(semestre, str):
