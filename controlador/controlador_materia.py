@@ -12,7 +12,7 @@ class ContorladorMateria():
     def adicionar_materia(self):
         dados_materia = self.__tela_materia.pega_dados()
         dados_professor = self.adicionar_professor_a_materia()
-        materia = Materia(dados_materia['nome'], dados_professor["professor"], dados_materia['semestre'], dados_materia["codigo"], dados_materia['dia_da_semana'], dados_materia['horario'], dados_materia['link'], dados_materia['classificacao'], dados_materia['criterio_de_presenca'], dados_materia['numero_avaliacoes'])
+        materia = Materia(dados_materia['nome'], dados_materia['semestre'], dados_materia["codigo"], dados_materia['dia_da_semana'], dados_materia['horario'], dados_materia['link'], dados_materia['classificacao'], dados_materia['criterio_de_presenca'], dados_materia['numero_avaliacoes'], dados_professor["professor"])
         self.__lista_materias.append(materia)
         print("Matéria criada!")
         print("\n")
@@ -20,16 +20,18 @@ class ContorladorMateria():
     # Adicionar metodo ao diagrama
     def adicionar_professor_a_materia(self):
         print("\n")
-        print("Escolha 1 ou 2 para que a Materia tenha um Professor:")
+        print("Escolha 1 ou 2 para que a Materia tenha um Professor, ou 3 para não ter nenhum:")
         print("1 - Adicionar(criar) um Professor e inclui-lo na matéria")
         print("2 - Selecionar um já existente para inclui-lo na matéria")
+        print("3 - Criar matéria sem professor")
         opcao = int(input("Digite a opção escolhida:"))
         if opcao == 1:
             add_professor = self.__controlador_sistema.controlador_professor.adicionar_professor()
             professor = self.__controlador_sistema.controlador_professor.pega_professor_por_nome()
-
         elif opcao == 2:
             professor = self.__controlador_sistema.controlador_professor.pega_professor_por_nome()
+        elif opcao == 3:
+            professor = None
 
         return {"professor": professor}
 
