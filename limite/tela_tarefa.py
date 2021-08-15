@@ -42,11 +42,10 @@ class TelaTarefa(TelaAbstrata):
         while True:
             status_realizado = input("Está feita ou não? [sim/nao]: ")
             try:
-                status_realizado = str(status_realizado)
-                if status_realizado != 'sim' or status_realizado != 'nao':
+                if status_realizado != 'sim' and status_realizado != 'nao':
                     raise ValueError
             except ValueError:
-                print("Status inválido: Escreva ''sim'', para feita, ou ''nao'', para não feita.")
+                print("Status inválido: Escreva 'sim', para feita, ou 'nao', para não feita.")
             if status_realizado == 'sim' or status_realizado == 'nao':
                 break
 
