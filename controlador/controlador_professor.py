@@ -13,6 +13,7 @@ class ControladorProfessor():
         dados_professor = self.__tela_professor.pega_dados()
         professor = Professor(dados_professor["nome"], dados_professor["email"], dados_professor["telefone"])
         self.__lista_de_professores.append(professor)
+        print("Professor adicionado!")
 
     #listar professores e seus atributos
     def listar_professores(self):
@@ -29,6 +30,7 @@ class ControladorProfessor():
         nome = self.__tela_professor.selecionar_professor()
         for professor in self.__lista_de_professores:
             if(professor.nome == nome):
+                print(f"isso retorna um professor pega_professor_por_nome {professor}")
                 return professor
         return None
 
