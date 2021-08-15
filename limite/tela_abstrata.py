@@ -17,3 +17,8 @@ class TelaAbstrata(ABC):
     @abstractmethod
     def mostra_mensagem():
         pass
+
+    @abstractmethod
+    def le_numero_inteiro():
+        pass
+

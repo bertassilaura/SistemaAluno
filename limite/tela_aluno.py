@@ -2,18 +2,30 @@ from limite.tela_abstrata import TelaAbstrata
 
 class TelaAluno(TelaAbstrata):
 
-    # Fazer tratamento de dados na recpçao de dados na opcao
+    def le_numero_inteiro(self, mensagem: str = "", inteiros_possiveis: list() = None):
+        while True:
+            valor_lido = input(mensagem)
+            try:
+                inteiro = int(valor_lido)
+                if inteiros_possiveis and inteiro not in inteiros_possiveis:
+                    raise ValueError
+                return inteiro
+            except ValueError:
+                print("Valor não existente: Digite um valor contido nas opções")
+                if inteiros_possiveis:
+                    print("Inteiros possíveis: ", inteiros_possiveis)
+
     def tela_opcoes(self):
         print("**** Você está na página Aluno! ****")
         print("O que você deseja fazer? Escolha uma opção:")
         print("1 - Criar aluno")
         print("2 - Mostrar aluno")
+        print("3 - Alterar Aluno")
         print("0 - Retornar")
         
-        opcao = int(input("Digite a opção escolhida: "))
+        opcao = self.le_numero_inteiro("Digite a opção escolhida: ", [1,2,3,0])
         return opcao
     
-    # Fazer tratamento de dados aqui
     def pega_dados(self):
         print("**** RECEBENDO DADOS DO ALUNO ****")
         print("Insira os dados:")
@@ -33,6 +45,3 @@ class TelaAluno(TelaAbstrata):
 
     def mostra_mensagem(self, msg):
         print(msg)
-
-    #def verifica_valor()
-    #def verifica_dados()
