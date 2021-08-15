@@ -2,19 +2,18 @@ from limite.tela_abstrata import TelaAbstrata
 
 class TelaProfessor(TelaAbstrata):
 
-    # Fazer tratamento de dados na recpçao de dados na opcao
     def tela_opcoes(self):
         print("***** Você está na página Professor! *****")
         print("O que você deseja fazer? Escolha uma opção:")
         print("1 - Adicionar um professor")
         print("2 - Excluir um professor")
         print("3 - Listar Professores")
+        print("4 - Alterar Professor")
         print("0 - Retornar")
 
         opcao = int(input("Digite a opção escolhida: "))
         return opcao
 
-    # Fazer tratamento de dados aqui
     def pega_dados(self):
         print("***** RECEBENDO DADOS DO PROFESSOR *****")
         print("Insira os dados:")

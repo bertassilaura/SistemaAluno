@@ -47,4 +47,7 @@ class ControladorSistema():
     def controlador_professor(self):
         return self.__controlador_professor
 
+    @property
+    def controlador_tarefa(self):
+        return self.__controlador_tarefa
 

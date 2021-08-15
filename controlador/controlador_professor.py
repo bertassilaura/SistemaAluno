@@ -13,6 +13,7 @@ class ControladorProfessor():
         dados_professor = self.__tela_professor.pega_dados()
         professor = Professor(dados_professor["nome"], dados_professor["email"], dados_professor["telefone"])
         self.__lista_de_professores.append(professor)
+        print("Professor adicionado!")
 
     #listar professores e seus atributos
     def listar_professores(self):
@@ -28,6 +29,7 @@ class ControladorProfessor():
     def pega_professor_por_nome(self, nome):
         for professor in self.__lista_de_professores:
             if(professor.nome == nome):
+                print(f"isso retorna um professor pega_professor_por_nome {professor}")
                 return professor
         return None
 
@@ -59,7 +61,7 @@ class ControladorProfessor():
 
     #abre tela de opçoes professor
     def abre_tela(self):
-        lista_opcoes = {1: self.adicionar_professor, 2: self.excluir_professor, 3: self.listar_professores, 0: self.retornar}
+        lista_opcoes = {1: self.adicionar_professor, 2: self.excluir_professor, 3: self.listar_professores, 4: self.alterar_professor, 0: self.retornar}
 
         continua = True
         while continua:

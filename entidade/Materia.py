@@ -2,30 +2,18 @@ from entidade.professor import Professor
 
 class Materia():
 
-    def __init__(self, nome: str, professor: Professor, semestre: str, codigo: str, dia_da_semana: str, horario: str, link: str, classificacao: str, criterio_de_presenca: str, numero_avaliacoes: int):
-        #if isinstance(nome, str):
+    def __init__(self, nome: str, semestre: str, codigo: str, dia_da_semana: str, horario: str, link: str, classificacao: str, criterio_de_presenca: str, numero_avaliacoes: int, professor: Professor = None):
             self.__nome = nome
-        #if isinstance(semestre, str):
             self.__semestre = semestre
-        #if isinstance(codigo, str):
             self.__codigo = codigo
-        #if isinstance(dia_da_semana, str):
             self.__dia_da_semana = dia_da_semana
-        #if isinstance(horario, str):
             self.__horario = horario
-        #if isinstance(link, str):
             self.__link = link
-        #if isinstance(classificacao, str):
             self.__classificacao = classificacao
-        #if isinstance(criterio_de_presenca, str):
             self.__criterio_de_presenca = criterio_de_presenca
-        #if isinstance(numero_avaliacoes, int):
             self.__numero_avaliacoes = numero_avaliacoes
-        #if isinstance(professor, Professor):
             self.__professor = professor
-        #else:
-         #   self.__professor = None
-
+        
     @property
     def nome(self):
         return self.__nome
