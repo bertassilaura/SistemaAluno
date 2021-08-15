@@ -2,6 +2,19 @@ from limite.tela_abstrata import TelaAbstrata
 
 class TelaProfessor(TelaAbstrata):
 
+    def le_numero_inteiro(self, mensagem: str = "", inteiros_possiveis: list() = None):
+        while True:
+            valor_lido = input(mensagem)
+            try:
+                inteiro = int(valor_lido)
+                if inteiros_possiveis and inteiro not in inteiros_possiveis:
+                    raise ValueError
+                return inteiro
+            except ValueError:
+                print("Valor não existente: Digite um valor contido nas opções")
+                if inteiros_possiveis:
+                    print("Inteiros possíveis: ", inteiros_possiveis)
+
     def tela_opcoes(self):
         print("***** Você está na página Professor! *****")
         print("O que você deseja fazer? Escolha uma opção:")
@@ -11,7 +24,7 @@ class TelaProfessor(TelaAbstrata):
         print("4 - Alterar Professor")
         print("0 - Retornar")
 
-        opcao = int(input("Digite a opção escolhida: "))
+        opcao = self.le_numero_inteiro("Digite a opção escolhida: ", [1,2,3,4,0])
         return opcao
 
     def pega_dados(self):

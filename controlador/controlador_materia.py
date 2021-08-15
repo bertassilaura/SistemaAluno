@@ -21,14 +21,17 @@ class ContorladorMateria():
         self.__lista_materias.append(materia)
 
     def listar_materias(self):
-        print("Matérias:")
-        for materia in self.__lista_materias:
-            if materia.professor == None:
-                #mostra dados com "sem professor" no campo professor
-                professor = "sem professor"
-                self.__tela_materia.mostra_dados({"nome": materia.nome, "professor": professor, "semestre": materia.semestre, "codigo": materia.codigo, "dia_da_semana": materia.dia_da_semana, "horario": materia.horario, "link": materia.link, "classificacao": materia.classificacao, "criterio_de_presenca": materia.criterio_de_presenca, "numero_avaliacoes": materia.numero_avaliacoes})
-            else:
-                self.__tela_materia.mostra_dados({"nome": materia.nome, "professor": materia.professor.nome, "semestre": materia.semestre, "codigo": materia.codigo, "dia_da_semana": materia.dia_da_semana, "horario": materia.horario, "link": materia.link, "classificacao": materia.classificacao, "criterio_de_presenca": materia.criterio_de_presenca, "numero_avaliacoes": materia.numero_avaliacoes})
+        if self.__lista_materias == []:
+            print("Ainda não existem matérias !")
+        else:
+            print("Matérias:")
+            for materia in self.__lista_materias:
+                if materia.professor == None:
+                    #mostra dados com "sem professor" no campo professor
+                    professor = "sem professor"
+                    self.__tela_materia.mostra_dados({"nome": materia.nome, "professor": professor, "semestre": materia.semestre, "codigo": materia.codigo, "dia_da_semana": materia.dia_da_semana, "horario": materia.horario, "link": materia.link, "classificacao": materia.classificacao, "criterio_de_presenca": materia.criterio_de_presenca, "numero_avaliacoes": materia.numero_avaliacoes})
+                else:
+                    self.__tela_materia.mostra_dados({"nome": materia.nome, "professor": materia.professor.nome, "semestre": materia.semestre, "codigo": materia.codigo, "dia_da_semana": materia.dia_da_semana, "horario": materia.horario, "link": materia.link, "classificacao": materia.classificacao, "criterio_de_presenca": materia.criterio_de_presenca, "numero_avaliacoes": materia.numero_avaliacoes})
                 
     def pega_materia_por_codigo(self, codigo: str):
         for materia in self.__lista_materias:
@@ -39,27 +42,33 @@ class ContorladorMateria():
         return None
   
     def excluir_materia(self):
-        self.listar_materias()
-        codigo_materia = self.__tela_materia.selecionar_materia()
-        materia = self.pega_materia_por_codigo(codigo_materia)
-
-        if(materia is not None):
-            self.__lista_materias.remove(materia)
-            print("Matéria excluída!")
-            self.listar_materias()
-
+        if self.__lista_materias == []:
+            print("Ainda não existem matérias !")
         else:
-            self.__tela_materia.mostra_mensagem("ATENÇÃO: Materia não existente")
+            self.listar_materias()
+            codigo_materia = self.__tela_materia.selecionar_materia()
+            materia = self.pega_materia_por_codigo(codigo_materia)
+
+            if(materia is not None):
+                self.__lista_materias.remove(materia)
+                print("Matéria excluída!")
+                self.listar_materias()
+
+            else:
+                self.__tela_materia.mostra_mensagem("ATENÇÃO: Materia não existente")
     
     def listar_por_semestre(self):
-        qual_semestre = str(input("Digite o semestre desejado: "))
-        existe = 0
-        for materia in self.__lista_materias:
-            if materia.semestre == qual_semestre:
-                existe = 1
-                print(materia.nome)
-        if existe == 0:
-            print("Não foi encontrada nenhuma matéria nesse semestre.")
+        if self.__lista_materias == []:
+            print("Ainda não existem matérias !!")
+        else:
+            qual_semestre = str(input("Digite o semestre desejado: "))
+            existe = 0
+            for materia in self.__lista_materias:
+                if materia.semestre == qual_semestre:
+                    existe = 1
+                    print(materia.nome)
+            if existe == 0:
+                print("Não foi encontrada nenhuma matéria nesse semestre.")
     
     def listar_por_dia_da_semana(self):
         qual_dia = str(input("Digite o dia da semana desejado: "))
@@ -101,6 +110,7 @@ class ContorladorMateria():
             materia.classificacao = novos_dados_materia["classificacao"]
             materia.criterio_de_presenca = novos_dados_materia["criterio_de_presenca"]
             materia.numero_avaliacoes = novos_dados_materia["numero_avaliacoes"]
+
     def retornar(self):
         self.__controlador_sistema.abre_tela()
 

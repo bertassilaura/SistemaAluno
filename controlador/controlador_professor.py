@@ -17,17 +17,18 @@ class ControladorProfessor():
 
     #listar professores e seus atributos
     def listar_professores(self):
-        for professor in self.__lista_de_professores:
-            self.__tela_professor.mostra_dados({"nome": professor.nome, "email": professor.email, "telefone": professor.telefone})
-            print("\n")
+        if self.__lista_de_professores == []:
+            print("Ainda não existem professores !")
+        else:
+            for professor in self.__lista_de_professores:
+                self.__tela_professor.mostra_dados({"nome": professor.nome, "email": professor.email, "telefone": professor.telefone})
 
     #retornar
     def retornar(self):
         self.__controlador_sistema.abre_tela()
 
     #pega professor por nome
-    def pega_professor_por_nome(self):
-        nome = self.__tela_professor.selecionar_professor()
+    def pega_professor_por_nome(self, nome):
         for professor in self.__lista_de_professores:
             if(professor.nome == nome):
                 print(f"isso retorna um professor pega_professor_por_nome {professor}")
@@ -36,7 +37,8 @@ class ControladorProfessor():
 
     #alterar dados do professor
     def alterar_professor(self):
-        professor = self.pega_professor_por_nome()
+        nome_professor = self.__tela_professor.selecionar_professor()
+        professor = self.pega_professor_por_nome(nome_professor)
 
         if(professor is not None):
             novos_dados_professor = self.__tela_professor.pega_dados()
@@ -49,14 +51,18 @@ class ControladorProfessor():
 
     #excluir professor
     def excluir_professor(self):
-        self.listar_professores()
-        professor = self.pega_professor_por_nome()
-
-        if(professor is not None):
-            self.__lista_de_professores.remove(professor)
-            self.listar_professores()
+        if self.__lista_de_professores == []:
+            print("Não existem professores !")
         else:
-            self.__tela_professor.mostra_mensagem("ATENÇÃO: Professor não existente")
+            self.listar_professores()
+            nome_professor = self.__tela_professor.selecionar_professor()
+            professor = self.pega_professor_por_nome(nome_professor)
+
+            if(professor is not None):
+                self.__lista_de_professores.remove(professor)
+                self.listar_professores()
+            else:
+                self.__tela_professor.mostra_mensagem("ATENÇÃO: Professor não existente")
 
     #abre tela de opçoes professor
     def abre_tela(self):

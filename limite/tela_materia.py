@@ -1,6 +1,20 @@
 from limite.tela_abstrata import TelaAbstrata
+from controlador.controlador_professor import ControladorProfessor
 
 class TelaMateria(TelaAbstrata):
+
+    def le_numero_inteiro(self, mensagem: str = "", inteiros_possiveis: list() = None):
+        while True:
+            valor_lido = input(mensagem)
+            try:
+                inteiro = int(valor_lido)
+                if inteiros_possiveis and inteiro not in inteiros_possiveis:
+                    raise ValueError
+                return inteiro
+            except ValueError:
+                print("Valor não existente: Digite um valor contido nas opções")
+                if inteiros_possiveis:
+                    print("Inteiros possíveis: ", inteiros_possiveis)
 
     def tela_opcoes(self):
         print("***** Você está na página Matéria! *****")
@@ -13,7 +27,7 @@ class TelaMateria(TelaAbstrata):
         print("6 - Alterar Materia")
         print("0 - Retornar")
 
-        opcao = int(input("Digite a opção escolhida:"))
+        opcao = self.le_numero_inteiro("Digite a opção escolhida:", [1,2,3,4,5,6,0])
         return opcao
 
     def pega_dados(self):
@@ -30,9 +44,10 @@ class TelaMateria(TelaAbstrata):
         criterio_de_presenca = str(input("Criterio de presenca:"))
         numero_avaliacoes = str(input("Numero de avaliacoes: "))
         
-        return {"nome": nome, "semestre": semestre, "codigo": codigo, "dia_da_semana": dia_da_semana,
+        dados_materia = {"nome": nome, "semestre": semestre, "professor": professor, "codigo": codigo, "dia_da_semana": dia_da_semana,
                         "horario": horario, "link": link, "classificacao": classificacao,
                         "criterio_de_presenca": criterio_de_presenca, "numero_avaliacoes": numero_avaliacoes}
+        return dados_materia
     
     def mostra_dados(self, dados_materia):
         print("**** DADOS DA MATERIA ****")
