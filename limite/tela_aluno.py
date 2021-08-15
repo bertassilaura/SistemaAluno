@@ -2,6 +2,7 @@ from limite.tela_abstrata import TelaAbstrata
 
 class TelaAluno(TelaAbstrata):
 
+    #opções de tela aluno
     def tela_opcoes(self):
         print("**** Você está na página Aluno! ****")
         print("O que você deseja fazer? Escolha uma opção:")
@@ -11,8 +12,10 @@ class TelaAluno(TelaAbstrata):
         print("0 - Retornar")
         
         opcao = int(input("Digite a opção escolhida: "))
+        print("\n")
         return opcao
-    
+
+    #pega dados do aluno
     def pega_dados(self):
         print("**** RECEBENDO DADOS DO ALUNO ****")
         print("Insira os dados:")
@@ -23,6 +26,7 @@ class TelaAluno(TelaAbstrata):
         dados_aluno = {"nome": nome, "email": email, "matricula": matricula}
         return dados_aluno
 
+    #mostra dados do aluno
     def mostra_dados(self, dados_aluno):
         print("**** DADOS DO AUNO ****")
         print("Nome do aluno: ", dados_aluno["nome"])

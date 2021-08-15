@@ -8,6 +8,7 @@ class ControladorTarefa():
     self.__tela_tarefa = TelaTarefa()
     self.__controlador_sistema = controlador_sistema
 
+  #adiciona uma nova tarefa
   def adicionar_tarefa(self):
     dados_tarefa = self.__tela_tarefa.pega_dados()
 
@@ -18,12 +19,14 @@ class ControladorTarefa():
       dados_tarefa["status_realizado"] = False
     else:
       print("Status inválido! Digite 'sim' ou 'nao'")
+      print("\n")
       self.adicionar_tarefa()
       return
 
     #checa matéria correspondente
     if dados_tarefa["materia_correspondente"] == "":
-        print("Criando Tarefa sem Matéria.")
+        print("Criando Tarefa sem Matéria")
+        print("\n")
         materia_correspondente = None
 
     else: 
@@ -31,15 +34,18 @@ class ControladorTarefa():
 
         if materia_correspondente == None:
           print("Código não existente. Criando Tarefa sem Matéria, se necessário, altere a Tarefa")
+          print("\n")
     
     #cria tarefa
     tarefa = Tarefa(dados_tarefa["nome_tarefa"], dados_tarefa["data_prazo"], dados_tarefa["horario_prazo"], dados_tarefa["descricao"], dados_tarefa["status_realizado"], materia_correspondente, dados_tarefa["peso"], dados_tarefa["nota"])
     self.__lista_tarefas.append(tarefa)
     print(f"Tarefa criada! :)")
+    print("\n")
   
   #lista todas as tarefas
   def listar_tarefas(self):
     print("Tarefas:")
+    print("\n")
     for tarefa in self.__lista_tarefas:
       if tarefa.materia_correspondente == None:
         materia_correspondente = "sem materia"
@@ -67,21 +73,25 @@ class ControladorTarefa():
     if(tarefa is not None):
       self.__lista_tarefas.remove(tarefa)
       print("Tarefa removida!")
+      print("\n")
       self.listar_tarefas()
     else:
       self.__tela_tarefa.mostra_mensagem("ATENÇÃO: Tarefa não existente")
+      print("\n")
   
   def retornar(self):
     self.__controlador_sistema.abre_tela()
 
   def listar_feito(self):
     print("Tarefas feitas:")
+    print("\n")
     for tarefa in self.__lista_tarefas:
       if tarefa.status_realizado == True:
         print(tarefa.nome_tarefa)
 
   def listar_a_fazer(self):
     print("Tarefas a fazer:")
+    print("\n")
     for tarefa in self.__lista_tarefas:
       if tarefa.status_realizado == False:
         print(tarefa.nome_tarefa)
@@ -104,15 +114,22 @@ class ControladorTarefa():
       tarefa.horario_prazo = novos_dados_tarefa["horario_prazo"]
       tarefa.descricao = novos_dados_tarefa["descricao"]
       tarefa.materia_correspondente = novos_dados_tarefa["materia_correspondente"]
+
       if novos_dados_tarefa["status_realizado"] == "sim":
         tarefa.status_realizado = True
       else:
         tarefa.status_realizado = False
-      tarefa.peso = novos_dados_tarefa["peso"]
+        
       tarefa.nota = novos_dados_tarefa["nota"]
+      tarefa.peso - novos_dados_tarefa["peso"]
+      
+      print("Tarefa alterada.")
+      print("\n")
       self.listar_tarefas()
+
     else:
       self.__tela_tarefa.mostra_mensagem("ATENÇÃO: Tarefa não existente")
+      print("\n")
 
   def abre_tela(self):
     lista_opcoes = {1: self.adicionar_tarefa, 2: self.excluir_tarefa, 3: self.listar_tarefas, 4: self.listar_feito, 5: self.listar_a_fazer, 6: self.alterar_tarefa, 0: self.retornar}

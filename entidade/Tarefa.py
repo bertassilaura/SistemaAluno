@@ -17,8 +17,7 @@ class Tarefa:
     
     @nome_tarefa.setter
     def nome_tarefa(self, nome_tarefa: str):
-        if isinstance(nome_tarefa, str):
-            self.__nome_tarefa = nome_tarefa
+        self.__nome_tarefa = nome_tarefa
     
     @property
     def data_prazo(self):
@@ -26,8 +25,7 @@ class Tarefa:
     
     @data_prazo.setter
     def data_prazo(self, data_prazo: str):
-        if isinstance(data_prazo, str):
-            self.__data_prazo = data_prazo
+        self.__data_prazo = data_prazo
     
     @property
     def horario_prazo(self):
@@ -35,8 +33,7 @@ class Tarefa:
 
     @horario_prazo.setter
     def horario_prazo(self, horario_prazo: str):
-        if isinstance(horario_prazo, str):
-            self.__horario_prazo = horario_prazo
+        self.__horario_prazo = horario_prazo
     
     @property
     def descricao(self):
@@ -44,8 +41,7 @@ class Tarefa:
     
     @descricao.setter
     def descricao(self, descricao: str):
-        if isinstance(descricao, str):
-            self.__descricao = descricao
+        self.__descricao = descricao
     
     @property
     def nota(self):
@@ -53,8 +49,7 @@ class Tarefa:
     
     @nota.setter
     def nota(self, nota: int):
-        if isinstance(nota, int):
-            self.__nota = nota
+        self.__nota = nota
     
     @property
     def materia_correspondente(self):
@@ -62,8 +57,7 @@ class Tarefa:
 
     @materia_correspondente.setter
     def materia_correspondente(self, materia_correspondente: Materia):
-        if isinstance(materia_correspondente, Materia):
-            self.__materia_correspondente = materia_correspondente
+        self.__materia_correspondente = materia_correspondente
     
     @property
     def status_realizado(self):
@@ -71,8 +65,7 @@ class Tarefa:
     
     @status_realizado.setter
     def status_realizado(self, status_realizado: bool):
-        if isinstance(status_realizado, bool):
-            self.__status_realizado = status_realizado
+        self.__status_realizado = status_realizado
 
     @property
     def peso(self):
@@ -80,8 +73,7 @@ class Tarefa:
     
     @peso.setter
     def peso(self, peso: float):
-        if isinstance(peso, float):
-            self.__peso = peso
+        self.__peso = peso
     
 
 

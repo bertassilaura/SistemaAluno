@@ -11,6 +11,7 @@ class TelaSistema(TelaAbstrata):
         print("4 - Tarefa")
         
         opcao = int(input("Digite a opção escolhida: "))
+        print("\n")
         return opcao
 
     def mostra_mensagem(self):

@@ -12,11 +12,13 @@ class ControladorAluno():
     def criar_aluno(self):
         if self.__aluno != None:
             print("Você já possui um cadastro!")
+            print("\n")
             return
         
         dados_aluno = self.__tela_aluno.pega_dados()
         self.__aluno = Aluno(dados_aluno["nome"], dados_aluno["email"], dados_aluno["matricula"])
-        print("Seu cadastro foi criado!")   
+        print("Seu cadastro foi criado!")
+        print("\n")  
 
     #altera o aluno
     def alterar_aluno(self):
@@ -27,6 +29,8 @@ class ControladorAluno():
             aluno.nome = novos_dados_aluno["nome"]
             aluno.email = novos_dados_aluno["email"]
             aluno.matricula = novos_dados_aluno["matricula"]
+            print("Dados alterados!")
+            print("\n")
 
     #mostra os dados do aluno
     def mostra_aluno(self):

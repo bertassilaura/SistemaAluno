@@ -7,13 +7,14 @@ class TelaTarefa(TelaAbstrata):
         print("O que você deseja fazer? Escolha uma opção:")
         print("1 - Adicionar tarefa")
         print("2 - Excluir tarefa")
-        print("3 - Listar tarefas")
+        print("3 - Listar todas as tarefas")
         print("4 - Listar tarefas feitas")
         print("5 - Listar tarefas a fazer")
         print("6 - Alterar Tarefa")
         print("0 - Retornar")
         
         opcao = int(input("Digite a opção escolhida: "))
+        print("\n")
         return opcao
 
     def pega_dados(self):
@@ -50,6 +51,7 @@ class TelaTarefa(TelaAbstrata):
         print("STATUS DE REALIZAÇÃO: ", dados_tarefa["status_realizado"])
         print("PESO: ", dados_tarefa["peso"])
         print("NOTA: ", dados_tarefa["nota"])
+        print("\n")
         
     def seleciona_tarefa(self):
         nome = str(input("Nome da tarefa que deseja selecionar: "))

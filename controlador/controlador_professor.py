@@ -14,10 +14,12 @@ class ControladorProfessor():
         professor = Professor(dados_professor["nome"], dados_professor["email"], dados_professor["telefone"])
         self.__lista_de_professores.append(professor)
         print("Professor adicionado!")
+        print("\n")
 
     #listar professores e seus atributos
     def listar_professores(self):
-        print(self.__lista_de_professores)
+        print("Professores: ")
+        print("\n")
         for professor in self.__lista_de_professores:
             self.__tela_professor.mostra_dados({"nome": professor.nome, "email": professor.email, "telefone": professor.telefone})
 
@@ -29,7 +31,6 @@ class ControladorProfessor():
     def pega_professor_por_nome(self, nome):
         for professor in self.__lista_de_professores:
             if(professor.nome == nome):
-                print(f"isso retorna um professor pega_professor_por_nome {professor}")
                 return professor
         return None
 
@@ -46,6 +47,7 @@ class ControladorProfessor():
             self.listar_professores()
         else:
             self.__tela_professor.mostra_mensagem("ATENÇÃO: Professor não existente")
+            print("\n")
 
     #excluir professor
     def excluir_professor(self):
@@ -55,9 +57,12 @@ class ControladorProfessor():
 
         if(professor is not None):
             self.__lista_de_professores.remove(professor)
+            print("Professor excluído!")
+            print("\n")
             self.listar_professores()
         else:
             self.__tela_professor.mostra_mensagem("ATENÇÃO: Professor não existente")
+            print("\n")
 
     #abre tela de opçoes professor
     def abre_tela(self):

@@ -7,11 +7,12 @@ class TelaProfessor(TelaAbstrata):
         print("O que você deseja fazer? Escolha uma opção:")
         print("1 - Adicionar um professor")
         print("2 - Excluir um professor")
-        print("3 - Listar Professores")
+        print("3 - Listar todos os Professores")
         print("4 - Alterar Professor")
         print("0 - Retornar")
 
         opcao = int(input("Digite a opção escolhida: "))
+        print("\n")
         return opcao
 
     def pega_dados(self):
