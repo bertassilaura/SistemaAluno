@@ -86,12 +86,12 @@ class ContorladorMateria():
                 print("\n")
     
     def listar_por_dia_da_semana(self):
-        qual_dia = str(input("Digite o dia da semana desejado: "))
+        qual_dia = str(input("Digite o dia da semana desejado [seg/ter/qua/qui/sex]: "))
         existe = 0
         for materia in self.__lista_materias:
             if materia.dia_da_semana == qual_dia:
                 existe = 1
-                print(materia)
+                print(materia.nome)
         if existe == 0:
             print("Não foi encontrada nenhuma matéria nesse dia.")
             print("\n")
@@ -134,7 +134,7 @@ class ContorladorMateria():
         self.__controlador_sistema.abre_tela()
 
     def abre_tela(self):
-        lista_opcoes = {1: self.adicionar_materia, 2: self.excluir_materia, 3: self.listar_por_semestre, 4: self.calcular_media_final, 5: self.listar_materias, 6: self.alterar_materia, 0: self.retornar}
+        lista_opcoes = {1: self.adicionar_materia, 2: self.excluir_materia, 3: self.listar_por_semestre, 4: self.calcular_media_final, 5: self.listar_materias, 6: self.alterar_materia, 7: self.listar_por_dia_da_semana, 0: self.retornar}
 
         continua =True
         while continua:

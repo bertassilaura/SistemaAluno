@@ -27,9 +27,10 @@ class TelaMateria(TelaAbstrata):
         print("4 - Calcular média final de uma matéria")
         print("5 - Ver matérias")
         print("6 - Alterar Materia")
+        print("7 - Listar por dia da semana")
         print("0 - Retornar")
 
-        opcao = self.le_numero_inteiro("Digite a opção escolhida: ", [1,2,3,4,5,6,0])
+        opcao = self.le_numero_inteiro("Digite a opção escolhida: ", [1,2,3,4,5,6,7,0])
         print("\n")
         return opcao
 
@@ -37,14 +38,14 @@ class TelaMateria(TelaAbstrata):
         print("**** DADOS DA MATERIA ****")
         print("Insira os dados")
         nome = str(input("Nome: "))
-        semestre = str(input("Semestre (ex: 21.1):"))
+        semestre = str(input("Semestre (ex: 21.1): "))
         professor = str(input("Nome do professor responsável; Se não houver, deixe em branco: "))
         codigo = str(input("Codigo: "))
         dia_da_semana = str(input("Dia da semana [seg/ter/qua/qui/sex]: "))
         horario = str(input("Horario: "))
         link = str(input("Link: "))
         classificacao = str(input("Classificacao [assincrona/sincrona]: "))
-        criterio_de_presenca = str(input("Criterio de presenca:"))
+        criterio_de_presenca = str(input("Criterio de presenca: "))
         numero_avaliacoes = str(input("Numero de avaliacoes: "))
         print("\n")
         
