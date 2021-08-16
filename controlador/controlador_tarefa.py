@@ -107,10 +107,15 @@ class ControladorTarefa():
 
   def pegar_por_materia(self, materia):
     lista_tarefa_da_materia = []
+    vazio = 1
     for tarefa in self.__lista_tarefas:
       if tarefa.materia_correspondente.codigo == materia:
+        vazio = 0
         lista_tarefa_da_materia.append(tarefa)
-    return lista_tarefa_da_materia
+    if vazio == 1:
+      return None
+    else:
+      return lista_tarefa_da_materia
 
   #altera dados da tarefa
   def alterar_tarefa(self):

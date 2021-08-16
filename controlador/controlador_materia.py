@@ -107,7 +107,18 @@ class ContorladorMateria():
         nota_total = 0
         peso_total = 0
 
+        materia = self.pega_materia_por_codigo(codigo_materia)
+        if materia == None:
+            print("Não existe matéria com esse código!")
+            print("\n")
+            return
+        
         tarefas_materia = self.__controlador_sistema.controlador_tarefa.pegar_por_materia(codigo_materia)
+
+        if tarefas_materia == None:
+            print("Não existem tarefas dessa matéria")
+            print("\n")
+            return
 
         for tarefa in tarefas_materia:
             nota_total += tarefa.nota * tarefa.peso
@@ -116,6 +127,7 @@ class ContorladorMateria():
         media_final = nota_total / peso_total
         print(f"Sua nota final na matéria desejada é {media_final:.2f}")
         print("\n")
+    
     
     #altera uma matéria
     def alterar_materia(self):
