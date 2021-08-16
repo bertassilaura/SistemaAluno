@@ -8,7 +8,7 @@ class ControladorProfessor():
         self.__tela_professor = TelaProfessor()
         self.__controlador_sistema = controlador_sistema
 
-    #Cadastrar um professor
+    #cadastrar um professor
     def adicionar_professor(self):
         dados_professor = self.__tela_professor.pega_dados()
         professor = Professor(dados_professor["nome"], dados_professor["email"], dados_professor["telefone"])

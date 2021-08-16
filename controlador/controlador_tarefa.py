@@ -81,6 +81,7 @@ class ControladorTarefa():
   def retornar(self):
     self.__controlador_sistema.abre_tela()
 
+  #lista as tarefas feitas
   def listar_feito(self):
     if self.__lista_tarefas == []:
       print("Ainda não existem tarefas !")
@@ -92,6 +93,7 @@ class ControladorTarefa():
         if tarefa.status_realizado == True:
           print(tarefa.nome_tarefa)
 
+  #lista as tarefas que ainda devem ser feitas
   def listar_a_fazer(self):
     if self.__lista_tarefas == []:
       print("Ainda não existem tarefas !")
@@ -110,6 +112,7 @@ class ControladorTarefa():
         lista_tarefa_da_materia.append(tarefa)
     return lista_tarefa_da_materia
 
+  #altera dados da tarefa
   def alterar_tarefa(self):
     if self.__lista_tarefas == []:
       print("Ainda não existem tarefas !")

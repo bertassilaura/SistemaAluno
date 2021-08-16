@@ -9,6 +9,7 @@ class ContorladorMateria():
         self.__tela_materia = TelaMateria()
         self.__lista_materias = []
     
+    #adiciona uma nova matéria
     def adicionar_materia(self):
         dados_materia = self.__tela_materia.pega_dados()
         if dados_materia["professor"] == "":
@@ -24,6 +25,7 @@ class ContorladorMateria():
         print("\n")
         self.__lista_materias.append(materia)
 
+    #lista todas as matérias
     def listar_materias(self):
         if self.__lista_materias == []:
             print("Ainda não existem matérias !")
@@ -47,7 +49,8 @@ class ContorladorMateria():
         print("Não existe uma matéria com esse código!")
         print("\n")
         return None
-  
+
+    #exclui matéria
     def excluir_materia(self):
         if self.__lista_materias == []:
             print("Ainda não existem matérias !")
@@ -67,6 +70,7 @@ class ContorladorMateria():
                 self.__tela_materia.mostra_mensagem("ATENÇÃO: Materia não existente")
                 print("\n")
     
+    #lista as matérias de um semestre específico
     def listar_por_semestre(self):
         if self.__lista_materias == []:
             print("Ainda não existem matérias!")
@@ -85,6 +89,7 @@ class ContorladorMateria():
                 print("Não foi encontrada nenhuma matéria nesse semestre.")
                 print("\n")
     
+    #lista as matéria de um dia da semana específico
     def listar_por_dia_da_semana(self):
         qual_dia = str(input("Digite o dia da semana desejado [seg/ter/qua/qui/sex]: "))
         existe = 0
@@ -95,7 +100,8 @@ class ContorladorMateria():
         if existe == 0:
             print("Não foi encontrada nenhuma matéria nesse dia.")
             print("\n")
-            
+
+    #calcula a média final de uma matéria específica       
     def calcular_media_final(self):
         codigo_materia = str(input("Digite o código da matéria desejada: "))
         nota_total = 0
@@ -111,6 +117,7 @@ class ContorladorMateria():
         print(f"Sua nota final na matéria desejada é {media_final:.2f}")
         print("\n")
     
+    #altera uma matéria
     def alterar_materia(self):
         codigo_da_materia = self.__tela_materia.selecionar_materia()
         materia = self.pega_materia_por_codigo(codigo_da_materia)
