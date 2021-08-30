@@ -41,13 +41,14 @@ class TelaProfessor(TelaAbstrata):
         return dados_professor
    
     def mostra_dados(self, dados_professor):
-        print("NOME DO PROFESSOR: ", dados_professor["nome"])
-        print("EMAIL DO PROFESSOR: ", dados_professor["email"])
-        print("TELEFONE DO PROFESSOR: ", dados_professor["telefone"])
+        print("Nome do professor: ", dados_professor["nome"])
+        print("Email do professor: ", dados_professor["email"])
+        print("Telefone do professor: ", dados_professor["telefone"])
+        print("ID do professor: ", dados_professor["id_professor"])
         print("\n")
 
     def selecionar_professor(self):
-        nome = str(input("Nome do professor que deseja selecionar: "))
+        nome = str(input("ID do professor que deseja selecionar: "))
         print("\n")
         return nome
 

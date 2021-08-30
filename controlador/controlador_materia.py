@@ -12,48 +12,54 @@ class ContorladorMateria():
     #adiciona uma nova matéria
     def adicionar_materia(self):
         dados_materia = self.__tela_materia.pega_dados()
+        for materia in self.__lista_materias:
+            if materia.codigo == dados_materia["codigo"]:
+                self.__tela_materia.mostra_mensagem("Uma matéria com esse código já existe!")
+                print("\n")
+                return
         if dados_materia["professor"] == "":
-            print("Criando uma matéria sem professor")
+            self.__tela_materia.mostra_mensagem("Criando uma matéria sem professor")
             print("\n")
         else:
-            print("Criando uma matéria com professor")
+            self.__tela_materia.mostra_mensagem("Criando uma matéria com professor")
             print("\n")
 
         professor = self.__controlador_sistema.controlador_professor.pega_professor_por_nome(dados_materia["professor"])
         materia = Materia(dados_materia['nome'], dados_materia['semestre'], dados_materia["codigo"], dados_materia['dia_da_semana'], dados_materia['horario'], dados_materia['link'], dados_materia['classificacao'], dados_materia['criterio_de_presenca'], dados_materia['numero_avaliacoes'], professor)
-        print("Matéria adicionada! :)")
+        self.__tela_materia.mostra_mensagem("Matéria adicionada! :)")
         print("\n")
         self.__lista_materias.append(materia)
+        self.listar_materias()
 
     #lista todas as matérias
     def listar_materias(self):
         if self.__lista_materias == []:
-            print("Ainda não existem matérias !")
+            self.__tela_materia.mostra_mensagem("Ainda não existem matérias !")
             print("\n")
         else:
-            print("Matérias:")
+            self.__tela_materia.mostra_mensagem("Matérias:")
             print("\n")
             for materia in self.__lista_materias:
                 if materia.professor == None:
-                    #mostra dados com "sem professor" no campo professor
                     professor = "sem professor"
                     self.__tela_materia.mostra_dados({"nome": materia.nome, "professor": professor, "semestre": materia.semestre, "codigo": materia.codigo, "dia_da_semana": materia.dia_da_semana, "horario": materia.horario, "link": materia.link, "classificacao": materia.classificacao, "criterio_de_presenca": materia.criterio_de_presenca, "numero_avaliacoes": materia.numero_avaliacoes})
                 else:
                     self.__tela_materia.mostra_dados({"nome": materia.nome, "professor": materia.professor.nome, "semestre": materia.semestre, "codigo": materia.codigo, "dia_da_semana": materia.dia_da_semana, "horario": materia.horario, "link": materia.link, "classificacao": materia.classificacao, "criterio_de_presenca": materia.criterio_de_presenca, "numero_avaliacoes": materia.numero_avaliacoes})
-                
+
+    #pega o objeto matéria pelo seu código            
     def pega_materia_por_codigo(self, codigo: str):
         for materia in self.__lista_materias:
             if materia.codigo == codigo:
                 return materia
 
-        print("Não existe uma matéria com esse código!")
+        self.__tela_materia.mostra_mensagem("Não existe uma matéria com esse código!")
         print("\n")
         return None
 
     #exclui matéria
     def excluir_materia(self):
         if self.__lista_materias == []:
-            print("Ainda não existem matérias !")
+            self.__tela_materia.mostra_mensagem("Ainda não existem matérias !")
             print("\n")
         else:
             self.listar_materias()
@@ -62,31 +68,32 @@ class ContorladorMateria():
 
             if(materia is not None):
                 self.__lista_materias.remove(materia)
-                print("Matéria excluída!")
+                self.__tela_materia.mostra_mensagem("Matéria excluída!")
                 print("\n")
                 self.listar_materias()
 
             else:
-                self.__tela_materia.mostra_mensagem("ATENÇÃO: Materia não existente")
+                self.__tela_materia.mostra_mensagem("ATENÇÃO: Matéria não existente")
                 print("\n")
     
     #lista as matérias de um semestre específico
     def listar_por_semestre(self):
         if self.__lista_materias == []:
-            print("Ainda não existem matérias!")
+            self.__tela_materia.mostra_mensagem("Ainda não existem matérias!")
             print("\n")
         else:
             qual_semestre = str(input("Digite o semestre desejado: "))
             print("\n")
             existe = 0
-            print("Matérias do semestre desejado:")
+            self.__tela_materia.mostra_mensagem("Matérias do semestre desejado:")
             print("\n")
             for materia in self.__lista_materias:
                 if materia.semestre == qual_semestre:
                     existe = 1
                     print(materia.nome)
+                    print("\n")
             if existe == 0:
-                print("Não foi encontrada nenhuma matéria nesse semestre.")
+                self.__tela_materia.mostra_mensagem("Não foi encontrada nenhuma matéria nesse semestre.")
                 print("\n")
     
     #lista as matéria de um dia da semana específico
@@ -97,8 +104,9 @@ class ContorladorMateria():
             if materia.dia_da_semana == qual_dia:
                 existe = 1
                 print(materia.nome)
+                print("\n")
         if existe == 0:
-            print("Não foi encontrada nenhuma matéria nesse dia.")
+            self.__tela_materia.mostra_mensagem("Não foi encontrada nenhuma matéria nesse dia.")
             print("\n")
 
     #calcula a média final de uma matéria específica       
@@ -109,14 +117,14 @@ class ContorladorMateria():
 
         materia = self.pega_materia_por_codigo(codigo_materia)
         if materia == None:
-            print("Não existe matéria com esse código!")
+            self.__tela_materia.mostra_mensagem("Não existe matéria com esse código!")
             print("\n")
             return
         
         tarefas_materia = self.__controlador_sistema.controlador_tarefa.pegar_por_materia(codigo_materia)
 
         if tarefas_materia == None:
-            print("Não existem tarefas dessa matéria")
+            self.__tela_materia.mostra_mensagem("Não existem tarefas dessa matéria")
             print("\n")
             return
 
@@ -131,6 +139,7 @@ class ContorladorMateria():
     
     #altera uma matéria
     def alterar_materia(self):
+        self.listar_materias()
         codigo_da_materia = self.__tela_materia.selecionar_materia()
         materia = self.pega_materia_por_codigo(codigo_da_materia)
 
@@ -146,8 +155,9 @@ class ContorladorMateria():
             materia.classificacao = novos_dados_materia["classificacao"]
             materia.criterio_de_presenca = novos_dados_materia["criterio_de_presenca"]
             materia.numero_avaliacoes = novos_dados_materia["numero_avaliacoes"]
-            print("Matéria alterada!")
+            self.__tela_materia.mostra_mensagem("Matéria alterada!")
             print("\n")
+            self.listar_materias()
 
     def retornar(self):
         self.__controlador_sistema.abre_tela()

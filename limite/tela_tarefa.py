@@ -81,6 +81,7 @@ class TelaTarefa(TelaAbstrata):
 
     def mostra_dados(self, dados_tarefa):
         print("NOME DA TAREFA: ", dados_tarefa["nome_tarefa"])
+        print("ID DA TAREFA: ", dados_tarefa["id_tarefa"])
         print("DATA DO PRAZO ", dados_tarefa["data_prazo"])
         print("HORÁRIO DO PRAZO: ", dados_tarefa["horario_prazo"])
         print("DESCRICAO: ", dados_tarefa["descricao"])
@@ -91,9 +92,9 @@ class TelaTarefa(TelaAbstrata):
         print("\n")
         
     def seleciona_tarefa(self):
-        nome = str(input("Nome da tarefa que deseja selecionar: "))
+        id = int(input("ID da tarefa que deseja selecionar: "))
         print("\n")
-        return nome
+        return id
 
     def mostra_mensagem(self, msg):
         print(msg)
