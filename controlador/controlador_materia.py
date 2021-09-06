@@ -24,7 +24,7 @@ class ContorladorMateria():
             self.__tela_materia.mostra_mensagem("Criando uma matéria com professor")
             print("\n")
 
-        professor = self.__controlador_sistema.controlador_professor.pega_professor_por_nome(dados_materia["professor"])
+        professor = self.__controlador_sistema.controlador_professor.pega_professor_por_id(dados_materia["professor"])
         materia = Materia(dados_materia['nome'], dados_materia['semestre'], dados_materia["codigo"], dados_materia['dia_da_semana'], dados_materia['horario'], dados_materia['link'], dados_materia['classificacao'], dados_materia['criterio_de_presenca'], dados_materia['numero_avaliacoes'], professor)
         self.__tela_materia.mostra_mensagem("Matéria adicionada! :)")
         print("\n")
@@ -34,7 +34,7 @@ class ContorladorMateria():
     #lista todas as matérias
     def listar_materias(self):
         if self.__lista_materias == []:
-            self.__tela_materia.mostra_mensagem("Ainda não existem matérias !")
+            self.__tela_materia.mostra_mensagem("Ainda não existem matérias!")
             print("\n")
         else:
             self.__tela_materia.mostra_mensagem("Matérias:")
@@ -99,6 +99,7 @@ class ContorladorMateria():
     #lista as matéria de um dia da semana específico
     def listar_por_dia_da_semana(self):
         qual_dia = str(input("Digite o dia da semana desejado [seg/ter/qua/qui/sex]: "))
+        qual_dia = qual_dia.lower()
         existe = 0
         for materia in self.__lista_materias:
             if materia.dia_da_semana == qual_dia:
@@ -112,6 +113,7 @@ class ContorladorMateria():
     #calcula a média final de uma matéria específica       
     def calcular_media_final(self):
         codigo_materia = str(input("Digite o código da matéria desejada: "))
+        codigo_materia = codigo_materia.upper()
         nota_total = 0
         peso_total = 0
 
@@ -136,7 +138,7 @@ class ContorladorMateria():
         print(f"Sua nota final na matéria desejada é {media_final:.2f}")
         print("\n")
     
-    
+
     #altera uma matéria
     def alterar_materia(self):
         self.listar_materias()

@@ -48,9 +48,9 @@ class TelaProfessor(TelaAbstrata):
         print("\n")
 
     def selecionar_professor(self):
-        nome = str(input("ID do professor que deseja selecionar: "))
+        id = int(input("ID do professor que deseja selecionar: "))
         print("\n")
-        return nome
+        return id
 
     def mostra_mensagem(self, msg):
         print(msg)

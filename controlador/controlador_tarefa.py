@@ -30,7 +30,7 @@ class ControladorTarefa():
         print("\n")
         materia_correspondente = None
     else: 
-        materia_correspondente = self.__controlador_sistema.controlador_materia.pega_materia_por_codigo(dados_tarefa["materia_correspondente"])
+        materia_correspondente = self.__controlador_sistema.controlador_materia.pega_materia_por_codigo(dados_tarefa["materia_correspondente"].upper())
 
         if materia_correspondente == None:
           print("Código não existente. Criando Tarefa sem Matéria, se necessário, altere a Tarefa")
@@ -127,6 +127,8 @@ class ControladorTarefa():
     if self.__lista_tarefas == []:
       self.__tela_tarefa.mostra_mensagem("Ainda não existem tarefas!")
       print("\n")
+      return
+      
 
     self.listar_tarefas()
     id = self.__tela_tarefa.seleciona_tarefa()
@@ -148,6 +150,7 @@ class ControladorTarefa():
       self.__tela_tarefa.mostra_mensagem("Tarefa alterada!")
       print("\n")
       self.listar_tarefas()
+      return
 
     self.__tela_tarefa.mostra_mensagem("ATENÇÃO: Tarefa não existente")
     print("\n")

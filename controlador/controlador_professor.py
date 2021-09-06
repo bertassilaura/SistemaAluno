@@ -45,8 +45,10 @@ class ControladorProfessor():
 
     #pega professor por ID
     def pega_professor_por_id(self, id):
+        if id == "":
+            return None
         for professor in self.__lista_de_professores:
-            if(professor.id_professor == id):
+            if(professor.id_professor == int(id)):
                 return professor
         return None
 

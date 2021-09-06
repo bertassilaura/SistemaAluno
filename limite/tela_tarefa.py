@@ -40,7 +40,6 @@ class TelaTarefa(TelaAbstrata):
         horario_prazo = str(input("Horário prazo para entrega: ")) 
         descricao = str(input("Descrição resumida da tarefa: "))
         materia_correspondente = str(input("Digite o código da matéria correspondente. Se ainda não criou a materia, ou essa tarefa nao possui materia, deixe em branco: "))
-        
         # Recebendo Status
         while True:
             status_realizado = input("Está feita ou não? [sim/nao]: ")

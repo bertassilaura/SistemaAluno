@@ -39,8 +39,9 @@ class TelaMateria(TelaAbstrata):
         print("Insira os dados")
         nome = str(input("Nome: "))
         semestre = str(input("Semestre (ex: 21.1): "))
-        professor = str(input("Nome do professor responsável; Se não houver, deixe em branco: "))
+        professor = str(input("ID do professor responsável; Se não houver, deixe em branco: "))
         codigo = str(input("Codigo: "))
+        codigo = codigo.upper()
         horario = str(input("Horario: "))
         link = str(input("Link: "))
         classificacao = str(input("Classificacao [assincrona/sincrona]: "))
@@ -49,6 +50,7 @@ class TelaMateria(TelaAbstrata):
 
         while True: 
             dia_da_semana = input("Dia da semana [seg/ter/qua/qui/sex]: ")
+            dia_da_semana = dia_da_semana.lower()
             print("\n")
             try:
                 if dia_da_semana != "seg" and dia_da_semana != "ter" and dia_da_semana != "qua" and dia_da_semana != "qui" and dia_da_semana != "sex":
@@ -78,9 +80,10 @@ class TelaMateria(TelaAbstrata):
         print('\n')
 
     def selecionar_materia(self):
-        nome = str(input("Código da materia que deseja selecionar: "))
+        codigo = str(input("Código da materia que deseja selecionar: "))
+        codigo = codigo.upper()
         print("\n")
-        return nome
+        return codigo
     
     def mostra_mensagem(self, msg):
         print(msg)
