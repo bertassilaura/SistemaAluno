@@ -1,6 +1,9 @@
 from entidade.materia import Materia 
 
 class Tarefa:
+
+    id = 0 
+
     def __init__(self, nome_tarefa: str, data_prazo: str , horario_prazo: str, descricao: str, status_realizado: bool, materia_correspondente: Materia = None, peso: float = 0, nota: float = 0):
             self.__nome_tarefa = nome_tarefa
             self.__data_prazo = data_prazo
@@ -10,6 +13,8 @@ class Tarefa:
             self.__status_realizado = status_realizado
             self.__peso = peso
             self.__nota = nota
+            self.__id_tarefa = Tarefa.id
+            Tarefa.id += 1
 
     @property
     def nome_tarefa(self):
@@ -53,8 +58,12 @@ class Tarefa:
     
     @nota.setter
     def nota(self, nota: float):
+<<<<<<< HEAD
         if isinstance(nota, float):
             self.__nota = nota
+=======
+        self.__nota = nota
+>>>>>>> 9ba09bf7d7fd2ef53a793278ee36da773fd03a6e
     
     @property
     def materia_correspondente(self):
@@ -80,8 +89,11 @@ class Tarefa:
     
     @peso.setter
     def peso(self, peso: float):
-        if isinstance(peso, float):
-            self.__peso = peso
+        self.__peso = peso
+
+    @property
+    def id_tarefa(self):
+        return self.__id_tarefa
     
 
 

@@ -13,8 +13,10 @@ class TelaMateria(TelaAbstrata):
                 return inteiro
             except ValueError:
                 print("Valor não existente: Digite um valor contido nas opções")
+                print("\n")
                 if inteiros_possiveis:
                     print("Inteiros possíveis: ", inteiros_possiveis)
+                    print("\n")
 
     def tela_opcoes(self):
         print("***** Você está na página Matéria! *****")
@@ -25,23 +27,30 @@ class TelaMateria(TelaAbstrata):
         print("4 - Calcular média final de uma matéria")
         print("5 - Ver matérias")
         print("6 - Alterar Materia")
+        print("7 - Listar por dia da semana")
         print("0 - Retornar")
 
-        opcao = self.le_numero_inteiro("Digite a opção escolhida:", [1,2,3,4,5,6,0])
+        opcao = self.le_numero_inteiro("Digite a opção escolhida: ", [1,2,3,4,5,6,7,0])
+        print("\n")
         return opcao
 
     def pega_dados(self):
         print("**** DADOS DA MATERIA ****")
         print("Insira os dados")
         nome = str(input("Nome: "))
-        semestre = str(input("Semestre (ex: 21.1):"))
-        professor = str(input("Nome do professor responsável; Se não houver, deixe em branco: "))
+        semestre = str(input("Semestre (ex: 21.1): "))
+        professor = str(input("ID do professor responsável; Se não houver, deixe em branco: "))
         codigo = str(input("Codigo: "))
+<<<<<<< HEAD
+=======
+        codigo = codigo.upper()
+>>>>>>> 9ba09bf7d7fd2ef53a793278ee36da773fd03a6e
         horario = str(input("Horario: "))
         link = str(input("Link: "))
         classificacao = str(input("Classificacao [assincrona/sincrona]: "))
-        criterio_de_presenca = str(input("Criterio de presenca:"))
+        criterio_de_presenca = str(input("Criterio de presenca: "))
         numero_avaliacoes = str(input("Numero de avaliacoes: "))
+<<<<<<< HEAD
         
         while True:
             dia_da_semana = input("Dia da semana [seg/ter/qua/qui/sex]: ")
@@ -54,6 +63,21 @@ class TelaMateria(TelaAbstrata):
                 break
 
 
+=======
+
+        while True: 
+            dia_da_semana = input("Dia da semana [seg/ter/qua/qui/sex]: ")
+            dia_da_semana = dia_da_semana.lower()
+            print("\n")
+            try:
+                if dia_da_semana != "seg" and dia_da_semana != "ter" and dia_da_semana != "qua" and dia_da_semana != "qui" and dia_da_semana != "sex":
+                    raise ValueError
+            except ValueError:
+                print("Valor Inválido! Insira apenas os valores disponíveis: seg/ter/qua/qui/sex.")
+            if dia_da_semana == "seg" or dia_da_semana == "ter" or dia_da_semana == "qua" or dia_da_semana == "qui" or dia_da_semana == "sex":
+                break
+         
+>>>>>>> 9ba09bf7d7fd2ef53a793278ee36da773fd03a6e
         dados_materia = {"nome": nome, "semestre": semestre, "professor": professor, "codigo": codigo, "dia_da_semana": dia_da_semana,
                         "horario": horario, "link": link, "classificacao": classificacao,
                         "criterio_de_presenca": criterio_de_presenca, "numero_avaliacoes": numero_avaliacoes}
@@ -74,8 +98,10 @@ class TelaMateria(TelaAbstrata):
         print('\n')
 
     def selecionar_materia(self):
-        nome = str(input("Código da materia que deseja selecionar: "))
-        return nome
+        codigo = str(input("Código da materia que deseja selecionar: "))
+        codigo = codigo.upper()
+        print("\n")
+        return codigo
     
     def mostra_mensagem(self, msg):
         print(msg)

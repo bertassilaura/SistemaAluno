@@ -48,7 +48,7 @@ class Materia():
     @dia_da_semana.setter
     def dia_da_semana(self, dia_da_semana: str):
         if isinstance(dia_da_semana, str):
-            self.__dia_da_semana
+            self.__dia_da_semana = dia_da_semana
 
     @property
     def horario(self):

@@ -12,8 +12,10 @@ class TelaAluno(TelaAbstrata):
                 return inteiro
             except ValueError:
                 print("Valor não existente: Digite um valor contido nas opções")
+                print("\n")
                 if inteiros_possiveis:
                     print("Inteiros possíveis: ", inteiros_possiveis)
+                    print("\n")
 
     def tela_opcoes(self):
         print("**** Você está na página Aluno! ****")
@@ -24,6 +26,7 @@ class TelaAluno(TelaAbstrata):
         print("0 - Retornar")
         
         opcao = self.le_numero_inteiro("Digite a opção escolhida: ", [1,2,3,0])
+        print("\n")
         return opcao
     
     def pega_dados(self):

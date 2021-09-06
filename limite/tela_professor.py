@@ -12,8 +12,10 @@ class TelaProfessor(TelaAbstrata):
                 return inteiro
             except ValueError:
                 print("Valor não existente: Digite um valor contido nas opções")
+                print("\n")
                 if inteiros_possiveis:
                     print("Inteiros possíveis: ", inteiros_possiveis)
+                    print("\n")
 
     def tela_opcoes(self):
         print("***** Você está na página Professor! *****")
@@ -25,6 +27,7 @@ class TelaProfessor(TelaAbstrata):
         print("0 - Retornar")
 
         opcao = self.le_numero_inteiro("Digite a opção escolhida: ", [1,2,3,4,0])
+        print("\n")
         return opcao
 
     def pega_dados(self):
@@ -38,14 +41,16 @@ class TelaProfessor(TelaAbstrata):
         return dados_professor
    
     def mostra_dados(self, dados_professor):
-        print("NOME DO PROFESSOR: ", dados_professor["nome"])
-        print("EMAIL DO PROFESSOR: ", dados_professor["email"])
-        print("TELEFONE DO PROFESSOR: ", dados_professor["telefone"])
+        print("Nome do professor: ", dados_professor["nome"])
+        print("Email do professor: ", dados_professor["email"])
+        print("Telefone do professor: ", dados_professor["telefone"])
+        print("ID do professor: ", dados_professor["id_professor"])
         print("\n")
 
     def selecionar_professor(self):
-        nome = str(input("Nome do professor que deseja selecionar: "))
-        return nome
+        id = int(input("ID do professor que deseja selecionar: "))
+        print("\n")
+        return id
 
     def mostra_mensagem(self, msg):
         print(msg)

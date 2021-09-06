@@ -12,8 +12,10 @@ class TelaTarefa(TelaAbstrata):
                 return inteiro
             except ValueError:
                 print("Valor não existente: Digite um valor contido nas opções")
+                print("\n")
                 if inteiros_possiveis:
                     print("Inteiros possíveis: ", inteiros_possiveis)
+                    print("\n")
     
     def tela_opcoes(self):
         print("**** Você está na página Tarefa! ****")
@@ -27,6 +29,7 @@ class TelaTarefa(TelaAbstrata):
         print("0 - Retornar")
         
         opcao = self.le_numero_inteiro("Digite a opção escolhida: ", [1,2,3,4,5,6,0])
+        print("\n")
         return opcao
 
     def pega_dados(self):
@@ -37,7 +40,6 @@ class TelaTarefa(TelaAbstrata):
         horario_prazo = str(input("Horário prazo para entrega: ")) 
         descricao = str(input("Descrição resumida da tarefa: "))
         materia_correspondente = str(input("Digite o código da matéria correspondente. Se ainda não criou a materia, ou essa tarefa nao possui materia, deixe em branco: "))
-        
         # Recebendo Status
         while True:
             status_realizado = input("Está feita ou não? [sim/nao]: ")
@@ -78,6 +80,7 @@ class TelaTarefa(TelaAbstrata):
 
     def mostra_dados(self, dados_tarefa):
         print("NOME DA TAREFA: ", dados_tarefa["nome_tarefa"])
+        print("ID DA TAREFA: ", dados_tarefa["id_tarefa"])
         print("DATA DO PRAZO ", dados_tarefa["data_prazo"])
         print("HORÁRIO DO PRAZO: ", dados_tarefa["horario_prazo"])
         print("DESCRICAO: ", dados_tarefa["descricao"])
@@ -85,10 +88,12 @@ class TelaTarefa(TelaAbstrata):
         print("STATUS DE REALIZAÇÃO: ", dados_tarefa["status_realizado"])
         print("PESO: ", dados_tarefa["peso"])
         print("NOTA: ", dados_tarefa["nota"])
+        print("\n")
         
     def seleciona_tarefa(self):
-        nome = str(input("Nome da tarefa que deseja selecionar: "))
-        return nome
+        id = int(input("ID da tarefa que deseja selecionar: "))
+        print("\n")
+        return id
 
     def mostra_mensagem(self, msg):
         print(msg)

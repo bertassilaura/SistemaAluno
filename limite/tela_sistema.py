@@ -12,8 +12,10 @@ class TelaSistema(TelaAbstrata):
                 return inteiro
             except ValueError:
                 print("Valor não existente: Digite um valor contido nas opções")
+                print("\n")
                 if inteiros_possiveis:
                     print("Inteiros possíveis: ", inteiros_possiveis)
+                    print("\n")
 
     def tela_opcoes(self):
         print("***** BEM-VINDO AO SEU SISTEMA DE ORGANIZAÇÃO :) *****")
@@ -25,6 +27,7 @@ class TelaSistema(TelaAbstrata):
         print("0 - Encerrar sistema")
         
         opcao = self.le_numero_inteiro("Digite a opção escolhida: ", [1,2,3,4,0])
+        print("\n")
         return opcao
 
     def mostra_mensagem(self):
