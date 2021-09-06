@@ -52,8 +52,8 @@ class Tarefa:
         return self.__nota
     
     @nota.setter
-    def nota(self, nota: int):
-        if isinstance(nota, int):
+    def nota(self, nota: float):
+        if isinstance(nota, float):
             self.__nota = nota
     
     @property
