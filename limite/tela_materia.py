@@ -41,29 +41,12 @@ class TelaMateria(TelaAbstrata):
         semestre = str(input("Semestre (ex: 21.1): "))
         professor = str(input("ID do professor responsável; Se não houver, deixe em branco: "))
         codigo = str(input("Codigo: "))
-<<<<<<< HEAD
-=======
         codigo = codigo.upper()
->>>>>>> 9ba09bf7d7fd2ef53a793278ee36da773fd03a6e
         horario = str(input("Horario: "))
         link = str(input("Link: "))
         classificacao = str(input("Classificacao [assincrona/sincrona]: "))
         criterio_de_presenca = str(input("Criterio de presenca: "))
         numero_avaliacoes = str(input("Numero de avaliacoes: "))
-<<<<<<< HEAD
-        
-        while True:
-            dia_da_semana = input("Dia da semana [seg/ter/qua/qui/sex]: ")
-            try:
-                if dia_da_semana != 'seg' and dia_da_semana != 'ter' and dia_da_semana != 'qua' and dia_da_semana != 'qui' and dia_da_semana != 'sex':
-                    raise ValueError
-            except ValueError:
-                print("Valor inválido: Isira apenas os valores disponíveis [seg,ter,qua,qui,sex]")
-            if dia_da_semana == 'seg' or dia_da_semana == 'ter' or dia_da_semana == 'qua' or dia_da_semana == 'qui' or dia_da_semana == 'sex':
-                break
-
-
-=======
 
         while True: 
             dia_da_semana = input("Dia da semana [seg/ter/qua/qui/sex]: ")
@@ -77,7 +60,6 @@ class TelaMateria(TelaAbstrata):
             if dia_da_semana == "seg" or dia_da_semana == "ter" or dia_da_semana == "qua" or dia_da_semana == "qui" or dia_da_semana == "sex":
                 break
          
->>>>>>> 9ba09bf7d7fd2ef53a793278ee36da773fd03a6e
         dados_materia = {"nome": nome, "semestre": semestre, "professor": professor, "codigo": codigo, "dia_da_semana": dia_da_semana,
                         "horario": horario, "link": link, "classificacao": classificacao,
                         "criterio_de_presenca": criterio_de_presenca, "numero_avaliacoes": numero_avaliacoes}
