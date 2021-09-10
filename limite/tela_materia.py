@@ -39,38 +39,51 @@ class TelaMateria(TelaAbstrata):
         return button
 
     def pega_dados(self):
-        print("**** DADOS DA MATERIA ****")
-        print("Insira os dados")
-        nome = str(input("Nome: "))
-        semestre = str(input("Semestre (ex: 21.1): "))
-        professor = str(input("ID do professor responsável; Se não houver, deixe em branco: "))
-        codigo = str(input("Codigo: "))
-        codigo = codigo.upper()
-        horario = str(input("Horario: "))
-        link = str(input("Link: "))
-        classificacao = str(input("Classificacao [assincrona/sincrona]: "))
-        criterio_de_presenca = str(input("Criterio de presenca: "))
-        numero_avaliacoes = str(input("Numero de avaliacoes: "))
+        
+        layout = [
+            [sg.Text('Insira os dados')],
+            [sg.Text('Nome'), sg.InputText('', key = 'nome')],
+            [sg.Text('Semestre (ex: 21.1)'), sg.InputText('', key = 'semestre')],
+            [sg.Text('ID do professor responsável; Se não houver, deixe em branco'), sg.InputText('', key = 'professor')],
+            [sg.Text('Codigo'), sg.InputText('', key = 'codigo')],
+            [sg.Text('Horario'), sg.InputText('', key = 'horario')],
+            [sg.Text('Link'), sg.InputText('', key = 'link')],
+            [sg.Text('Classificacao'), sg.InputCombo(('Assincrona', 'Sincrona'),key = 'classificacao')],
+            [sg.Text('Criterio de presenca'), sg.InputText('', key = 'criterio_de_presenca')],
+            [sg.Text('Numero de avaliacoes'), sg.Spin([i for i in range(0,101)], initial_value='selecione', key = 'numero_avaliacoes')],
+            [sg.Text('Dia da semana'), sg.InputCombo(('Segunda', 'Terca', 'Quarta', 'Quinta', 'Sexta'), key = 'dia_da_semana')],
+            [sg.Submit('Confirmar'), sg.Cancel('Retornar')]
+        ]
 
-        while True: 
-            dia_da_semana = input("Dia da semana [seg/ter/qua/qui/sex]: ")
-            dia_da_semana = dia_da_semana.lower()
-            print("\n")
-            try:
-                if dia_da_semana != "seg" and dia_da_semana != "ter" and dia_da_semana != "qua" and dia_da_semana != "qui" and dia_da_semana != "sex":
-                    raise ValueError
-            except ValueError:
-                print("Valor Inválido! Insira apenas os valores disponíveis: seg/ter/qua/qui/sex.")
-            if dia_da_semana == "seg" or dia_da_semana == "ter" or dia_da_semana == "qua" or dia_da_semana == "qui" or dia_da_semana == "sex":
-                break
-         
-        dados_materia = {"nome": nome, "semestre": semestre, "professor": professor, "codigo": codigo, "dia_da_semana": dia_da_semana,
-                        "horario": horario, "link": link, "classificacao": classificacao,
-                        "criterio_de_presenca": criterio_de_presenca, "numero_avaliacoes": numero_avaliacoes}
-        return dados_materia
+        window = sg.Window('Dados da matéria').Layout(layout)
+        button, dados_materia = window.Read()
+        window.close()
+        if button == 'Confirmar':
+            return dados_materia
+
     
     def mostra_dados(self, dados_materia):
-        print("**** DADOS DA MATERIA ****")
+
+        materias = [
+            [sg.Text('Materia')],
+            [sg.Listbox(values=dados_materia.values(), size=(30,6))],
+            [sg.Text('')]
+        ]
+
+        layout = [
+            [sg.Text('Listando matérias')],
+            [materias],
+            [sg.Text('')],
+            [sg.Cancel('Retornar')]
+
+        ]
+
+        window = sg.Window('Lista de matérias').Layout(layout)
+        button, values = window.Read()
+        window.close()
+        return values
+
+        '''print("**** DADOS DA MATERIA ****")
         print("NOME DA MATÉRIA: ", dados_materia['nome'])
         print("PROFESSOR QUE MINISTRA: ", dados_materia['professor'])
         print("SEMESTRE: ", dados_materia['semestre'])
@@ -81,7 +94,7 @@ class TelaMateria(TelaAbstrata):
         print("CLASSIFICACAO: ", dados_materia['classificacao'])
         print("CRITERIO DE PRESENCA: ", dados_materia['criterio_de_presenca'])
         print("NUMERO AVALIACOES: ", dados_materia['numero_avaliacoes'])
-        print('\n')
+        print('\n')'''
 
     def selecionar_materia(self):
         codigo = str(input("Código da materia que deseja selecionar: "))
