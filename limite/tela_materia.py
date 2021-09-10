@@ -1,5 +1,6 @@
 from limite.tela_abstrata import TelaAbstrata
 from controlador.controlador_professor import ControladorProfessor
+import PySimpleGUI as sg 
 
 class TelaMateria(TelaAbstrata):
 
@@ -19,20 +20,23 @@ class TelaMateria(TelaAbstrata):
                     print("\n")
 
     def tela_opcoes(self):
-        print("***** Você está na página Matéria! *****")
-        print("O que você deseja fazer? Escolha uma opção:")
-        print("1 - Adicionar Matéria")
-        print("2 - Excluir Matéria")
-        print("3 - Listar as matérias do semestre")
-        print("4 - Calcular média final de uma matéria")
-        print("5 - Ver matérias")
-        print("6 - Alterar Materia")
-        print("7 - Listar por dia da semana")
-        
 
-        opcao = self.le_numero_inteiro("Digite a opção escolhida: ", [1,2,3,4,5,6,7,0])
-        print("\n")
-        return opcao
+        layout  = [
+            [sg.Text('Matéria')],
+            [sg.Button('Adicionar Matéria', key=1)],
+            [sg.Button('Excluir Matéria', key=2)],
+            [sg.Button('Listar as matérias do semestre', key=3)],
+            [sg.Button('Calcular média final de uma matéria', key=4)],
+            [sg.Button('Ver matérias', key=5)],
+            [sg.Button('Alterar Materia', key=6)],
+            [sg.Button('Listar por dia da semana', key=7)],
+            [sg.Exit('Retornar', key=0)]
+        ]
+
+        window = sg.Window('Tela Matéria').Layout(layout)
+        button, values = window.Read()
+        window.close()
+        return button
 
     def pega_dados(self):
         print("**** DADOS DA MATERIA ****")
