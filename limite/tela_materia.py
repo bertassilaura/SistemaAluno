@@ -28,7 +28,7 @@ class TelaMateria(TelaAbstrata):
         print("5 - Ver matérias")
         print("6 - Alterar Materia")
         print("7 - Listar por dia da semana")
-        print("0 - Retornar")
+        
 
         opcao = self.le_numero_inteiro("Digite a opção escolhida: ", [1,2,3,4,5,6,7,0])
         print("\n")
