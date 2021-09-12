@@ -41,7 +41,7 @@ class TelaMateria(TelaAbstrata):
             [sg.Text('Criterio de presenca'), sg.InputText('',  key = 'criterio_de_presenca')],
             [sg.Text('Numero de avaliacoes'), sg.Spin([i for i in range(0,101)], initial_value='selecione', key = 'numero_avaliacoes')],
             [sg.Text('Dia da semana'), sg.InputCombo(('Segunda', 'Terca', 'Quarta', 'Quinta', 'Sexta'), key = 'dia_da_semana')],
-            [sg.Submit('Confirmar'), sg.Cancel('Retornar')]
+            [sg.Submit('Confirmar'), sg.Cancel('Cancelar e retornar')]
         ]
 
         window = sg.Window('Dados da matéria').Layout(layout)
@@ -88,10 +88,9 @@ class TelaMateria(TelaAbstrata):
             [sg.Submit('Confirmar'), sg.Cancel('Cancelar e retornar')]
         ]
 
-        #codigo = str(input("Código da materia que deseja selecionar: "))
         window = sg.Window('Selecionar materias').Layout(layout)
         button, codigo = window.Read()
-        codigo = (codigo['codigo'])#.upper()
+        codigo = codigo['codigo']#.upper()
         window.close()
         return codigo
     
