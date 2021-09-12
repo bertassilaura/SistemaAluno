@@ -1,23 +1,12 @@
+from entidade.materia import Materia
 from limite.tela_abstrata import TelaAbstrata
 from controlador.controlador_professor import ControladorProfessor
 import PySimpleGUI as sg 
 
 class TelaMateria(TelaAbstrata):
 
-    def le_numero_inteiro(self, mensagem: str = "", inteiros_possiveis: list() = None):
-        while True:
-            valor_lido = input(mensagem)
-            try:
-                inteiro = int(valor_lido)
-                if inteiros_possiveis and inteiro not in inteiros_possiveis:
-                    raise ValueError
-                return inteiro
-            except ValueError:
-                print("Valor não existente: Digite um valor contido nas opções")
-                print("\n")
-                if inteiros_possiveis:
-                    print("Inteiros possíveis: ", inteiros_possiveis)
-                    print("\n")
+    def le_numero_inteiro():
+        pass
 
     def tela_opcoes(self):
 
@@ -49,7 +38,7 @@ class TelaMateria(TelaAbstrata):
             [sg.Text('Horario'), sg.InputText('', key = 'horario')],
             [sg.Text('Link'), sg.InputText('', key = 'link')],
             [sg.Text('Classificacao'), sg.InputCombo(('Assincrona', 'Sincrona'),key = 'classificacao')],
-            [sg.Text('Criterio de presenca'), sg.InputText('', key = 'criterio_de_presenca')],
+            [sg.Text('Criterio de presenca'), sg.InputText('',  key = 'criterio_de_presenca')],
             [sg.Text('Numero de avaliacoes'), sg.Spin([i for i in range(0,101)], initial_value='selecione', key = 'numero_avaliacoes')],
             [sg.Text('Dia da semana'), sg.InputCombo(('Segunda', 'Terca', 'Quarta', 'Quinta', 'Sexta'), key = 'dia_da_semana')],
             [sg.Submit('Confirmar'), sg.Cancel('Retornar')]
@@ -62,17 +51,25 @@ class TelaMateria(TelaAbstrata):
             return dados_materia
 
     
-    def mostra_dados(self, dados_materia):
+    def mostra_dados(self, materia: Materia):
 
-        materias = [
-            [sg.Text('Materia')],
-            [sg.Listbox(values=dados_materia.values(), size=(30,6))],
+        materia = [
+            [sg.Text('Nome: {}'.format(materia.nome))],
+            [sg.Text('Semestre: {}'.format(materia.semestre))],
+            [sg.Text('ID do professor: {}'.format(materia.professor))],
+            [sg.Text('Codigo: {}'.format(materia.codigo))],
+            [sg.Text('Horario: {}'.format(materia.horario))],
+            [sg.Text('Link: {}'.format(materia.link))],
+            [sg.Text('Classificacao: {}'.format(materia.classificacao))],
+            [sg.Text('Criterio de presenca: {}'.format(materia.criterio_de_presenca))],
+            [sg.Text('Numero de avaliacoes: {}'.format(materia.numero_avaliacoes))],
+            [sg.Text('Dia da semana: {}'.format(materia.dia_da_semana))],
             [sg.Text('')]
         ]
 
         layout = [
             [sg.Text('Listando matérias')],
-            [materias],
+            [materia],
             [sg.Text('')],
             [sg.Cancel('Retornar')]
 
@@ -83,24 +80,60 @@ class TelaMateria(TelaAbstrata):
         window.close()
         return values
 
-        '''print("**** DADOS DA MATERIA ****")
-        print("NOME DA MATÉRIA: ", dados_materia['nome'])
-        print("PROFESSOR QUE MINISTRA: ", dados_materia['professor'])
-        print("SEMESTRE: ", dados_materia['semestre'])
-        print("CODIGO DA MATERIA: ", dados_materia['codigo'])
-        print("DIA DA SEMANA: ", dados_materia['dia_da_semana'])
-        print("HORARIO: ", dados_materia['horario'])
-        print("LINK: ", dados_materia['link'])
-        print("CLASSIFICACAO: ", dados_materia['classificacao'])
-        print("CRITERIO DE PRESENCA: ", dados_materia['criterio_de_presenca'])
-        print("NUMERO AVALIACOES: ", dados_materia['numero_avaliacoes'])
-        print('\n')'''
-
     def selecionar_materia(self):
-        codigo = str(input("Código da materia que deseja selecionar: "))
-        codigo = codigo.upper()
-        print("\n")
+
+        layout = [
+            [sg.Text('Insira o código da matéria que deseja selecionar')],
+            [sg.Text('Código'), sg.InputText('', size=(15,1), key='codigo')],
+            [sg.Submit('Confirmar'), sg.Cancel('Cancelar e retornar')]
+        ]
+
+        #codigo = str(input("Código da materia que deseja selecionar: "))
+        window = sg.Window('Selecionar materias').Layout(layout)
+        button, codigo = window.Read()
+        codigo = (codigo['codigo'])#.upper()
+        window.close()
         return codigo
     
     def mostra_mensagem(self, msg):
-        print(msg)
+
+        layout = [
+            [sg.Text(msg)],
+            [sg.Cancel('Ok')]
+        ]
+
+        window = sg.Window('Aviso!').Layout(layout)
+        button, msg = window.Read()
+        window.close()
+        return msg
+    
+    def dias_da_semana(self):
+
+        layout = [
+            [sg.Text('Dias da semana')],
+            [sg.InputCombo(('Segunda', 'Terca', 'Quarta', 'Quinta', 'Sexta'), key = 'dia_da_semana')],
+            [sg.Submit('Confirmar'), sg.Cancel('Cancelar e retornar')]
+        ]
+
+        window = sg.Window('Dias da semana').Layout(layout)
+        button, values = window.Read()
+        values = values['dia_da_semana']
+        window.close()
+        return values
+    
+    def semestres(self):
+
+        layout = [
+            [sg.Text('Insira o semestre desejado')],
+            [sg.InputText('', size=(15,1), key='semestre')],
+            [sg.Submit('Confirmar'), sg.Cancel('Cancelar e retornar')]
+        ]
+
+        window = sg.Window('Semestre').Layout(layout)
+        button, semestre = window.Read()
+        semestre = semestre['semestre']
+        window.close()
+        return semestre
+
+        
+
