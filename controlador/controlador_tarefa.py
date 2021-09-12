@@ -41,21 +41,17 @@ class ControladorTarefa():
   #lista todas as tarefas
   def listar_tarefas(self):
     if self.__lista_tarefas == []:
-      self.__tela_tarefa.mostra_mensagem("Ainda não existem tarefas !")
-      
+      self.__tela_tarefa.mostra_mensagem("A lista de tarefas está vazia !")
+
     else:
       for tarefa in self.__lista_tarefas:
 
         if tarefa.materia_correspondente == None:
-          materia_correspondente = "sem materia"
-          self.__tela_tarefa.mostra_dados({"nome_tarefa": tarefa.nome_tarefa, "data_prazo": tarefa.data_prazo, "horario_prazo":tarefa.horario_prazo,
-        "descricao": tarefa.descricao, "materia_correspondente": materia_correspondente, "status_realizado": tarefa.status_realizado, "peso": tarefa.peso,
-        "nota": tarefa.nota, "id_tarefa": tarefa.id_tarefa})
+          tarefa.materia_correspondente = "sem materia"
+          self.__tela_tarefa.mostra_dados(tarefa)
 
         else:
-          self.__tela_tarefa.mostra_dados({"nome_tarefa": tarefa.nome_tarefa, "data_prazo": tarefa.data_prazo, "horario_prazo":tarefa.horario_prazo,
-        "descricao": tarefa.descricao, "materia_correspondente": tarefa.materia_correspondente.nome, "status_realizado": tarefa.status_realizado, "peso": tarefa.peso,
-        "nota": tarefa.nota, "id_tarefa": tarefa.id_tarefa})
+          self.__tela_tarefa.mostra_dados(tarefa)
 
   #pega tarefa pelo seu nome
   def pega_tarefa_por_id(self, id):
@@ -67,12 +63,13 @@ class ControladorTarefa():
   #excluir uma tarefa
   def excluir_tarefa(self):
     if self.__lista_tarefas == []:
-      self.__tela_tarefa.mostra_mensagem("Ainda não existem tarefas !")
+      self.__tela_tarefa.mostra_mensagem("A lista de tarefas está vazia !")
       return
     
     self.listar_tarefas()
-    id = self.__tela_tarefa.seleciona_tarefa()
-    tarefa = self.pega_tarefa_por_id(id)
+    for tarefa in self.__lista_tarefas:
+      id = self.__tela_tarefa.seleciona_tarefa(tarefa) ####################### tratar dados 
+      tarefa = self.pega_tarefa_por_id(id)
 
     if(tarefa is not None):
       self.__lista_tarefas.remove(tarefa)
@@ -87,24 +84,24 @@ class ControladorTarefa():
   #lista as tarefas feitas
   def listar_feito(self):
     if self.__lista_tarefas == []:
-      self.__tela_tarefa.mostra_mensagem("Ainda não existem tarefas !")
+      self.__tela_tarefa.mostra_mensagem("A lista de tarefas está vazia !")
     else:
       for tarefa in self.__lista_tarefas:
         if tarefa.status_realizado == True:
-          self.__tela_tarefa.mostra_dados(tarefa) ############### mudar print(tarefa.nome_tarefa)
+          self.__tela_tarefa.mostra_dados(tarefa) # Como printar uma lista de tarefas só com o nome e id aparecendo mas usando o mesmo metodo ? 
 
   #lista as tarefas que ainda devem ser feitas
   def listar_a_fazer(self):
     if self.__lista_tarefas == []:
-      self.__tela_tarefa.mostra_mensagem("Ainda não existem tarefas !")
+      self.__tela_tarefa.mostra_mensagem("A lista de tarefas está vazia !")
     else:
       for tarefa in self.__lista_tarefas:
         if tarefa.status_realizado == False:
-          self.__tela_tarefa.mostra_dados(tarefa) ############### mudar print(tarefa.nome_tarefa)
+          self.__tela_tarefa.mostra_dados(tarefa) # Como printar uma lista de tarefas só com o nome e id aparecendo mas usando o mesmo metodo ? 
 
   def pegar_por_materia(self, materia):
     if self.__lista_tarefas == []:
-      self.__tela_tarefa.mostra_mensagem("Ainda não existem tarefas !")
+      self.__tela_tarefa.mostra_mensagem("A lista de tarefas está vazia !")
       return
 
     lista_tarefa_da_materia = []
@@ -121,11 +118,11 @@ class ControladorTarefa():
   #altera dados da tarefa
   def alterar_tarefa(self):
     if self.__lista_tarefas == []:
-      self.__tela_tarefa.mostra_mensagem("Ainda não existem tarefas!")
+      self.__tela_tarefa.mostra_mensagem("A lista de tarefas está vazia !")
       return
       
     self.listar_tarefas()
-    id = self.__tela_tarefa.seleciona_tarefa()
+    id = self.__tela_tarefa.seleciona_tarefa() ####################### tratar dados
     tarefa = self.pega_tarefa_por_id(id)
 
     if(tarefa is not None):

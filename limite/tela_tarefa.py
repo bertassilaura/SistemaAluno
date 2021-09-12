@@ -34,8 +34,8 @@ class TelaTarefa(TelaAbstrata):
             [sg.Text('Data prazo para entrega'), sg.InputText('', key = 'data_prazo')], 
             [sg.Text('Horário prazo para entrega'), sg.InputText('', key = 'horario_prazo')], #sg.Spin([i for i in range(0,23)]), sg.Spin([i for i in range(0,59)])
             [sg.Text('Descrição resumida da tarefa'), sg.Multiline(default_text= 'Descrição resumida da tarefa', key = 'descricao')],
-            [sg.Text('Digite o código da matéria correspondente. Se ainda não criou a materia, ou essa tarefa nao possui materia, deixe em branco'), sg.InputText('',  key = 'materia_correspondente')],
             [sg.Text('Está feita ou não?'), sg.InputCombo(('sim', 'não'),key = 'status_realizado')],
+            [sg.Text('Digite o código da matéria correspondente. Se ainda não criou a materia, ou essa tarefa nao possui materia, deixe em branco'), sg.InputText('',  key = 'materia_correspondente')],
             [sg.Text('Peso'), sg.Spin([i for i in range(0,101)], initial_value='selecione', key = 'peso')], # receber float
             [sg.Text('Nota'), sg.InputText('', key = 'nota')], # Colocar layout para notas, receber float
             [sg.Submit('Confirmar'), sg.Cancel('Cancelar e retornar')]
@@ -50,6 +50,7 @@ class TelaTarefa(TelaAbstrata):
     def mostra_dados(self, tarefa: Tarefa):
 
         tarefas = [
+            [sg.Text('ID da tarefa: {}'.format(tarefa.id_tarefa))],
             [sg.Text('Nome: {}'.format(tarefa.nome_tarefa))],
             [sg.Text('Data prazo para entrega: {}'.format(tarefa.data_prazo))],
             [sg.Text('Horário prazo para entrega: {}'.format(tarefa.horario_prazo))],
@@ -73,9 +74,8 @@ class TelaTarefa(TelaAbstrata):
         button, values = window.Read()
         window.close()
         return values
-        
-    def seleciona_tarefa(self):
 
+    def seleciona_tarefa(self):
         layout = [
             [sg.Text('ID da tarefa que deseja selecionar'), sg.InputText('', key='id')],
             [sg.Submit('Confirmar'), sg.Cancel('Retornar')]
@@ -83,9 +83,10 @@ class TelaTarefa(TelaAbstrata):
 
         window = sg.Window('Selecionar Tarefa').Layout(layout)
         button, id = window.Read()
-        id = id['id']
+        id = int(id['id']) # transformar e tratar no controlador
         window.close()
-        return id
+        return id   
+
 
     def mostra_mensagem(self, msg):
 
@@ -120,3 +121,22 @@ class TelaTarefa(TelaAbstrata):
                 self.mostra_mensagem("Valor de nota inválido: Insira uma valor numérico, inteiro ou decimal !!")
             if type(nota) == float:
                 break'''
+
+
+'''def seleciona_tarefa(self, tarefa: Tarefa):
+
+        tarefa = [
+            [sg.Text('ID da tarefa: {}'.format(tarefa.id_tarefa))],
+            [sg.Text('Nome: {}'.format(tarefa.nome_tarefa))],
+        ]
+
+        layout = [
+            [sg.Button(tarefa, key='id')],
+            [sg.Submit('Confirmar'), sg.Cancel('Retornar')],
+        ]
+
+        window = sg.Window('Selecionar Tarefa').Layout(layout)
+        button, id = window.Read()
+        id = int(id['id']) # transformar e tratar no controlador
+        window.close()
+        return id'''

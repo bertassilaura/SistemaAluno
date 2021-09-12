@@ -134,5 +134,6 @@ class TelaMateria(TelaAbstrata):
         window.close()
         return semestre
 
+    
         
 
