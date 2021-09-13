@@ -48,7 +48,6 @@ class TelaTarefa(TelaAbstrata):
             return dados_tarefa
 
     def mostra_dados(self, tarefa: Tarefa):
-
         tarefas = [
             [sg.Text('ID da tarefa: {}'.format(tarefa.id_tarefa))],
             [sg.Text('Nome: {}'.format(tarefa.nome_tarefa))],
@@ -74,22 +73,29 @@ class TelaTarefa(TelaAbstrata):
         button, values = window.Read()
         window.close()
         return values
+    
+    def seleciona_tarefa(self, tarefas: list):
+        tarefas = [
+            [sg.Listbox(values=tarefas, size=(30, 6), key='tarefa')]
+        ]
 
-    def seleciona_tarefa(self):
         layout = [
-            [sg.Text('ID da tarefa que deseja selecionar'), sg.InputText('', key='id')],
+            [sg.Text('Selecione a Tarefa:', size=(0, 2))],
+            [tarefas],
+            [sg.Text('')],
             [sg.Submit('Confirmar'), sg.Cancel('Retornar')]
         ]
 
         window = sg.Window('Selecionar Tarefa').Layout(layout)
-        button, id = window.Read()
-        id = int(id['id']) # transformar e tratar no controlador
+        button, tarefa = window.Read()
         window.close()
-        return id   
+        if button == 'Confirmar':
+            id = int((tarefa['tarefa'][0].split())[1])
+            return id
+        return
 
 
     def mostra_mensagem(self, msg):
-
         layout = [
             [sg.Text(msg)],
             [sg.Cancel('Ok')]
@@ -99,6 +105,24 @@ class TelaTarefa(TelaAbstrata):
         button, msg = window.Read()
         window.close()
         return msg
+    
+    def mostra_lista(self, tarefas: list):
+        tarefas = [
+            [sg.Listbox(values=tarefas, size=(30, 6))],
+        ]
+
+        layout = [
+            [sg.Text('Listando tarefas')],
+            [tarefas],
+            [sg.Text('')],
+            [sg.Cancel('Retornar')]
+        ]
+
+        window = sg.Window('Lista de tarefas').Layout(layout)
+        button, values = window.Read()
+        window.close()
+        return values
+
 
 '''# Passar tratamento de dados do pega dados para o controlador
         while True:
@@ -123,16 +147,10 @@ class TelaTarefa(TelaAbstrata):
                 break'''
 
 
-'''def seleciona_tarefa(self, tarefa: Tarefa):
-
-        tarefa = [
-            [sg.Text('ID da tarefa: {}'.format(tarefa.id_tarefa))],
-            [sg.Text('Nome: {}'.format(tarefa.nome_tarefa))],
-        ]
-
+'''def seleciona_tarefa(self):
         layout = [
-            [sg.Button(tarefa, key='id')],
-            [sg.Submit('Confirmar'), sg.Cancel('Retornar')],
+            [sg.Text('ID da tarefa que deseja selecionar'), sg.InputText('', key='id')],
+            [sg.Submit('Confirmar'), sg.Cancel('Retornar')]
         ]
 
         window = sg.Window('Selecionar Tarefa').Layout(layout)

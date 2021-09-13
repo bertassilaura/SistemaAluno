@@ -1,7 +1,11 @@
-Implementação de um sistema orientado a objetos em python para a organização semestral do aluno
+Implementação de telas com PySimpleGUI de um sistema orientado a objetos em python para a organização semestral do aluno
 
-Integrantes:
+Leonardo De Brida - Atribuição de Implementação: Controlador Tarefa, Tela Tarefa, ControladorMateria, TelaMateria
 
-Laura Bertassi - Atribuição de Implementação: Professor, Controlador Professor, Tela Professor, Pessoa, TelaAbstrata, ControladorSistema, TelaSistema
-
-Leonardo De Brida - Atribuição de Implementação: Aluno, Controlador Aluno, Tela Aluno, Tarefa, Controlador Tarefa, Tela Tarefa, ControladorMateria, TelaMateria
+Tela tarefa:
+    O que falta:
+        Listar materias e ter a opcao de selecionar e entrar para ver detalhes
+        Tratamento de numeros recebidos na criação ou alteração de tarefa --------- OK
+        Fazer receber peso e nota como float -------------- OK
+        Consertar um erro que ta dando quando desisto de criar uma materia, ou excluir uma materia ------- OK
+        Arrumar tarefas feitas e nao feitas

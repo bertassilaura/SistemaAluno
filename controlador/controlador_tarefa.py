@@ -8,97 +8,122 @@ class ControladorTarefa():
     self.__tela_tarefa = TelaTarefa()
     self.__controlador_sistema = controlador_sistema
 
-  #adiciona tarefa
+#-----------ADICIONA UMA TAREFA---------------
   def adicionar_tarefa(self):
     dados_tarefa = self.__tela_tarefa.pega_dados()
+    if (dados_tarefa == None) or (self.trata_recebimento_nota(dados_tarefa) == None):
+      return
 
-    for tarefa in self.__lista_tarefas:
-      if tarefa.nome_tarefa == dados_tarefa["nome_tarefa"]:
-        self.__tela_tarefa.mostra_mensagem("Uma tarefa com esse nome já existe!")
-        return
+    else:
 
-    #checa status
-    if dados_tarefa["status_realizado"] == "sim":
-      dados_tarefa["status_realizado"] = True
-    elif dados_tarefa["status_realizado"] == "nao":
-      dados_tarefa["status_realizado"] = False
+      for tarefa in self.__lista_tarefas:
+        if tarefa.nome_tarefa == dados_tarefa["nome_tarefa"]:
+          self.__tela_tarefa.mostra_mensagem("Uma tarefa com esse nome já existe!")
+          return
 
-    #checa matéria correspondente
-    if dados_tarefa["materia_correspondente"] == "":
-        self.__tela_tarefa.mostra_mensagem("Criando Tarefa sem Matéria")
-        materia_correspondente = None
-    else: 
-        materia_correspondente = self.__controlador_sistema.controlador_materia.pega_materia_por_codigo(dados_tarefa["materia_correspondente"].upper())
+      if dados_tarefa["status_realizado"] == "sim":
+        dados_tarefa["status_realizado"] = True
+      elif dados_tarefa["status_realizado"] == "nao":
+        dados_tarefa["status_realizado"] = False
 
-        if materia_correspondente == None:
-          self.__tela_tarefa.mostra_mensagem("Código não existente\nCriando Tarefa sem Matéria, se necessário, altere a Tarefa")
-    
-    tarefa = Tarefa(dados_tarefa["nome_tarefa"], dados_tarefa["data_prazo"], dados_tarefa["horario_prazo"], dados_tarefa["descricao"], dados_tarefa["status_realizado"], materia_correspondente, dados_tarefa["peso"], dados_tarefa["nota"])
-    self.__lista_tarefas.append(tarefa)
-    self.__tela_tarefa.mostra_mensagem("Tarefa criada! :)")
-    self.listar_tarefas()
-  
-  #lista todas as tarefas
+      #checa matéria correspondente
+      if dados_tarefa["materia_correspondente"] == "":
+          self.__tela_tarefa.mostra_mensagem("Criando Tarefa sem Matéria")
+          materia_correspondente = None
+      else: 
+          materia_correspondente = self.__controlador_sistema.controlador_materia.pega_materia_por_codigo(dados_tarefa["materia_correspondente"].upper())
+
+          if materia_correspondente == None:
+            self.__tela_tarefa.mostra_mensagem("Código não existente\nCriando Tarefa sem Matéria, se necessário, altere a Tarefa")
+      
+      tarefa = Tarefa(dados_tarefa["nome_tarefa"], dados_tarefa["data_prazo"], dados_tarefa["horario_prazo"], dados_tarefa["descricao"], dados_tarefa["status_realizado"], materia_correspondente, dados_tarefa["peso"], dados_tarefa["nota"])
+      self.__lista_tarefas.append(tarefa)
+      self.__tela_tarefa.mostra_mensagem("Tarefa criada! :)")
+      self.listar_tarefas()
+
+#-----------TRATA RECEBIMENTO NOTA--------------
+  def trata_recebimento_nota(self, dados_tarefa: dict):
+    try:
+      nota = dados_tarefa['nota']
+      nota = float(nota)
+      if type(nota) != float:
+        raise ValueError
+      return nota
+    except ValueError:
+      self.__tela_tarefa.mostra_mensagem("Valor de nota inválido: Insira uma valor numérico, inteiro ou decimal !!")
+    if type(nota) == float:
+      return nota
+
+#-----------LISTA TODAS AS TAREFAS--------------
   def listar_tarefas(self):
     if self.__lista_tarefas == []:
       self.__tela_tarefa.mostra_mensagem("A lista de tarefas está vazia !")
-
     else:
-      for tarefa in self.__lista_tarefas:
+      self.__tela_tarefa.mostra_lista(self.dados_lista_tarefas())
 
+      '''for tarefa in self.__lista_tarefas:
+        
         if tarefa.materia_correspondente == None:
           tarefa.materia_correspondente = "sem materia"
-          self.__tela_tarefa.mostra_dados(tarefa)
+          self.__tela_tarefa.mostra_lista(self.dados_lista_tarefas())
+          #self.__tela_tarefa.mostra_dados(tarefa)
 
         else:
-          self.__tela_tarefa.mostra_dados(tarefa)
+          self.__tela_tarefa.mostra_lista(self.dados_lista_tarefas())
+          #self.__tela_tarefa.mostra_dados(tarefa)'''
 
-  #pega tarefa pelo seu nome
+#-----------PEGA TAEFA PELO ID---------------
   def pega_tarefa_por_id(self, id):
     for tarefa in self.__lista_tarefas:
       if tarefa.id_tarefa == id:
         return tarefa
       return None
 
-  #excluir uma tarefa
+#-----------RETORNA DADOS ID E NOME DAS TAREFAS---------------
+  def dados_lista_tarefas(self):
+      return [f'ID: {tarefa.id_tarefa} Nome: {tarefa.nome_tarefa}' for tarefa in self.__lista_tarefas]
+
+#-----------EXCLUI UMA TAREFA---------------
   def excluir_tarefa(self):
     if self.__lista_tarefas == []:
       self.__tela_tarefa.mostra_mensagem("A lista de tarefas está vazia !")
       return
     
-    self.listar_tarefas()
-    for tarefa in self.__lista_tarefas:
-      id = self.__tela_tarefa.seleciona_tarefa(tarefa) ####################### tratar dados 
-      tarefa = self.pega_tarefa_por_id(id)
+    id = self.__tela_tarefa.seleciona_tarefa(self.dados_lista_tarefas())
+    tarefa = self.pega_tarefa_por_id(id)
 
     if(tarefa is not None):
       self.__lista_tarefas.remove(tarefa)
       self.__tela_tarefa.mostra_mensagem("Tarefa removida!")
       self.listar_tarefas()
-    else:
-      self.__tela_tarefa.mostra_mensagem("ATENÇÃO: Tarefa não existente")
-  
+
+#-----------RETORNA---------------
   def retornar(self):
     self.__controlador_sistema.abre_tela()
 
-  #lista as tarefas feitas
+#-----------LISTA TAREFAS FEITAS---------------
   def listar_feito(self):
     if self.__lista_tarefas == []:
       self.__tela_tarefa.mostra_mensagem("A lista de tarefas está vazia !")
     else:
+      lista = []
       for tarefa in self.__lista_tarefas:
         if tarefa.status_realizado == True:
-          self.__tela_tarefa.mostra_dados(tarefa) # Como printar uma lista de tarefas só com o nome e id aparecendo mas usando o mesmo metodo ? 
+          lista += [[f'ID: {tarefa.id_tarefa} Nome: {tarefa.nome_tarefa}']]
+      self.__tela_tarefa.mostra_lista(lista) #printando como dicionario
 
-  #lista as tarefas que ainda devem ser feitas
+#-----------LISTA TAREFAS NÃO FEITAS---------------
   def listar_a_fazer(self):
     if self.__lista_tarefas == []:
       self.__tela_tarefa.mostra_mensagem("A lista de tarefas está vazia !")
     else:
+      lista = []
       for tarefa in self.__lista_tarefas:
         if tarefa.status_realizado == False:
-          self.__tela_tarefa.mostra_dados(tarefa) # Como printar uma lista de tarefas só com o nome e id aparecendo mas usando o mesmo metodo ? 
+          lista += [[f'ID: {tarefa.id_tarefa} Nome: {tarefa.nome_tarefa}']]
+      self.__tela_tarefa.mostra_lista(lista) #printando como dicionario
 
+#-----------PEGA TAREFAS POR MATERIA---------------
   def pegar_por_materia(self, materia):
     if self.__lista_tarefas == []:
       self.__tela_tarefa.mostra_mensagem("A lista de tarefas está vazia !")
@@ -115,14 +140,13 @@ class ControladorTarefa():
     else:
       return lista_tarefa_da_materia
 
-  #altera dados da tarefa
+#-----------ALTERA UMA TAREFA--------------- 
   def alterar_tarefa(self):
     if self.__lista_tarefas == []:
       self.__tela_tarefa.mostra_mensagem("A lista de tarefas está vazia !")
       return
-      
-    self.listar_tarefas()
-    id = self.__tela_tarefa.seleciona_tarefa() ####################### tratar dados
+
+    id = self.__tela_tarefa.seleciona_tarefa(self.dados_lista_tarefas())
     tarefa = self.pega_tarefa_por_id(id)
 
     if(tarefa is not None):
@@ -144,8 +168,7 @@ class ControladorTarefa():
       self.listar_tarefas()
       return
 
-    self.__tela_tarefa.mostra_mensagem("ATENÇÃO: Tarefa não existente")
-
+#-----------ABRE TELA---------------
   def abre_tela(self):
     lista_opcoes = {1: self.adicionar_tarefa, 2: self.excluir_tarefa, 3: self.listar_tarefas, 4: self.listar_feito, 5: self.listar_a_fazer, 6: self.alterar_tarefa, 0: self.retornar}
     
