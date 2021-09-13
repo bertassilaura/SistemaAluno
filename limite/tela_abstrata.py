@@ -3,22 +3,16 @@ from abc import ABC, abstractmethod
 class TelaAbstrata(ABC):
 
     @abstractmethod
-    def tela_opcoes():
+    def abre():
         pass
 
     @abstractmethod
-    def pega_dados():
-        pass
-
-    @abstractmethod
-    def mostra_dados():
+    def fecha():
         pass
     
     @abstractmethod
     def mostra_mensagem():
         pass
 
-    @abstractmethod
-    def le_numero_inteiro():
-        pass
+
 

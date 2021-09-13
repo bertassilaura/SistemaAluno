@@ -1,57 +1,57 @@
 from limite.tela_abstrata import TelaAbstrata
+import PySimpleGUI as sg
+from limite.temas import *
 
 class TelaProfessor(TelaAbstrata):
 
-    def le_numero_inteiro(self, mensagem: str = "", inteiros_possiveis: list() = None):
-        while True:
-            valor_lido = input(mensagem)
-            try:
-                inteiro = int(valor_lido)
-                if inteiros_possiveis and inteiro not in inteiros_possiveis:
-                    raise ValueError
-                return inteiro
-            except ValueError:
-                print("Valor não existente: Digite um valor contido nas opções")
-                print("\n")
-                if inteiros_possiveis:
-                    print("Inteiros possíveis: ", inteiros_possiveis)
-                    print("\n")
+    sg.theme(tema)
 
     def tela_opcoes(self):
-        print("***** Você está na página Professor! *****")
-        print("O que você deseja fazer? Escolha uma opção:")
-        print("1 - Adicionar um professor")
-        print("2 - Excluir um professor")
-        print("3 - Listar Professores")
-        print("4 - Alterar Professor")
-        print("0 - Retornar")
 
-        opcao = self.le_numero_inteiro("Digite a opção escolhida: ", [1,2,3,4,0])
-        print("\n")
-        return opcao
-
+        layout = [
+            [sg.Image(logo2, size=(110, 110))],
+            [sg.Text("Você está na página professor!", font=fonte_titulo, size=(0, 1))],
+            [sg.Text("O que deseja fazer?", font=fonte_titulo, size=(0, 1))],
+            [sg.Text("")],
+            [sg.Button("Adicionar Professor", font=fonte_texto, size=tamanho_texto)],
+            [sg.Button("Excluir Professor", font=fonte_texto, size=tamanho_texto)],
+            [sg.Button("Listar professores", font=fonte_texto, size=tamanho_texto)],
+            [sg.Button("Alterar Professor", font=fonte_texto, size=tamanho_texto)],
+            [sg.Button("Retornar", font=fonte_texto, size=tamanho_texto)]
+        ]
+        
+        window = sg.Window("Aluno", size=tamanho_janela, element_justification="c", grab_anywhere=True, default_element_size=(40 , 1)).Layout(layout)
+        
+        button = window.read()
+        valor_selecionado = {"Adicionar Professor": 1, "Excluir Professor": 2, "Listar professores": 3, "Alterar Professor": 4, "Retornar": 0}
+        window.close()
+        return valor_selecionado[button[0]]
+        
     def pega_dados(self):
-        print("***** RECEBENDO DADOS DO PROFESSOR *****")
-        print("Insira os dados:")
-        nome = str(input("Nome: "))
-        email = str(input("Email: "))
-        telefone = str(input("Telefone: "))
 
-        dados_professor = {"nome": nome, "email": email, "telefone": telefone}
-        return dados_professor
-   
-    def mostra_dados(self, dados_professor):
-        print("Nome do professor: ", dados_professor["nome"])
-        print("Email do professor: ", dados_professor["email"])
-        print("Telefone do professor: ", dados_professor["telefone"])
-        print("ID do professor: ", dados_professor["id_professor"])
-        print("\n")
+        layout = [
+            [sg.Text("Adicionar Professor:")],
+            [sg.Text("Nome:"), sg.InputText()],
+            [sg.Text("Email:"), sg.InputText()],
+            [sg.Text("Telefone:"), sg.InputText()],
+            [sg.Submit("Confirmar"), sg.Cancel("Retornar")]
+        ]
 
-    def selecionar_professor(self):
-        id = int(input("ID do professor que deseja selecionar: "))
-        print("\n")
-        return id
+        window = sg.Window("Aluno", default_element_size=(40 , 1)).Layout(layout)
+        
+        valores = window.read()
+        valor_selecionado = valores[0]
+        input_user = valores[1][0].strip()
+
+        window.close()
+        if valor_selecionado == "Confirmar" and input_user != "":
+            return input_user
 
     def mostra_mensagem(self, msg):
         print(msg)
 
+    def abre(self):
+        pass
+
+    def fecha(self):
+        pass

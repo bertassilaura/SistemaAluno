@@ -1,50 +1,59 @@
 from limite.tela_abstrata import TelaAbstrata
+import PySimpleGUI as sg
+from limite.temas import *
 
 class TelaAluno(TelaAbstrata):
 
-    def le_numero_inteiro(self, mensagem: str = "", inteiros_possiveis: list() = None):
-        while True:
-            valor_lido = input(mensagem)
-            try:
-                inteiro = int(valor_lido)
-                if inteiros_possiveis and inteiro not in inteiros_possiveis:
-                    raise ValueError
-                return inteiro
-            except ValueError:
-                print("Valor não existente: Digite um valor contido nas opções")
-                print("\n")
-                if inteiros_possiveis:
-                    print("Inteiros possíveis: ", inteiros_possiveis)
-                    print("\n")
-
     def tela_opcoes(self):
-        print("**** Você está na página Aluno! ****")
-        print("O que você deseja fazer? Escolha uma opção:")
-        print("1 - Criar aluno")
-        print("2 - Mostrar aluno")
-        print("3 - Alterar Aluno")
-        print("0 - Retornar")
+
+        sg.theme(tema)
+
+        layout = [
+            [sg.Image(logo2, size=(110, 110))],
+            [sg.Text("Você está na página aluno!", font=fonte_titulo, size=(0, 1))],
+            [sg.Text("O que deseja fazer?", font=fonte_titulo, size=(0, 1))],
+            [sg.Text("")],
+            [sg.Button("Criar meu cadastro", font=fonte_texto, size=tamanho_texto)],
+            [sg.Button("Mostrar meus dados", font=fonte_texto, size=tamanho_texto)],
+            [sg.Button("Alterar meus dados", font=fonte_texto, size=tamanho_texto)],
+            [sg.Button("Retornar", font=fonte_texto, size=tamanho_texto)]
+        ]
         
-        opcao = self.le_numero_inteiro("Digite a opção escolhida: ", [1,2,3,0])
-        print("\n")
-        return opcao
-    
+        window = sg.Window("Aluno", size=tamanho_janela, element_justification="c", grab_anywhere=True, default_element_size=(40 , 1)).Layout(layout)
+        
+        button = window.read()
+        valor_selecionado = {"Criar meu cadastro": 1, "Mostrar meus dados": 2, "Alterar meus dados": 3, "Retornar": 0}
+        window.close()
+        return valor_selecionado[button[0]]
+        
     def pega_dados(self):
-        print("**** RECEBENDO DADOS DO ALUNO ****")
-        print("Insira os dados:")
-        nome = str(input("Nome: "))
-        email = str(input("Email: "))
-        matricula = str(input("Matrícula: "))
 
-        dados_aluno = {"nome": nome, "email": email, "matricula": matricula}
-        return dados_aluno
+        layout = [
+            [sg.Text("Criar Cadastro:")],
+            [sg.Text("Nome:"), sg.InputText()],
+            [sg.Text("Email:"), sg.InputText()],
+            [sg.Text("Matrícula:"), sg.InputText()],
+            [sg.Submit("Confirmar"), sg.Cancel("Retornar")]
+        ]
 
-    def mostra_dados(self, dados_aluno):
-        print("**** DADOS DO AUNO ****")
-        print("Nome do aluno: ", dados_aluno["nome"])
-        print("Email do aluno: ", dados_aluno["email"])
-        print("Matricula do aluno: ", dados_aluno["matricula"])
-        print('\n')
+        window = sg.Window("Aluno", default_element_size=(40 , 1)).Layout(layout)
+        
+        valores = window.read()
+        valor_selecionado = valores[0]
+        input_user = valores[1][0].strip()
+
+        window.close()
+        if valor_selecionado == "Confirmar" and input_user != "":
+            return input_user
+
+    def mostra_dados(self):
+        pass 
 
     def mostra_mensagem(self, msg):
         print(msg)
+    
+    def abre(self):
+        pass
+
+    def fecha(self):
+        pass
