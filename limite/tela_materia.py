@@ -2,8 +2,11 @@ from entidade.materia import Materia
 from limite.tela_abstrata import TelaAbstrata
 from controlador.controlador_professor import ControladorProfessor
 import PySimpleGUI as sg 
+from limite.temas import *
 
 class TelaMateria(TelaAbstrata):
+
+    sg.theme(tema)
 
     def le_numero_inteiro():
         pass
@@ -11,40 +14,41 @@ class TelaMateria(TelaAbstrata):
     def tela_opcoes(self):
 
         layout  = [
-            [sg.Text('Matéria')],
-            [sg.Button('Adicionar Matéria', key=1)],
-            [sg.Button('Excluir Matéria', key=2)],
-            [sg.Button('Listar as matérias do semestre', key=3)],
-            [sg.Button('Calcular média final de uma matéria', key=4)],
-            [sg.Button('Ver matérias', key=5)],
-            [sg.Button('Alterar Materia', key=6)],
-            [sg.Button('Listar por dia da semana', key=7)],
-            [sg.Exit('Retornar', key=0)]
+            [sg.Image(logo, size=(180, 180))],
+            [sg.Text('Matéria', font=fonte_texto, size=tamanho_texto)],
+            [sg.Button('Adicionar Matéria', font=fonte_texto, size=tamanho_texto, key=1)],
+            [sg.Button('Excluir Matéria', font=fonte_texto, size=tamanho_texto, key=2)],
+            [sg.Button('Listar as matérias do semestre', font=fonte_texto, size=tamanho_texto, key=3)],
+            [sg.Button('Calcular Média final de matéria', font=fonte_texto, size=tamanho_texto, key=4)],
+            [sg.Button('Ver matérias', font=fonte_texto, size=tamanho_texto, key=5)],
+            [sg.Button('Alterar Materia', font=fonte_texto, size=tamanho_texto, key=6)],
+            [sg.Button('Listar por dia da semana', font=fonte_texto, size=tamanho_texto, key=7)],
+            [sg.Exit('Retornar', font=fonte_texto, size=tamanho_texto, key=0)]
         ]
 
-        window = sg.Window('Tela Matéria').Layout(layout)
+        window = sg.Window('Tela Matéria', size=(tamanho_janela), element_justification="c", grab_anywhere=True, default_element_size=(40, 1)).Layout(layout)
         button, values = window.Read()
         window.close()
-        return button
+        return button 
 
     def pega_dados(self):
         
         layout = [
             [sg.Text('Insira os dados')],
-            [sg.Text('Nome'), sg.InputText('', key = 'nome')],
-            [sg.Text('Semestre (ex: 21.1)'), sg.InputText('', key = 'semestre')],
-            [sg.Text('ID do professor responsável; Se não houver, deixe em branco'), sg.InputText('', key = 'professor')],
-            [sg.Text('Codigo'), sg.InputText('', key = 'codigo')],
-            [sg.Text('Horario'), sg.InputText('', key = 'horario')],
-            [sg.Text('Link'), sg.InputText('', key = 'link')],
-            [sg.Text('Classificacao'), sg.InputCombo(('Assincrona', 'Sincrona'),key = 'classificacao')],
-            [sg.Text('Criterio de presenca'), sg.InputText('',  key = 'criterio_de_presenca')],
-            [sg.Text('Numero de avaliacoes'), sg.Spin([i for i in range(0,101)], initial_value='selecione', key = 'numero_avaliacoes')],
-            [sg.Text('Dia da semana'), sg.InputCombo(('Segunda', 'Terca', 'Quarta', 'Quinta', 'Sexta'), key = 'dia_da_semana')],
-            [sg.Submit('Confirmar'), sg.Cancel('Cancelar e retornar')]
+            [sg.Text('Nome', font=fonte_texto, size=tamanho_texto), sg.InputText('', key = 'nome')],
+            [sg.Text('Semestre (ex: 21.1)', font=fonte_texto, size=tamanho_texto), sg.InputText('', key = 'semestre')],
+            [sg.Text('ID do professor responsável ', font=fonte_texto, size=tamanho_texto), sg.InputText('Se não houver, deixe em branco', key = 'professor')],
+            [sg.Text('Codigo', font=fonte_texto, size=tamanho_texto), sg.InputText('', key = 'codigo')],
+            [sg.Text('Horario', font=fonte_texto, size=tamanho_texto), sg.InputText('', key = 'horario')],
+            [sg.Text('Link', font=fonte_texto, size=tamanho_texto), sg.InputText('', key = 'link')],
+            [sg.Text('Classificacao', font=fonte_texto, size=tamanho_texto), sg.InputCombo(('Assincrona', 'Sincrona'),key = 'classificacao')],
+            [sg.Text('Criterio de presenca', font=fonte_texto, size=tamanho_texto), sg.InputText('',  key = 'criterio_de_presenca')],
+            [sg.Text('Numero de avaliacoes', font=fonte_texto, size=tamanho_texto), sg.Spin([i for i in range(0,101)], initial_value='selecione', key = 'numero_avaliacoes')],
+            [sg.Text('Dia da semana', font=fonte_texto, size=tamanho_texto), sg.InputCombo(('Segunda', 'Terca', 'Quarta', 'Quinta', 'Sexta'), key = 'dia_da_semana')],
+            [sg.Submit('Confirmar', font=fonte_texto, size=tamanho_texto), sg.Cancel('Cancelar e retornar', font=fonte_texto, size=tamanho_texto)]
         ]
 
-        window = sg.Window('Dados da matéria').Layout(layout)
+        window = sg.Window('Dados da matéria', grab_anywhere=True).Layout(layout)
         button, dados_materia = window.Read()
         window.close()
         if button == 'Confirmar':
@@ -54,28 +58,28 @@ class TelaMateria(TelaAbstrata):
     def mostra_dados(self, materia: Materia):
 
         materia = [
-            [sg.Text('Nome: {}'.format(materia.nome))],
-            [sg.Text('Semestre: {}'.format(materia.semestre))],
-            [sg.Text('ID do professor: {}'.format(materia.professor))],
-            [sg.Text('Codigo: {}'.format(materia.codigo))],
-            [sg.Text('Horario: {}'.format(materia.horario))],
-            [sg.Text('Link: {}'.format(materia.link))],
-            [sg.Text('Classificacao: {}'.format(materia.classificacao))],
-            [sg.Text('Criterio de presenca: {}'.format(materia.criterio_de_presenca))],
-            [sg.Text('Numero de avaliacoes: {}'.format(materia.numero_avaliacoes))],
-            [sg.Text('Dia da semana: {}'.format(materia.dia_da_semana))],
+            [sg.Text('Nome: {}'.format(materia.nome), font=fonte_texto, size=tamanho_texto)],
+            [sg.Text('Semestre: {}'.format(materia.semestre), font=fonte_texto, size=tamanho_texto)],
+            [sg.Text('ID do professor: {}'.format(materia.professor), font=fonte_texto, size=tamanho_texto)],
+            [sg.Text('Codigo: {}'.format(materia.codigo), font=fonte_texto, size=tamanho_texto)],
+            [sg.Text('Horario: {}'.format(materia.horario), font=fonte_texto, size=tamanho_texto)],
+            [sg.Text('Link: {}'.format(materia.link), font=fonte_texto, size=tamanho_texto)],
+            [sg.Text('Classificacao: {}'.format(materia.classificacao), font=fonte_texto, size=tamanho_texto)],
+            [sg.Text('Criterio de presenca: {}'.format(materia.criterio_de_presenca), font=fonte_texto, size=tamanho_texto)],
+            [sg.Text('Numero de avaliacoes: {}'.format(materia.numero_avaliacoes), font=fonte_texto, size=tamanho_texto)],
+            [sg.Text('Dia da semana: {}'.format(materia.dia_da_semana), font=fonte_texto, size=tamanho_texto)],
             [sg.Text('')]
         ]
 
         layout = [
-            [sg.Text('Listando matérias')],
+            [sg.Text('Listando matérias', font=fonte_texto, size=tamanho_texto)],
             [materia],
             [sg.Text('')],
-            [sg.Cancel('Retornar')]
+            [sg.Cancel('Retornar', font=fonte_texto, size=tamanho_texto)]
 
         ]
 
-        window = sg.Window('Lista de matérias').Layout(layout)
+        window = sg.Window('Lista de matérias', grab_anywhere=True).Layout(layout)
         button, values = window.Read()
         window.close()
         return values
@@ -83,12 +87,12 @@ class TelaMateria(TelaAbstrata):
     def selecionar_materia(self):
 
         layout = [
-            [sg.Text('Insira o código da matéria que deseja selecionar')],
-            [sg.Text('Código'), sg.InputText('', size=(15,1), key='codigo')],
-            [sg.Submit('Confirmar'), sg.Cancel('Cancelar e retornar')]
+            [sg.Text('Insira o código da matéria que deseja selecionar', font=fonte_texto, size=tamanho_texto)],
+            [sg.Text('Código', font=fonte_texto, size=tamanho_texto), sg.InputText('', size=(15,1), key='codigo')],
+            [sg.Submit('Confirmar', font=fonte_texto, size=tamanho_texto), sg.Cancel('Cancelar e retornar', font=fonte_texto, size=tamanho_texto)]
         ]
 
-        window = sg.Window('Selecionar materias').Layout(layout)
+        window = sg.Window('Selecionar materias', grab_anywhere=True).Layout(layout)
         button, codigo = window.Read()
         codigo = codigo['codigo']#.upper()
         window.close()
@@ -97,11 +101,11 @@ class TelaMateria(TelaAbstrata):
     def mostra_mensagem(self, msg):
 
         layout = [
-            [sg.Text(msg)],
-            [sg.Cancel('Ok')]
+            [sg.Text(msg, font=fonte_texto, size=tamanho_texto)],
+            [sg.Cancel('Ok', font=fonte_texto, size=tamanho_texto)]
         ]
 
-        window = sg.Window('Aviso!').Layout(layout)
+        window = sg.Window('Aviso!', size=(300,100), element_justification="c", grab_anywhere=True).Layout(layout)
         button, msg = window.Read()
         window.close()
         return msg
@@ -109,12 +113,12 @@ class TelaMateria(TelaAbstrata):
     def dias_da_semana(self):
 
         layout = [
-            [sg.Text('Dias da semana')],
+            [sg.Text('Dias da semana', font=fonte_texto, size=tamanho_texto)],
             [sg.InputCombo(('Segunda', 'Terca', 'Quarta', 'Quinta', 'Sexta'), key = 'dia_da_semana')],
-            [sg.Submit('Confirmar'), sg.Cancel('Cancelar e retornar')]
+            [sg.Submit('Confirmar', font=fonte_texto, size=tamanho_texto), sg.Cancel('Cancelar e retornar', font=fonte_texto, size=tamanho_texto)]
         ]
 
-        window = sg.Window('Dias da semana').Layout(layout)
+        window = sg.Window('Dias da semana', grab_anywhere=True).Layout(layout)
         button, values = window.Read()
         values = values['dia_da_semana']
         window.close()
@@ -123,12 +127,12 @@ class TelaMateria(TelaAbstrata):
     def semestres(self):
 
         layout = [
-            [sg.Text('Insira o semestre desejado')],
+            [sg.Text('Insira o semestre desejado', font=fonte_texto, size=tamanho_texto)],
             [sg.InputText('', size=(15,1), key='semestre')],
-            [sg.Submit('Confirmar'), sg.Cancel('Cancelar e retornar')]
+            [sg.Submit('Confirmar', font=fonte_texto, size=tamanho_texto), sg.Cancel('Cancelar e retornar', font=fonte_texto, size=tamanho_texto)]
         ]
 
-        window = sg.Window('Semestre').Layout(layout)
+        window = sg.Window('Semestre', grab_anywhere=True).Layout(layout)
         button, semestre = window.Read()
         semestre = semestre['semestre']
         window.close()

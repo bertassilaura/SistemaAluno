@@ -9,3 +9,4 @@ Tela tarefa:
         Fazer receber peso e nota como float -------------- OK
         Consertar um erro que ta dando quando desisto de criar uma materia, ou excluir uma materia ------- OK
         Arrumar tarefas feitas e nao feitas
+        Retornar, esta dando um KeyError: '00'

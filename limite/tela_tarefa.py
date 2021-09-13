@@ -2,8 +2,11 @@ from entidade.tarefa import Tarefa
 from PySimpleGUI.PySimpleGUI import InputText
 from limite.tela_abstrata import TelaAbstrata
 import PySimpleGUI as sg
+from limite.temas import *
 
 class TelaTarefa(TelaAbstrata):
+
+    sg.theme(tema)
 
     def le_numero_inteiro():
         pass
@@ -11,17 +14,18 @@ class TelaTarefa(TelaAbstrata):
     def tela_opcoes(self):
 
         layout  = [
-            [sg.Text('Tarefa')],
-            [sg.Button('Adicionar Tarefa', key=1)],
-            [sg.Button('Excluir Tarefa', key=2)],
-            [sg.Button('Listar Tarefas', key=3)],
-            [sg.Button('Listar tarefas feitas', key=4)],
-            [sg.Button('Listar tarefas a fazer', key=5)],
-            [sg.Button('Alterar Tarefa', key=6)],
-            [sg.Exit('Retornar', key=0)]
+            [sg.Image(logo, size=(180, 180))],
+            [sg.Text('Tarefa', font=("Arial Rounded MT Bold", 30), size=tamanho_texto, justification='c', text_color= 'white')],
+            [sg.Button('Adicionar Tarefa', font=fonte_texto, size=tamanho_texto, key=1)],
+            [sg.Button('Excluir Tarefa', font=fonte_texto, size=tamanho_texto, key=2)],
+            [sg.Button('Listar Tarefas', font=fonte_texto, size=tamanho_texto, key=3)],
+            [sg.Button('Listar tarefas feitas', font=fonte_texto, size=tamanho_texto, key=4)],
+            [sg.Button('Listar tarefas a fazer', font=fonte_texto, size=tamanho_texto, key=5)],
+            [sg.Button('Alterar Tarefa', font=fonte_texto, size=tamanho_texto, key=6)],
+            [sg.Exit('Retornar', font=fonte_texto, size=tamanho_texto, key=0)]
         ]
 
-        window = sg.Window('Tela Tarefa').Layout(layout)
+        window = sg.Window('Tela Tarefa', size=(tamanho_janela), element_justification="c", grab_anywhere=True, default_element_size=(40, 1)).Layout(layout)
         button, values = window.Read()
         window.close()
         return button
@@ -29,19 +33,19 @@ class TelaTarefa(TelaAbstrata):
     def pega_dados(self):
 
         layout = [
-            [sg.Text('Insira os dados')],
-            [sg.Text('Nome'), sg.InputText('', key = 'nome_tarefa')],
-            [sg.Text('Data prazo para entrega'), sg.InputText('', key = 'data_prazo')], 
-            [sg.Text('Horário prazo para entrega'), sg.InputText('', key = 'horario_prazo')], #sg.Spin([i for i in range(0,23)]), sg.Spin([i for i in range(0,59)])
-            [sg.Text('Descrição resumida da tarefa'), sg.Multiline(default_text= 'Descrição resumida da tarefa', key = 'descricao')],
-            [sg.Text('Está feita ou não?'), sg.InputCombo(('sim', 'não'),key = 'status_realizado')],
-            [sg.Text('Digite o código da matéria correspondente. Se ainda não criou a materia, ou essa tarefa nao possui materia, deixe em branco'), sg.InputText('',  key = 'materia_correspondente')],
-            [sg.Text('Peso'), sg.Spin([i for i in range(0,101)], initial_value='selecione', key = 'peso')], # receber float
-            [sg.Text('Nota'), sg.InputText('', key = 'nota')], # Colocar layout para notas, receber float
-            [sg.Submit('Confirmar'), sg.Cancel('Cancelar e retornar')]
+            [sg.Text('Insira os dados', font=fonte_texto, size=tamanho_texto)],
+            [sg.Text('Nome', font=fonte_texto, size=tamanho_texto), sg.InputText('Atribua um nome para a tarefa', key = 'nome_tarefa')],
+            [sg.Text('Data prazo para entrega', font=fonte_texto, size=tamanho_texto), sg.InputText('DD/MM/AA', key = 'data_prazo')], 
+            [sg.Text('Horário prazo para entrega', font=fonte_texto, size=tamanho_texto), sg.InputText('00:00', key = 'horario_prazo')], #sg.Spin([i for i in range(0,23)]), sg.Spin([i for i in range(0,59)])
+            [sg.Text('Descrição', font=fonte_texto, size=tamanho_texto), sg.Multiline(default_text= 'Descrição resumida da tarefa', key = 'descricao')],
+            [sg.Text('Está feita ou não?', font=fonte_texto, size=tamanho_texto), sg.InputCombo(('sim', 'não'),default_value='selecione',key = 'status_realizado')],
+            [sg.Text('Código-Matéria correspondente', font=fonte_texto, size=tamanho_texto), sg.InputText('Se não criou a materia, ou nao possui materia, deixe em branco',  key = 'materia_correspondente')],
+            [sg.Text('Peso', font=fonte_texto, size=tamanho_texto), sg.Spin([i for i in range(0,101)], initial_value='selecione', key = 'peso')], # receber float
+            [sg.Text('Nota', font=fonte_texto, size=tamanho_texto), sg.InputText('Exemplo: 8.5', key = 'nota')], # Colocar layout para notas, receber float
+            [sg.Submit('Confirmar', font=fonte_texto, size=tamanho_texto), sg.Cancel('Cancelar e retornar', font=fonte_texto, size=tamanho_texto)]
         ]
 
-        window = sg.Window('Dados da tarefa').Layout(layout)
+        window = sg.Window('Dados da tarefa', grab_anywhere=True).Layout(layout)
         button, dados_tarefa = window.Read()
         window.close()
         if button == 'Confirmar':
@@ -49,44 +53,46 @@ class TelaTarefa(TelaAbstrata):
 
     def mostra_dados(self, tarefa: Tarefa):
         tarefas = [
-            [sg.Text('ID da tarefa: {}'.format(tarefa.id_tarefa))],
-            [sg.Text('Nome: {}'.format(tarefa.nome_tarefa))],
-            [sg.Text('Data prazo para entrega: {}'.format(tarefa.data_prazo))],
-            [sg.Text('Horário prazo para entrega: {}'.format(tarefa.horario_prazo))],
-            [sg.Text('Descrição resumida da tarefa: {}'.format(tarefa.descricao))],
-            [sg.Text('matéria correspondente: {}'.format(tarefa.materia_correspondente))],
-            [sg.Text('Status da tarefa: {}'.format(tarefa.status_realizado))],
-            [sg.Text('Peso: {}'.format(tarefa.peso))],
-            [sg.Text('Nota: {}'.format(tarefa.nota))],
+            [sg.Text('ID da tarefa: {}'.format(tarefa.id_tarefa), font=fonte_texto, size=tamanho_texto)],
+            [sg.Text('Nome: {}'.format(tarefa.nome_tarefa), font=fonte_texto, size=tamanho_texto)],
+            [sg.Text('Data prazo para entrega: {}'.format(tarefa.data_prazo), font=fonte_texto, size=tamanho_texto)],
+            [sg.Text('Horário prazo para entrega: {}'.format(tarefa.horario_prazo), font=fonte_texto, size=tamanho_texto)],
+            [sg.Text('Descrição resumida da tarefa: {}'.format(tarefa.descricao), font=fonte_texto, size=tamanho_texto)],
+            [sg.Text('Matéria correspondente: {}'.format(tarefa.materia_correspondente), font=fonte_texto, size=tamanho_texto)],
+            [sg.Text('Status da tarefa: {}'.format(tarefa.status_realizado), font=fonte_texto, size=tamanho_texto)],
+            [sg.Text('Peso: {}'.format(tarefa.peso), font=fonte_texto, size=tamanho_texto)],
+            [sg.Text('Nota: {}'.format(tarefa.nota), font=fonte_texto, size=tamanho_texto)],
             [sg.Text('')]
         ]
 
         layout = [
-            [sg.Text('Listando tarefas')],
+            [sg.Image(logo2, size=(180, 180))],
+            [sg.Text('Listando tarefas', font=fonte_texto, size=tamanho_texto)],
             [tarefas],
             [sg.Text('')],
-            [sg.Cancel('Retornar')]
+            [sg.Cancel('Retornar', font=fonte_texto, size=tamanho_texto)]
 
         ]
 
-        window = sg.Window('Lista de tarefas').Layout(layout)
+        window = sg.Window('Lista de tarefas', grab_anywhere=True).Layout(layout)
         button, values = window.Read()
         window.close()
         return values
     
     def seleciona_tarefa(self, tarefas: list):
         tarefas = [
-            [sg.Listbox(values=tarefas, size=(30, 6), key='tarefa')]
+            [sg.Listbox(values=tarefas, font=fonte_texto, size=(30, 6), key='tarefa')]
         ]
 
         layout = [
-            [sg.Text('Selecione a Tarefa:', size=(0, 2))],
+            [sg.Image(logo2, size=(180, 180))],
+            [sg.Text('Selecione a Tarefa:', font=fonte_texto, size=(0, 2))],
             [tarefas],
             [sg.Text('')],
-            [sg.Submit('Confirmar'), sg.Cancel('Retornar')]
+            [sg.Submit('Confirmar', font=fonte_texto, size=tamanho_texto), sg.Cancel('Retornar', font=fonte_texto, size=tamanho_texto)]
         ]
 
-        window = sg.Window('Selecionar Tarefa').Layout(layout)
+        window = sg.Window('Selecionar Tarefa', grab_anywhere=True).Layout(layout)
         button, tarefa = window.Read()
         window.close()
         if button == 'Confirmar':
@@ -97,28 +103,29 @@ class TelaTarefa(TelaAbstrata):
 
     def mostra_mensagem(self, msg):
         layout = [
-            [sg.Text(msg)],
-            [sg.Cancel('Ok')]
+            [sg.Text(msg, font=fonte_texto, size=(30,6))],
+            [sg.Cancel('Ok', font=fonte_texto, size=(30,6))]
         ]
 
-        window = sg.Window('Aviso!').Layout(layout)
+        window = sg.Window('Aviso!', grab_anywhere=True).Layout(layout)
         button, msg = window.Read()
         window.close()
         return msg
     
     def mostra_lista(self, tarefas: list):
         tarefas = [
-            [sg.Listbox(values=tarefas, size=(30, 6))],
+            [sg.Listbox(values=tarefas, font=fonte_texto, size=(30, 6))],
         ]
 
         layout = [
-            [sg.Text('Listando tarefas')],
+            [sg.Image(logo2, size=(180, 180))],
+            [sg.Text('Listando tarefas', font=fonte_texto, size=tamanho_texto)],
             [tarefas],
             [sg.Text('')],
-            [sg.Cancel('Retornar')]
+            [sg.Cancel('Retornar', font=fonte_texto, size=tamanho_texto)]
         ]
 
-        window = sg.Window('Lista de tarefas').Layout(layout)
+        window = sg.Window('Lista de tarefas', grab_anywhere=True).Layout(layout)
         button, values = window.Read()
         window.close()
         return values
