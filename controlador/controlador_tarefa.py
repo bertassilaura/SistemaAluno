@@ -28,7 +28,6 @@ class ControladorTarefa():
 
       #checa matéria correspondente
       if dados_tarefa["materia_correspondente"] == "":
-          #self.__tela_tarefa.mostra_mensagem("Criando Tarefa sem Matéria")
           materia_correspondente = None
       else: 
           materia_correspondente = self.__controlador_sistema.controlador_materia.pega_materia_por_codigo(dados_tarefa["materia_correspondente"].upper())
@@ -38,8 +37,7 @@ class ControladorTarefa():
       
       tarefa = Tarefa(dados_tarefa["nome_tarefa"], dados_tarefa["data_prazo"], dados_tarefa["horario_prazo"], dados_tarefa["descricao"], dados_tarefa["status_realizado"], materia_correspondente, dados_tarefa["peso"], dados_tarefa["nota"])
       self.__lista_tarefas.append(tarefa)
-      #self.__tela_tarefa.mostra_mensagem("Tarefa criada! :)")
-      #self.listar_tarefas()
+      self.__tela_tarefa.mostra_mensagem("Tarefa criada! :)")
 
 #-----------TRATA RECEBIMENTO NOTA--------------
   def trata_recebimento_nota(self, dados_tarefa: dict):
@@ -59,7 +57,12 @@ class ControladorTarefa():
     if self.__lista_tarefas == []:
       self.__tela_tarefa.mostra_mensagem("A lista de tarefas está vazia !")
     else:
-      self.__tela_tarefa.mostra_lista(self.dados_lista_tarefas())
+      seleciona = self.__tela_tarefa.seleciona_tarefa(self.dados_lista_tarefas())
+      if seleciona != None:
+        tarefa = self.pega_tarefa_por_id(seleciona)
+        mostra_tarefa = self.__tela_tarefa.mostra_dados(tarefa)
+        return mostra_tarefa
+      return
 
 #-----------PEGA TAEFA PELO ID---------------
   def pega_tarefa_por_id(self, id):
@@ -83,8 +86,7 @@ class ControladorTarefa():
 
     if(tarefa is not None):
       self.__lista_tarefas.remove(tarefa)
-      #self.__tela_tarefa.mostra_mensagem("Tarefa removida!")
-      #self.listar_tarefas()
+      self.__tela_tarefa.mostra_mensagem("Tarefa removida!")
 
 #-----------RETORNA---------------
   def retornar(self):
@@ -154,7 +156,6 @@ class ControladorTarefa():
       tarefa.peso = novos_dados_tarefa["peso"]
       tarefa.nota = novos_dados_tarefa["nota"]
       self.__tela_tarefa.mostra_mensagem("Tarefa alterada!")
-      self.listar_tarefas()
       return
 
 #-----------ABRE TELA---------------

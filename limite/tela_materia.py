@@ -26,7 +26,7 @@ class TelaMateria(TelaAbstrata):
             [sg.Exit('Retornar', font=fonte_texto, size=tamanho_texto, key=0)]
         ]
 
-        window = sg.Window('Tela Matéria', size=(tamanho_janela), element_justification="c", grab_anywhere=True, default_element_size=(40, 1)).Layout(layout)
+        window = sg.Window('Tela Matéria', size=tamanho_janela, element_justification="c", grab_anywhere=True, default_element_size=(40, 1)).Layout(layout)
         button, values = window.Read()
         window.close()
         return button 
@@ -36,13 +36,13 @@ class TelaMateria(TelaAbstrata):
         layout = [
             [sg.Text('Insira os dados')],
             [sg.Text('Nome', font=fonte_texto, size=tamanho_texto), sg.InputText('', key = 'nome')],
-            [sg.Text('Semestre (ex: 21.1)', font=fonte_texto, size=tamanho_texto), sg.InputText('', key = 'semestre')],
+            [sg.Text('Semestre (ex: 21.1)', font=fonte_texto, size=tamanho_texto), sg.InputText('Exemplo: 21.1', key = 'semestre')],
             [sg.Text('ID do professor responsável ', font=fonte_texto, size=tamanho_texto), sg.InputText('Se não houver, deixe em branco', key = 'professor')],
-            [sg.Text('Codigo', font=fonte_texto, size=tamanho_texto), sg.InputText('', key = 'codigo')],
-            [sg.Text('Horario', font=fonte_texto, size=tamanho_texto), sg.InputText('', key = 'horario')],
+            [sg.Text('Codigo', font=fonte_texto, size=tamanho_texto), sg.InputText('Exemplo: ine123', key = 'codigo')],
+            [sg.Text('Horario', font=fonte_texto, size=tamanho_texto), sg.InputText('00:00', key = 'horario')],
             [sg.Text('Link', font=fonte_texto, size=tamanho_texto), sg.InputText('', key = 'link')],
             [sg.Text('Classificacao', font=fonte_texto, size=tamanho_texto), sg.InputCombo(('Assincrona', 'Sincrona'),key = 'classificacao')],
-            [sg.Text('Criterio de presenca', font=fonte_texto, size=tamanho_texto), sg.InputText('',  key = 'criterio_de_presenca')],
+            [sg.Text('Criterio de presenca', font=fonte_texto, size=tamanho_texto), sg.InputText('Exemplo: chamada',  key = 'criterio_de_presenca')],
             [sg.Text('Numero de avaliacoes', font=fonte_texto, size=tamanho_texto), sg.Spin([i for i in range(0,101)], initial_value='selecione', key = 'numero_avaliacoes')],
             [sg.Text('Dia da semana', font=fonte_texto, size=tamanho_texto), sg.InputCombo(('Segunda', 'Terca', 'Quarta', 'Quinta', 'Sexta'), key = 'dia_da_semana')],
             [sg.Submit('Confirmar', font=fonte_texto, size=tamanho_texto), sg.Cancel('Cancelar e retornar', font=fonte_texto, size=tamanho_texto)]
@@ -57,7 +57,7 @@ class TelaMateria(TelaAbstrata):
     
     def mostra_dados(self, materia: Materia):
 
-        materia = [
+        materias = [
             [sg.Text('Nome: {}'.format(materia.nome), font=fonte_texto, size=tamanho_texto)],
             [sg.Text('Semestre: {}'.format(materia.semestre), font=fonte_texto, size=tamanho_texto)],
             [sg.Text('ID do professor: {}'.format(materia.professor), font=fonte_texto, size=tamanho_texto)],
@@ -72,31 +72,41 @@ class TelaMateria(TelaAbstrata):
         ]
 
         layout = [
-            [sg.Text('Listando matérias', font=fonte_texto, size=tamanho_texto)],
-            [materia],
+            [sg.Image(logo, size=(180, 180))],
+            [sg.Text('Listando matéria', font=fonte_texto, size=tamanho_texto)],
+            [materias],
             [sg.Text('')],
             [sg.Cancel('Retornar', font=fonte_texto, size=tamanho_texto)]
 
         ]
 
-        window = sg.Window('Lista de matérias', grab_anywhere=True).Layout(layout)
+        window = sg.Window('Lista de matérias', size=tamanho_janela, element_justification="c", grab_anywhere=True).Layout(layout)
         button, values = window.Read()
         window.close()
         return values
 
-    def selecionar_materia(self):
+    def selecionar_materia(self, materias: list):
+        materias = [
+            [sg.Listbox(values=materias, font=fonte_texto, size=(60, 8), key='materia')]
+        ]
 
         layout = [
-            [sg.Text('Insira o código da matéria que deseja selecionar', font=fonte_texto, size=tamanho_texto)],
-            [sg.Text('Código', font=fonte_texto, size=tamanho_texto), sg.InputText('', size=(15,1), key='codigo')],
+            [sg.Image(logo, size=(180, 180))],
+            [sg.Text('Selecione a Matéria', font=('Arial Rounded MT Bold', 10), size=(0, 1), text_color='white')],
+            [materias],
+            [sg.Text('')],
             [sg.Submit('Confirmar', font=fonte_texto, size=tamanho_texto), sg.Cancel('Cancelar e retornar', font=fonte_texto, size=tamanho_texto)]
         ]
 
-        window = sg.Window('Selecionar materias', grab_anywhere=True).Layout(layout)
-        button, codigo = window.Read()
-        codigo = codigo['codigo']#.upper()
+        window = sg.Window('Selecionar materias', size=tamanho_janela, element_justification="c", grab_anywhere=True).Layout(layout)
+        button, materia = window.Read()
+        print(materia)
+        print(materia['materia'])
         window.close()
-        return codigo
+        if button == 'Confirmar':
+            codigo = (materia['materia'][0].split())[1]
+            return codigo
+        return
     
     def mostra_mensagem(self, msg):
 
@@ -105,7 +115,7 @@ class TelaMateria(TelaAbstrata):
             [sg.Cancel('Ok', font=fonte_texto, size=tamanho_texto)]
         ]
 
-        window = sg.Window('Aviso!', size=(300,100), element_justification="c", grab_anywhere=True).Layout(layout)
+        window = sg.Window('Aviso!', size=(350,80), element_justification="c", grab_anywhere=True).Layout(layout)
         button, msg = window.Read()
         window.close()
         return msg
@@ -137,7 +147,37 @@ class TelaMateria(TelaAbstrata):
         semestre = semestre['semestre']
         window.close()
         return semestre
+    
+    def mostra_lista(self, materias: list):
+        tarefas = [
+            [sg.Listbox(values=materias, font=fonte_texto, size=(60, 8))],
+        ]
+
+        layout = [
+            [sg.Image(logo2, size=(180, 180))],
+            [sg.Text('Listando matéritas', font=('Arial Rounded MT Bold', 10), size=(0, 1), text_color='white')],
+            [tarefas],
+            [sg.Text('')],
+            [sg.Cancel('Retornar', font=fonte_texto, size=tamanho_texto)]
+        ]
+
+        window = sg.Window('Lista de materias', size=tamanho_janela, element_justification="c", grab_anywhere=True).Layout(layout)
+        button, values = window.Read()
+        window.close()
+        return values
 
     
         
+'''def selecionar_materia(self):
 
+        layout = [
+            [sg.Text('Insira o código da matéria que deseja selecionar', font=fonte_texto, size=tamanho_texto)],
+            [sg.Text('Código', font=fonte_texto, size=tamanho_texto), sg.InputText('', size=(15,1), key='codigo')],
+            [sg.Submit('Confirmar', font=fonte_texto, size=tamanho_texto), sg.Cancel('Cancelar e retornar', font=fonte_texto, size=tamanho_texto)]
+        ]
+
+        window = sg.Window('Selecionar materias', grab_anywhere=True).Layout(layout)
+        button, codigo = window.Read()
+        codigo = codigo['codigo']#.upper()
+        window.close()
+        return codigo'''
