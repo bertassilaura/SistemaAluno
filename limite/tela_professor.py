@@ -1,3 +1,5 @@
+from PySimpleGUI.PySimpleGUI import Window
+from entidade.professor import Professor
 from limite.tela_abstrata import TelaAbstrata
 import PySimpleGUI as sg
 from limite.temas import *
@@ -8,50 +10,105 @@ class TelaProfessor(TelaAbstrata):
 
     def tela_opcoes(self):
 
+        sg.theme(tema)
+
         layout = [
             [sg.Image(logo2, size=(110, 110))],
-            [sg.Text("Você está na página professor!", font=fonte_titulo, size=(0, 1))],
-            [sg.Text("O que deseja fazer?", font=fonte_titulo, size=(0, 1))],
+            [sg.Text("Você está na página professor!", font=fonte_titulo, size=(0, 1), background_color=fundo_titulo, text_color=cor_titulo)],
+            [sg.Text("O que deseja fazer?", font=fonte_titulo, size=(0, 1), background_color=fundo_titulo, text_color=cor_titulo)],
             [sg.Text("")],
-            [sg.Button("Adicionar Professor", font=fonte_texto, size=tamanho_texto)],
-            [sg.Button("Excluir Professor", font=fonte_texto, size=tamanho_texto)],
-            [sg.Button("Listar professores", font=fonte_texto, size=tamanho_texto)],
-            [sg.Button("Alterar Professor", font=fonte_texto, size=tamanho_texto)],
-            [sg.Button("Retornar", font=fonte_texto, size=tamanho_texto)]
+            [sg.Button("Adicionar Professor", font=fonte_texto, size=tamanho_texto, key=1)],
+            [sg.Button("Excluir Professor", font=fonte_texto, size=tamanho_texto, key=2)],
+            [sg.Button("Listar professores", font=fonte_texto, size=tamanho_texto, key=3)],
+            [sg.Button("Alterar Professor", font=fonte_texto, size=tamanho_texto, key=4)],
+            [sg.Button("Retornar", font=fonte_texto, size=tamanho_texto, key=0)]
         ]
         
-        window = sg.Window("Aluno", size=tamanho_janela, element_justification="c", grab_anywhere=True, default_element_size=(40 , 1)).Layout(layout)
+        window = sg.Window("Professor", size=tamanho_janela, element_justification="c", grab_anywhere=True, default_element_size=(40 , 1)).Layout(layout)
         
-        button = window.read()
-        valor_selecionado = {"Adicionar Professor": 1, "Excluir Professor": 2, "Listar professores": 3, "Alterar Professor": 4, "Retornar": 0}
+        button, values = window.Read()
         window.close()
-        return valor_selecionado[button[0]]
+        return button
         
     def pega_dados(self):
+        
+        sg.theme(tema)
 
         layout = [
-            [sg.Text("Adicionar Professor:")],
-            [sg.Text("Nome:"), sg.InputText()],
-            [sg.Text("Email:"), sg.InputText()],
-            [sg.Text("Telefone:"), sg.InputText()],
-            [sg.Submit("Confirmar"), sg.Cancel("Retornar")]
+            [sg.Image(logo2, size=(110, 110))],
+            [sg.Text("Pegando dados do professor:", font=fonte_titulo, size=(0, 1), background_color=fundo_titulo, text_color=cor_titulo)],
+            [sg.Text("")],
+            [sg.Text("Nome:", font=fonte_texto, size=tamanho_texto), sg.InputText(key="nome")],
+            [sg.Text("Email:", font=fonte_texto, size=tamanho_texto), sg.InputText(key="email")],
+            [sg.Text("Telefone:", font=fonte_texto, size=tamanho_texto), sg.InputText(key="telefone")],
+            [sg.Text("")],
+            [sg.Submit("Confirmar", font=fonte_texto, size=tamanho_texto), sg.Cancel("Retornar")]
         ]
 
-        window = sg.Window("Aluno", default_element_size=(40 , 1)).Layout(layout)
+        window = sg.Window("Professor", size=tamanho_janela, element_justification="c", default_element_size=(40 , 1)).Layout(layout)
         
-        valores = window.read()
-        valor_selecionado = valores[0]
-        input_user = valores[1][0].strip()
-
+        button, dados_professor = window.read()
         window.close()
-        if valor_selecionado == "Confirmar" and input_user != "":
-            return input_user
+        if button == "Confirmar":
+            return dados_professor
+    
+    def mostra_dados(self, professor: Professor):
+        
+        professores = [
+            [sg.Text("Dados do professor:", font=fonte_titulo, size=(0, 1), background_color=fundo_titulo, text_color=cor_titulo)],
+            [sg.Text("")],
+            [sg.Text(f"ID: {professor.id_professor}", font=fonte_texto, size=tamanho_texto)],
+            [sg.Text(f"Nome: {professor.nome}", font=fonte_texto, size=tamanho_texto)],
+            [sg.Text(f"Email: {professor.email}", font=fonte_texto, size=tamanho_texto)],
+            [sg.Text(f"Telefone: {professor.telefone}", font=fonte_texto, size=tamanho_texto)],
+            [sg.Text("")],
+        ]
+
+        layout = [
+            [sg.Image(logo2, size=(110, 110))],
+            [professores],
+            [sg.Text("")],
+            [sg.Cancel("Retornar", font=fonte_texto, size=tamanho_texto)]
+        ]
+
+        window = sg.Window("Professor", size=tamanho_janela, element_justification="c", default_element_size=(40 , 1)).Layout(layout)
+        
+        button, values = window.read()
+        window.close()
+        if button == "Confirmar":
+            return values
 
     def mostra_mensagem(self, msg):
-        print(msg)
+        sg.theme(tema)
+        layout = [
+            [sg.Text(msg, font=fonte_texto, size=tamanho_fonte_aviso)],
+            [sg.Cancel("Ok", font=fonte_texto, size=tamanho_texto)]
+        ]
 
-    def abre(self):
-        pass
+        window = sg.Window('Aviso!', size=tamanho_aviso, element_justification="c", grab_anywhere=True).Layout(layout)
+        button, msg = window.Read()
+        window.close()
+        return msg
 
-    def fecha(self):
-        pass
+    def seleciona_professor(self, professores):
+
+        professores = [
+            [sg.Listbox(values=professores, font=fonte_texto, size=tamanho_texto, key="professor")]
+        ]
+        
+        layout = [
+            [sg.Image(logo2, size=(180, 180))],
+            [sg.Text("Selecione o professor:", font=fonte_titulo, size=(0, 1), background_color=fundo_titulo, text_color=cor_titulo)],
+            [sg.Text("")],
+            [professores],
+            [sg.Text("")],
+            [sg.Submit("Confirmar", font=fonte_texto, size=tamanho_texto), sg.Cancel("Retornar", font=fonte_texto, size=tamanho_texto)]
+        ]
+
+        window = sg.Window('Selecionar Professor', size=tamanho_janela, element_justification="c", grab_anywhere=True).Layout(layout)
+        button, professor = window.read()
+        window.close()
+        if button == 'Confirmar':
+            id = int((professor['professor'][0].split())[1])
+            return id
+        return

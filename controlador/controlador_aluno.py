@@ -12,13 +12,11 @@ class ControladorAluno():
     def criar_aluno(self):
         if self.__aluno != None:
             self.__tela_aluno.mostra_mensagem("Você já possui um cadastro!")
-            print("\n")
             return
         
         dados_aluno = self.__tela_aluno.pega_dados()
         self.__aluno = Aluno(dados_aluno["nome"], dados_aluno["email"], dados_aluno["matricula"])
-        self.__tela_aluno.mostra_mensagem("Seu cadastro foi criado!")
-        print("\n")
+        self.__tela_aluno.mostra_mensagem("Cadastrado com sucesso!")
 
     #altera o aluno
     def alterar_aluno(self):
@@ -30,8 +28,7 @@ class ControladorAluno():
             aluno.email = novos_dados_aluno["email"]
             aluno.matricula = novos_dados_aluno["matricula"]
             self.__tela_aluno.mostra_mensagem("Aluno alterado!")
-            print("\n")
-
+            
     #mostra os dados do aluno
     def mostra_aluno(self):
         return self.__tela_aluno.mostra_dados({"nome": self.__aluno.nome, "email": self.__aluno.email, "matricula": self.__aluno.matricula})
@@ -40,7 +37,7 @@ class ControladorAluno():
         self.__controlador_sistema.abre_tela()
 
     def abre_tela(self):
-        lista_opcoes = {1: self.criar_aluno, 2: self.mostra_aluno, 3: self.alterar_aluno, 0: self.retornar}
+        lista_opcoes = {0: self.retornar, 1: self.criar_aluno, 2: self.mostra_aluno, 3: self.alterar_aluno}
 
         continua = True
         while continua:

@@ -10,7 +10,8 @@ class TelaSistema(TelaAbstrata):
 
         layout = [
             [sg.Image(logo, size=(180, 180))],
-            [sg.Text("Escolha uma opção: ", font=fonte_titulo, size=(0,1))],
+            [sg.Text("Bem-vindo(a)! :)", font=fonte_titulo, size=(0,1), text_color=cor_titulo, background_color=fundo_titulo)],
+            [sg.Text("Para onde você quer ir?", font=fonte_titulo, size=(0,1), text_color=cor_titulo, background_color=fundo_titulo)],
             [sg.Text("")],
             [sg.Button("Aluno", font=fonte_texto, size=tamanho_texto)],
             [sg.Button("Professores", font=fonte_texto, size=tamanho_texto)],
@@ -26,12 +27,6 @@ class TelaSistema(TelaAbstrata):
         window.close()
         return valor_selecionado[button[0]]
 
-
-    def abre(self):
-        pass
-    
-    def fecha(self):
-        pass
 
     def mostra_mensagem(self):
         pass

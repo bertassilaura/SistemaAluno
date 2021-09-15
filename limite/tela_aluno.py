@@ -1,3 +1,4 @@
+from entidade.aluno import Aluno
 from limite.tela_abstrata import TelaAbstrata
 import PySimpleGUI as sg
 from limite.temas import *
@@ -10,50 +11,69 @@ class TelaAluno(TelaAbstrata):
 
         layout = [
             [sg.Image(logo2, size=(110, 110))],
-            [sg.Text("Você está na página aluno!", font=fonte_titulo, size=(0, 1))],
-            [sg.Text("O que deseja fazer?", font=fonte_titulo, size=(0, 1))],
+            [sg.Text("Você está na página aluno!", font=fonte_titulo, size=(0, 1), text_color=cor_titulo, background_color=fundo_titulo)],
+            [sg.Text("O que deseja fazer?", font=fonte_titulo, size=(0, 1), text_color=cor_titulo, background_color=fundo_titulo)],
             [sg.Text("")],
-            [sg.Button("Criar meu cadastro", font=fonte_texto, size=tamanho_texto)],
-            [sg.Button("Mostrar meus dados", font=fonte_texto, size=tamanho_texto)],
-            [sg.Button("Alterar meus dados", font=fonte_texto, size=tamanho_texto)],
-            [sg.Button("Retornar", font=fonte_texto, size=tamanho_texto)]
+            [sg.Button("Criar meu cadastro", font=fonte_texto, size=tamanho_texto, key=1)],
+            [sg.Button("Mostrar meus dados", font=fonte_texto, size=tamanho_texto, key=2)],
+            [sg.Button("Alterar meus dados", font=fonte_texto, size=tamanho_texto, key=3)],
+            [sg.Button("Retornar", font=fonte_texto, size=tamanho_texto, key=0)]
         ]
         
         window = sg.Window("Aluno", size=tamanho_janela, element_justification="c", grab_anywhere=True, default_element_size=(40 , 1)).Layout(layout)
         
-        button = window.read()
-        valor_selecionado = {"Criar meu cadastro": 1, "Mostrar meus dados": 2, "Alterar meus dados": 3, "Retornar": 0}
+        button, values = window.Read()
         window.close()
-        return valor_selecionado[button[0]]
+        return button
         
     def pega_dados(self):
 
         layout = [
-            [sg.Text("Criar Cadastro:")],
-            [sg.Text("Nome:"), sg.InputText()],
-            [sg.Text("Email:"), sg.InputText()],
-            [sg.Text("Matrícula:"), sg.InputText()],
-            [sg.Submit("Confirmar"), sg.Cancel("Retornar")]
+            [sg.Image(logo2, size=(110, 110))],
+            [sg.Text("Recebendo seus dados:", font=fonte_titulo, size=(0, 1), text_color=cor_titulo, background_color=fundo_titulo)],
+            [sg.Text("")],
+            [sg.Text("Nome:", font=fonte_texto, size=tamanho_texto), sg.InputText(key="nome")],
+            [sg.Text("Email:", font=fonte_texto, size=tamanho_texto), sg.InputText(key="email")],
+            [sg.Text("Matrícula:", font=fonte_texto, size=tamanho_texto), sg.InputText(key="matricula")],
+            [sg.Text("")],
+            [sg.Submit("Confirmar", font=fonte_texto, size=tamanho_texto), sg.Cancel("Retornar", font=fonte_texto, size=tamanho_texto)]
         ]
 
-        window = sg.Window("Aluno", default_element_size=(40 , 1)).Layout(layout)
+        window = sg.Window("Aluno", size=(350,350) , element_justification="c", grab_anywhere=True, default_element_size=(40 , 1)).Layout(layout)
         
-        valores = window.read()
-        valor_selecionado = valores[0]
-        input_user = valores[1][0].strip()
+        button, dados_aluno = window.Read()
+        window.Close()
+        if button == "Confirmar":
+            return dados_aluno
 
+    def mostra_dados(self, dados_aluno):
+
+        layout = [
+            [sg.Image(logo2, size=(110, 110))],
+            [sg.Text('Seus dados:', font=fonte_titulo, size=(0, 1), background_color=fundo_titulo, text_color=cor_titulo)],
+            [sg.Text('')],
+            [sg.Text(f"Nome: {dados_aluno['nome']}")],
+            [sg.Text(f"Email: {dados_aluno['email']}")],
+            [sg.Text(f"Matrícula: {dados_aluno['matricula']}")],
+            [sg.Text("")],
+            [sg.Cancel('Retornar', font=fonte_texto, size=tamanho_texto)]
+        ]
+
+        window = sg.Window('Dados aluno', element_justification="c", size=tamanho_janela, grab_anywhere=True).Layout(layout)
+        button, values = window.Read()
         window.close()
-        if valor_selecionado == "Confirmar" and input_user != "":
-            return input_user
-
-    def mostra_dados(self):
-        pass 
+        return values
 
     def mostra_mensagem(self, msg):
-        print(msg)
-    
-    def abre(self):
-        pass
+        sg.theme(tema)
+        layout = [
+            [sg.Text(msg, font=fonte_texto, size=tamanho_fonte_aviso, justification="c")],
+            [sg.Cancel("Ok", font=fonte_texto, size=tamanho_texto)]
+        ]
 
-    def fecha(self):
-        pass
+        window = sg.Window('Aviso!', size=tamanho_aviso, element_justification="c", grab_anywhere=True).Layout(layout)
+        button, msg = window.Read()
+        window.close()
+        return msg
+    
+  

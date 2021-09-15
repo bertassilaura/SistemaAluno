@@ -1,8 +1,12 @@
 tema = "BlueMono"
-cor = "yellow"
 logo = "./imagens/logo.png"
 logo2 = "./imagens/logo2.png"
-fonte_texto = ("Sans-Serif", 10)
+fonte_texto = ("tahoma", 10)
 tamanho_texto= (20, 1)
-fonte_titulo = ("Sans-Serif", 15)
+fonte_titulo = ("tahoma", 12)
 tamanho_janela = (450, 480)
+tamanho_aviso = (200, 100)
+tamanho_fonte_aviso = (20, 2)
+fundo_listas = "white"
+cor_titulo = "white"
+fundo_titulo = "#8360C3"
