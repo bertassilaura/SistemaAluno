@@ -26,7 +26,7 @@ class TelaProfessor(TelaAbstrata):
         
         window = sg.Window("Professor", size=tamanho_janela, element_justification="c", grab_anywhere=True, default_element_size=(40 , 1)).Layout(layout)
         
-        button, values = window.Read()
+        button, values = window.read()
         window.close()
         return button
         
@@ -86,7 +86,7 @@ class TelaProfessor(TelaAbstrata):
         ]
 
         window = sg.Window('Aviso!', size=tamanho_aviso, element_justification="c", grab_anywhere=True).Layout(layout)
-        button, msg = window.Read()
+        button, msg = window.read()
         window.close()
         return msg
 

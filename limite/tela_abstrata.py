@@ -6,5 +6,16 @@ class TelaAbstrata(ABC):
     def mostra_mensagem():
         pass
 
+    @abstractmethod
+    def tela_opcoes():
+        pass
+
+    @abstractmethod
+    def pega_dados():
+        pass
+
+    @abstractmethod
+    def mostra_dados():
+        pass
 
 

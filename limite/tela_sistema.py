@@ -31,3 +31,10 @@ class TelaSistema(TelaAbstrata):
     def mostra_mensagem(self):
         pass
 
+    def mostra_dados(self):
+        pass
+
+    def pega_dados(self):
+        pass
+    
+    

@@ -22,7 +22,7 @@ class TelaAluno(TelaAbstrata):
         
         window = sg.Window("Aluno", size=tamanho_janela, element_justification="c", grab_anywhere=True, default_element_size=(40 , 1)).Layout(layout)
         
-        button, values = window.Read()
+        button, values = window.read()
         window.close()
         return button
         
@@ -41,8 +41,8 @@ class TelaAluno(TelaAbstrata):
 
         window = sg.Window("Aluno", size=(350,350) , element_justification="c", grab_anywhere=True, default_element_size=(40 , 1)).Layout(layout)
         
-        button, dados_aluno = window.Read()
-        window.Close()
+        button, dados_aluno = window.read()
+        window.close()
         if button == "Confirmar":
             return dados_aluno
 
@@ -60,7 +60,7 @@ class TelaAluno(TelaAbstrata):
         ]
 
         window = sg.Window('Dados aluno', element_justification="c", size=tamanho_janela, grab_anywhere=True).Layout(layout)
-        button, values = window.Read()
+        button, values = window.read()
         window.close()
         return values
 
@@ -72,7 +72,7 @@ class TelaAluno(TelaAbstrata):
         ]
 
         window = sg.Window('Aviso!', size=tamanho_aviso, element_justification="c", grab_anywhere=True).Layout(layout)
-        button, msg = window.Read()
+        button, msg = window.read()
         window.close()
         return msg
     
