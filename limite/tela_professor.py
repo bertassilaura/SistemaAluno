@@ -21,7 +21,7 @@ class TelaProfessor(TelaAbstrata):
             [sg.Button("Excluir Professor", font=fonte_texto, size=tamanho_texto, key=2)],
             [sg.Button("Listar professores", font=fonte_texto, size=tamanho_texto, key=3)],
             [sg.Button("Alterar Professor", font=fonte_texto, size=tamanho_texto, key=4)],
-            [sg.Button("Retornar", font=fonte_texto, size=tamanho_texto, key=0)]
+            [sg.Button("Retornar", font=fonte_texto, size=tamanho_texto, key=5)]
         ]
         
         window = sg.Window("Professor", size=tamanho_janela, element_justification="c", grab_anywhere=True, default_element_size=(40 , 1)).Layout(layout)
@@ -42,7 +42,7 @@ class TelaProfessor(TelaAbstrata):
             [sg.Text("Email:", font=fonte_texto, size=tamanho_texto), sg.InputText(key="email")],
             [sg.Text("Telefone:", font=fonte_texto, size=tamanho_texto), sg.InputText(key="telefone")],
             [sg.Text("")],
-            [sg.Submit("Confirmar", font=fonte_texto, size=tamanho_texto), sg.Cancel("Retornar")]
+            [sg.Submit("Confirmar", font=fonte_texto, size=tamanho_texto), sg.Cancel("Retornar", font=fonte_texto, size=tamanho_texto)]
         ]
 
         window = sg.Window("Professor", size=tamanho_janela, element_justification="c", default_element_size=(40 , 1)).Layout(layout)
@@ -61,7 +61,7 @@ class TelaProfessor(TelaAbstrata):
             [sg.Text(f"Nome: {professor.nome}", font=fonte_texto, size=tamanho_texto)],
             [sg.Text(f"Email: {professor.email}", font=fonte_texto, size=tamanho_texto)],
             [sg.Text(f"Telefone: {professor.telefone}", font=fonte_texto, size=tamanho_texto)],
-            [sg.Text("")],
+            [sg.Text("")]
         ]
 
         layout = [

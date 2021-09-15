@@ -17,7 +17,7 @@ class TelaAluno(TelaAbstrata):
             [sg.Button("Criar meu cadastro", font=fonte_texto, size=tamanho_texto, key=1)],
             [sg.Button("Mostrar meus dados", font=fonte_texto, size=tamanho_texto, key=2)],
             [sg.Button("Alterar meus dados", font=fonte_texto, size=tamanho_texto, key=3)],
-            [sg.Button("Retornar", font=fonte_texto, size=tamanho_texto, key=0)]
+            [sg.Button("Retornar", font=fonte_texto, size=tamanho_texto, key=4)]
         ]
         
         window = sg.Window("Aluno", size=tamanho_janela, element_justification="c", grab_anywhere=True, default_element_size=(40 , 1)).Layout(layout)
@@ -52,9 +52,9 @@ class TelaAluno(TelaAbstrata):
             [sg.Image(logo2, size=(110, 110))],
             [sg.Text('Seus dados:', font=fonte_titulo, size=(0, 1), background_color=fundo_titulo, text_color=cor_titulo)],
             [sg.Text('')],
-            [sg.Text(f"Nome: {dados_aluno['nome']}")],
-            [sg.Text(f"Email: {dados_aluno['email']}")],
-            [sg.Text(f"Matrícula: {dados_aluno['matricula']}")],
+            [sg.Text(f"Nome: {dados_aluno['nome']}", font=fonte_texto, size=tamanho_texto, justification="c")],
+            [sg.Text(f"Email: {dados_aluno['email']}", font=fonte_texto, size=tamanho_texto, justification="c")],
+            [sg.Text(f"Matrícula: {dados_aluno['matricula']}", font=fonte_texto, size=tamanho_texto, justification="c")],
             [sg.Text("")],
             [sg.Cancel('Retornar', font=fonte_texto, size=tamanho_texto)]
         ]

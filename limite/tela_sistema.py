@@ -23,7 +23,7 @@ class TelaSistema(TelaAbstrata):
         window = sg.Window("Início", size=(tamanho_janela), element_justification="c", grab_anywhere=True, default_element_size=(40 , 1)).Layout(layout)
         
         button = window.read()
-        valor_selecionado = {"Aluno": 1, "Professores": 2, "Matéria": 3, "Tarefa": 4, "Encerrar Sistema": 0}
+        valor_selecionado = {"Aluno": 1, "Professores": 2, "Matéria": 3, "Tarefa": 4, "Encerrar Sistema": 5}
         window.close()
         return valor_selecionado[button[0]]
 
