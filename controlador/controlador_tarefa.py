@@ -82,7 +82,6 @@ class ControladorTarefa():
     for tarefa in self.__lista_tarefas:
       if tarefa.id_tarefa == id:
         return tarefa
-      return None
 
 #-----------RETORNA DADOS ID E NOME DAS TAREFAS---------------
   def dados_lista_tarefas(self):
