@@ -81,7 +81,7 @@ class TelaProfessor(TelaAbstrata):
     def mostra_mensagem(self, msg):
         sg.theme(tema)
         layout = [
-            [sg.Text(msg, font=fonte_texto, size=tamanho_fonte_aviso)],
+            [sg.Text(msg, font=fonte_texto, size=tamanho_fonte_aviso, justification="c")],
             [sg.Cancel("Ok", font=fonte_texto, size=tamanho_texto)]
         ]
 

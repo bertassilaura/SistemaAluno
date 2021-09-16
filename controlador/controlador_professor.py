@@ -1,12 +1,14 @@
+from persistencia.professorDAO import ProfessorDAO
 from limite.tela_professor import TelaProfessor
 from entidade.professor import Professor
 
 class ControladorProfessor(): 
 
     def __init__(self, controlador_sistema):
-        self.__lista_de_professores = []
         self.__tela_professor = TelaProfessor()
         self.__controlador_sistema = controlador_sistema
+        self.__professores_dao = ProfessorDAO()
+        self.__lista_de_professores = self.__professores_dao.get_all()
 
     #cadastrar um professor
     def adicionar_professor(self):
@@ -19,7 +21,7 @@ class ControladorProfessor():
                 return
 
         professor = Professor(dados_professor["nome"], dados_professor["email"], dados_professor["telefone"])
-        self.__lista_de_professores.append(professor)
+        self.__professores_dao.add(professor)
        
     
     #listar professores e seus atributos
@@ -92,7 +94,7 @@ class ControladorProfessor():
         professor = self.pega_professor_por_id(id)
 
         if(professor is not None):
-            self.__lista_de_professores.remove(professor)
+            self.__professores_dao.remove(professor)
             self.__tela_professor.mostra_mensagem("Professor excluído!")
             return
             
