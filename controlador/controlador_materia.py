@@ -19,8 +19,15 @@ class ContorladorMateria():
                 if materia.codigo == dados_materia["codigo"]:
                     self.__tela_materia.mostra_mensagem("Uma matéria com esse código já existe!")
                     return
+            if dados_materia["professor"] == "":
+                professor = None
+            else: 
+                professor = self.__controlador_sistema.controlador_professor.pega_professor_por_id(dados_materia["professor"])
+                if professor == None:
+                    self.__tela_materia.mostra_mensagem("Professor não existente\nCriando matéria sem professor")
+                else:
+                    professor = professor.nome
 
-            professor = self.__controlador_sistema.controlador_professor.pega_professor_por_id(dados_materia["professor"])
             materia = Materia(dados_materia['nome'], dados_materia['semestre'], dados_materia["codigo"], dados_materia['dia_da_semana'], dados_materia['horario'], dados_materia['link'], dados_materia['classificacao'], dados_materia['criterio_de_presenca'], dados_materia['numero_avaliacoes'], professor)
             self.__tela_materia.mostra_mensagem("Matéria adicionada! :)")
             self.__lista_materias.append(materia)
@@ -73,9 +80,10 @@ class ContorladorMateria():
                 if materia.semestre == qual_semestre:
                     existe = 1
                     lista += [[f'Código: {materia.codigo} Nome: {materia.nome} Semestre: {materia.semestre}']]
-            self.__tela_materia.mostra_lista(lista)
-            if existe == 0:
-                self.__tela_materia.mostra_mensagem("Não foi encontrada nenhuma matéria nesse semestre.")
+            if existe == 1:
+                self.__tela_materia.mostra_lista(lista)
+            else:
+                self.__tela_materia.mostra_mensagem("Nenhuma matéria nesse semestre.")
 
 #-----------LISTA MATERIAS POR DIA DA SEMANA--------------- 
     def listar_por_dia_da_semana(self):
@@ -89,9 +97,10 @@ class ContorladorMateria():
                 if materia.dia_da_semana == qual_dia:
                     existe = 1
                     lista += [[f'Código: {materia.codigo} Nome: {materia.nome} Dia da semana: {materia.dia_da_semana}']]
-            self.__tela_materia.mostra_lista(lista)
-            if existe == 0:
-                self.__tela_materia.mostra_mensagem("Não foi encontrada nenhuma matéria nesse dia.")
+            if existe == 1:
+                self.__tela_materia.mostra_lista(lista)
+            else:
+                self.__tela_materia.mostra_mensagem("Nenhuma matéria nesse dia.")
 
 #-----------CALCULA MEDIA FINAL DE UMA MATERIA---------------    
     def calcular_media_final(self): 
@@ -100,6 +109,7 @@ class ContorladorMateria():
         else:
             nota_total = 0
             peso_total = 0
+            
             codigo_materia = self.__tela_materia.selecionar_materia(self.dados_lista_materias())
             materia = self.pega_materia_por_codigo(codigo_materia)
 
@@ -107,15 +117,15 @@ class ContorladorMateria():
                 self.__tela_materia.mostra_mensagem("Não existe matéria com esse código!")
                 return
             
-            tarefas_materia = self.__controlador_sistema.controlador_tarefa.pegar_por_materia(materia)
+            tarefas_materia = self.__controlador_sistema.controlador_tarefa.pegar_por_materia(codigo_materia)
 
             if tarefas_materia == None:
                 self.__tela_materia.mostra_mensagem("Não existem tarefas dessa matéria")
                 return
 
             for tarefa in tarefas_materia:
-                nota_total += tarefa.nota * tarefa.peso
-                peso_total += tarefa.peso
+                nota_total += float(tarefa.nota) * float(tarefa.peso)
+                peso_total += float(tarefa.peso)
 
             media_final = nota_total / peso_total
             self.__tela_materia.mostra_mensagem(f"Sua nota final na matéria desejada é {media_final:.2f}")
@@ -131,17 +141,19 @@ class ContorladorMateria():
 
             if(materia is not None):
                 novos_dados_materia = self.__tela_materia.pega_dados()
-                materia.nome = novos_dados_materia["nome"]
-                materia.semestre = novos_dados_materia["semestre"]
-                materia.professor = novos_dados_materia["professor"]
-                materia.codigo = novos_dados_materia["codigo"]
-                materia.dia_da_semana = novos_dados_materia["dia_da_semana"]
-                materia.horario = novos_dados_materia["horario"]
-                materia.link = novos_dados_materia["link"]
-                materia.classificacao = novos_dados_materia["classificacao"]
-                materia.criterio_de_presenca = novos_dados_materia["criterio_de_presenca"]
-                materia.numero_avaliacoes = novos_dados_materia["numero_avaliacoes"]
-                self.__tela_materia.mostra_mensagem("Matéria alterada!")
+                if novos_dados_materia != None:
+                    materia.nome = novos_dados_materia["nome"]
+                    materia.semestre = novos_dados_materia["semestre"]
+                    materia.professor = novos_dados_materia["professor"]
+                    materia.codigo = novos_dados_materia["codigo"]
+                    materia.dia_da_semana = novos_dados_materia["dia_da_semana"]
+                    materia.horario = novos_dados_materia["horario"]
+                    materia.link = novos_dados_materia["link"]
+                    materia.classificacao = novos_dados_materia["classificacao"]
+                    materia.criterio_de_presenca = novos_dados_materia["criterio_de_presenca"]
+                    materia.numero_avaliacoes = novos_dados_materia["numero_avaliacoes"]
+                    self.__tela_materia.mostra_mensagem("Matéria alterada!")
+                    return
                 return
 
 #-----------RETORNA---------------
@@ -150,7 +162,7 @@ class ContorladorMateria():
 
 #-----------ABRE TELA---------------
     def abre_tela(self):
-        lista_opcoes = {1: self.adicionar_materia, 2: self.excluir_materia, 3: self.listar_por_semestre, 4: self.calcular_media_final, 5: self.listar_materias, 6: self.alterar_materia, 7: self.listar_por_dia_da_semana, 0: self.retornar}
+        lista_opcoes = {1: self.adicionar_materia, 2: self.excluir_materia, 3: self.listar_por_semestre, 4: self.calcular_media_final, 5: self.listar_materias, 6: self.alterar_materia, 7: self.listar_por_dia_da_semana, 8: self.retornar}
 
         continua =True
         while continua:

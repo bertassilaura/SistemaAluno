@@ -11,7 +11,7 @@ class ControladorTarefa():
 #-----------ADICIONA UMA TAREFA---------------
   def adicionar_tarefa(self):
     dados_tarefa = self.__tela_tarefa.pega_dados()
-    if (dados_tarefa == None) or (self.trata_recebimento_nota(dados_tarefa) == None):
+    if (dados_tarefa == None) or (self.trata_recebimento_nota(dados_tarefa) == None) or (self.trata_recebimento_peso(dados_tarefa) == None):
       return
 
     else:
@@ -30,10 +30,11 @@ class ControladorTarefa():
       if dados_tarefa["materia_correspondente"] == "":
           materia_correspondente = None
       else: 
-          materia_correspondente = self.__controlador_sistema.controlador_materia.pega_materia_por_codigo(dados_tarefa["materia_correspondente"].upper())
-
+          materia_correspondente = self.__controlador_sistema.controlador_materia.pega_materia_por_codigo(dados_tarefa["materia_correspondente"])
           if materia_correspondente == None:
-            self.__tela_tarefa.mostra_mensagem("Código não existente\nCriando Tarefa sem Matéria, se necessário, altere a Tarefa")
+            self.__tela_tarefa.mostra_mensagem("Código não existente\nCriando Tarefa sem Matéria")
+          else:
+            materia_correspondente = materia_correspondente.codigo
       
       tarefa = Tarefa(dados_tarefa["nome_tarefa"], dados_tarefa["data_prazo"], dados_tarefa["horario_prazo"], dados_tarefa["descricao"], dados_tarefa["status_realizado"], materia_correspondente, dados_tarefa["peso"], dados_tarefa["nota"])
       self.__lista_tarefas.append(tarefa)
@@ -44,13 +45,25 @@ class ControladorTarefa():
     try:
       nota = dados_tarefa['nota']
       nota = float(nota)
-      if type(nota) != float:
+      if (type(nota) != float):
         raise ValueError
       return nota
     except ValueError:
       self.__tela_tarefa.mostra_mensagem("Valor de nota inválido: Insira uma valor numérico, inteiro ou decimal !!")
-    if type(nota) == float:
+    if (type(nota) == float):
       return nota
+#-----------TRATA RECEBIMENTO PESO--------------
+  def trata_recebimento_peso(self, dados_tarefa: dict):
+    try:
+      peso = dados_tarefa['peso']
+      peso = float(peso)
+      if (type(peso) != float):
+        raise ValueError
+      return peso
+    except ValueError:
+      self.__tela_tarefa.mostra_mensagem("Valor de peso inválido: Insira uma valor numérico, inteiro ou decimal !!")
+    if (type(peso) == float):
+      return peso
 
 #-----------LISTA TODAS AS TAREFAS--------------
   def listar_tarefas(self):
@@ -101,7 +114,7 @@ class ControladorTarefa():
       for tarefa in self.__lista_tarefas:
         if tarefa.status_realizado == True:
           lista += [[f'ID: {tarefa.id_tarefa} Nome: {tarefa.nome_tarefa}']]
-      self.__tela_tarefa.mostra_lista(lista) #printando como dicionario
+      self.__tela_tarefa.mostra_lista(lista)
 
 #-----------LISTA TAREFAS NÃO FEITAS---------------
   def listar_a_fazer(self):
@@ -112,7 +125,7 @@ class ControladorTarefa():
       for tarefa in self.__lista_tarefas:
         if tarefa.status_realizado == False:
           lista += [[f'ID: {tarefa.id_tarefa} Nome: {tarefa.nome_tarefa}']]
-      self.__tela_tarefa.mostra_lista(lista) #printando como dicionario
+      self.__tela_tarefa.mostra_lista(lista)
 
 #-----------PEGA TAREFAS POR MATERIA---------------
   def pegar_por_materia(self, materia):
@@ -123,7 +136,7 @@ class ControladorTarefa():
     lista_tarefa_da_materia = []
     vazio = 1
     for tarefa in self.__lista_tarefas:
-      if tarefa.materia_correspondente.codigo == materia:
+      if tarefa.materia_correspondente == materia:
         vazio = 0
         lista_tarefa_da_materia.append(tarefa)
     if vazio == 1:
@@ -142,25 +155,27 @@ class ControladorTarefa():
 
     if(tarefa is not None):
       novos_dados_tarefa = self.__tela_tarefa.pega_dados()
-      tarefa.nome_tarefa = novos_dados_tarefa["nome_tarefa"]
-      tarefa.data_prazo = novos_dados_tarefa["data_prazo"]
-      tarefa.horario_prazo = novos_dados_tarefa["horario_prazo"]
-      tarefa.descricao = novos_dados_tarefa["descricao"]
-      tarefa.materia_correspondente = novos_dados_tarefa["materia_correspondente"]
+      if novos_dados_tarefa != None:
+        tarefa.nome_tarefa = novos_dados_tarefa["nome_tarefa"]
+        tarefa.data_prazo = novos_dados_tarefa["data_prazo"]
+        tarefa.horario_prazo = novos_dados_tarefa["horario_prazo"]
+        tarefa.descricao = novos_dados_tarefa["descricao"]
+        tarefa.materia_correspondente = novos_dados_tarefa["materia_correspondente"]
 
-      if novos_dados_tarefa["status_realizado"] == "sim":
-        tarefa.status_realizado = True
-      else:
-        tarefa.status_realizado = False
+        if novos_dados_tarefa["status_realizado"] == "sim":
+          tarefa.status_realizado = True
+        else:
+          tarefa.status_realizado = False
 
-      tarefa.peso = novos_dados_tarefa["peso"]
-      tarefa.nota = novos_dados_tarefa["nota"]
-      self.__tela_tarefa.mostra_mensagem("Tarefa alterada!")
+        tarefa.peso = novos_dados_tarefa["peso"]
+        tarefa.nota = novos_dados_tarefa["nota"]
+        self.__tela_tarefa.mostra_mensagem("Tarefa alterada!")
+        return
       return
 
 #-----------ABRE TELA---------------
   def abre_tela(self):
-    lista_opcoes = {1: self.adicionar_tarefa, 2: self.excluir_tarefa, 3: self.listar_tarefas, 4: self.listar_feito, 5: self.listar_a_fazer, 6: self.alterar_tarefa, 0: self.retornar}
+    lista_opcoes = {1: self.adicionar_tarefa, 2: self.excluir_tarefa, 3: self.listar_tarefas, 4: self.listar_feito, 5: self.listar_a_fazer, 6: self.alterar_tarefa, 7: self.retornar}
     
     continua = True
     while continua:
