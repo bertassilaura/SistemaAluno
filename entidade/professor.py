@@ -2,14 +2,12 @@ from entidade.pessoa import Pessoa
 
 class Professor(Pessoa):
 
-    id = 0
-
-    def __init__(self, nome: str, email: str, telefone: str):
+    def __init__(self, nome: str, email: str, telefone: str, id_professor: int):
         super().__init__(nome, email)
         if isinstance(telefone, str):
             self.__telefone = telefone
-        self.__id_professor = Professor.id
-        Professor.id += 1
+        self.__id_professor = id_professor
+        
 
     @property
     def telefone(self):
