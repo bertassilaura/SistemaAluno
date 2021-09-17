@@ -1,6 +1,10 @@
 from abc import ABC, abstractmethod
 
 class TelaAbstrata(ABC):
+    
+    @abstractmethod
+    def mostra_mensagem():
+        pass
 
     @abstractmethod
     def tela_opcoes():
@@ -13,12 +17,5 @@ class TelaAbstrata(ABC):
     @abstractmethod
     def mostra_dados():
         pass
-    
-    @abstractmethod
-    def mostra_mensagem():
-        pass
 
-    @abstractmethod
-    def le_numero_inteiro():
-        pass
 
