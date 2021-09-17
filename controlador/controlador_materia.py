@@ -1,13 +1,13 @@
-#from controlador.controlador_sistema import ControladorSistema
 from limite.tela_materia import TelaMateria
 from entidade.materia import Materia
+from persistencia.materiaDAO import MateriaDAO
 
 class ContorladorMateria():
 
     def __init__(self, controlador_sistema):
         self.__controlador_sistema = controlador_sistema
         self.__tela_materia = TelaMateria()
-        self.__lista_materias = []
+        self.__materia_dao = MateriaDAO()
     
 #-----------ADICIONA MATERIAS---------------
     def adicionar_materia(self):
@@ -15,7 +15,7 @@ class ContorladorMateria():
         if (dados_materia == None):
             return
         else:
-            for materia in self.__lista_materias:
+            for materia in self.__materia_dao.get_all():
                 if materia.codigo == dados_materia["codigo"]:
                     self.__tela_materia.mostra_mensagem("Uma matéria com esse código já existe!")
                     return
@@ -30,11 +30,11 @@ class ContorladorMateria():
 
             materia = Materia(dados_materia['nome'], dados_materia['semestre'], dados_materia["codigo"], dados_materia['dia_da_semana'], dados_materia['horario'], dados_materia['link'], dados_materia['classificacao'], dados_materia['criterio_de_presenca'], dados_materia['numero_avaliacoes'], professor)
             self.__tela_materia.mostra_mensagem("Matéria adicionada! :)")
-            self.__lista_materias.append(materia)
+            self.__materia_dao.add(materia)
 
 #-----------LISTA MATERIAS---------------
     def listar_materias(self):
-        if self.__lista_materias == []:
+        if self.__materia_dao.get_all() == []:
             self.__tela_materia.mostra_mensagem("A lista de matérias está vazia !")
         else:
             seleciona = self.__tela_materia.selecionar_materia(self.dados_lista_materias())
@@ -46,37 +46,37 @@ class ContorladorMateria():
 
 #-----------PEGA MATERIA POR CODIGO---------------        
     def pega_materia_por_codigo(self, codigo: str):
-        for materia in self.__lista_materias:
+        for materia in self.__materia_dao.get_all():
             if materia.codigo == codigo:
                 return materia
         return None
     
 #-----------RETORNA CODIGO E NOME DAS MATERIAS---------------
     def dados_lista_materias(self):
-        return [f'Codigo: {materia.codigo} Nome: {materia.nome}' for materia in self.__lista_materias]
+        return [f'Codigo: {materia.codigo} Nome: {materia.nome}' for materia in self.__materia_dao.get_all()]
 
 #-----------EXCLUI MATERIAS---------------
     def excluir_materia(self):
-        if self.__lista_materias == []:
+        if self.__materia_dao.get_all() == []:
             self.__tela_materia.mostra_mensagem("Ainda não existem matérias !")
             return
         
         codigo_materia = self.__tela_materia.selecionar_materia(self.dados_lista_materias())
-        materia = self.pega_materia_por_codigo(codigo_materia)
+        #materia = self.pega_materia_por_codigo(codigo_materia)
 
-        if(materia is not None):
-            self.__lista_materias.remove(materia)
+        if(codigo_materia is not None):
+            self.__materia_dao.remove(codigo_materia)
             self.__tela_materia.mostra_mensagem("Matéria excluída!")
 
 #-----------LISTA MATERIAS POR SEMESTRE---------------  
     def listar_por_semestre(self):
-        if self.__lista_materias == []:
+        if self.__materia_dao.get_all() == []:
             self.__tela_materia.mostra_mensagem("Ainda não existem matérias!")
         else:
             qual_semestre = self.__tela_materia.semestres()
             existe = 0
             lista = []
-            for materia in self.__lista_materias:
+            for materia in self.__materia_dao.get_all():
                 if materia.semestre == qual_semestre:
                     existe = 1
                     lista += [[f'Código: {materia.codigo} Nome: {materia.nome} Semestre: {materia.semestre}']]
@@ -87,13 +87,13 @@ class ContorladorMateria():
 
 #-----------LISTA MATERIAS POR DIA DA SEMANA--------------- 
     def listar_por_dia_da_semana(self):
-        if self.__lista_materias == []:
+        if self.__materia_dao.get_all() == []:
             self.__tela_materia.mostra_mensagem("Ainda não existem matérias!")
         else:
             qual_dia = self.__tela_materia.dias_da_semana()
             existe = 0
             lista = []
-            for materia in self.__lista_materias:
+            for materia in self.__materia_dao.get_all():
                 if materia.dia_da_semana == qual_dia:
                     existe = 1
                     lista += [[f'Código: {materia.codigo} Nome: {materia.nome} Dia da semana: {materia.dia_da_semana}']]
@@ -104,7 +104,7 @@ class ContorladorMateria():
 
 #-----------CALCULA MEDIA FINAL DE UMA MATERIA---------------    
     def calcular_media_final(self): 
-        if self.__lista_materias == []:
+        if self.__materia_dao.get_all() == []:
             self.__tela_materia.mostra_mensagem("Ainda não existem matérias!")
         else:
             nota_total = 0
@@ -132,29 +132,29 @@ class ContorladorMateria():
     
 #-----------ALTERA MATERIAS---------------
     def alterar_materia(self):
-        if self.__lista_materias == []:
+        if self.__materia_dao.get_all() == []:
             self.__tela_materia.mostra_mensagem("Ainda não existem matérias!")
-        else:
+            return
             
-            codigo = self.__tela_materia.selecionar_materia(self.dados_lista_materias())
-            materia = self.pega_materia_por_codigo(codigo)
+        codigo = self.__tela_materia.selecionar_materia(self.dados_lista_materias())
+        materia = self.pega_materia_por_codigo(codigo)
 
-            if(materia is not None):
-                novos_dados_materia = self.__tela_materia.pega_dados()
-                if novos_dados_materia != None:
-                    materia.nome = novos_dados_materia["nome"]
-                    materia.semestre = novos_dados_materia["semestre"]
-                    materia.professor = novos_dados_materia["professor"]
-                    materia.codigo = novos_dados_materia["codigo"]
-                    materia.dia_da_semana = novos_dados_materia["dia_da_semana"]
-                    materia.horario = novos_dados_materia["horario"]
-                    materia.link = novos_dados_materia["link"]
-                    materia.classificacao = novos_dados_materia["classificacao"]
-                    materia.criterio_de_presenca = novos_dados_materia["criterio_de_presenca"]
-                    materia.numero_avaliacoes = novos_dados_materia["numero_avaliacoes"]
-                    self.__tela_materia.mostra_mensagem("Matéria alterada!")
-                    return
+        if(materia is not None):
+            novos_dados_materia = self.__tela_materia.pega_dados()
+            if novos_dados_materia != None:
+                materia.nome = novos_dados_materia["nome"]
+                materia.semestre = novos_dados_materia["semestre"]
+                materia.professor = novos_dados_materia["professor"]
+                materia.codigo = novos_dados_materia["codigo"]
+                materia.dia_da_semana = novos_dados_materia["dia_da_semana"]
+                materia.horario = novos_dados_materia["horario"]
+                materia.link = novos_dados_materia["link"]
+                materia.classificacao = novos_dados_materia["classificacao"]
+                materia.criterio_de_presenca = novos_dados_materia["criterio_de_presenca"]
+                materia.numero_avaliacoes = novos_dados_materia["numero_avaliacoes"]
+                self.__tela_materia.mostra_mensagem("Matéria alterada!")
                 return
+            return
 
 #-----------RETORNA---------------
     def retornar(self):

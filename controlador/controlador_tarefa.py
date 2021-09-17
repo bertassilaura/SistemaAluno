@@ -1,12 +1,14 @@
 from limite.tela_tarefa import TelaTarefa
 from entidade.tarefa import Tarefa
+from persistencia.tarefaDAO import TarefaDAO
 
 class ControladorTarefa():
   
   def __init__(self, controlador_sistema):
-    self.__lista_tarefas = []
+    self.__tarefas_dao = TarefaDAO()
     self.__tela_tarefa = TelaTarefa()
     self.__controlador_sistema = controlador_sistema
+    self.__id_tarefa = 0
 
 #-----------ADICIONA UMA TAREFA---------------
   def adicionar_tarefa(self):
@@ -14,31 +16,30 @@ class ControladorTarefa():
     if (dados_tarefa == None) or (self.trata_recebimento_nota(dados_tarefa) == None) or (self.trata_recebimento_peso(dados_tarefa) == None):
       return
 
-    else:
+    for tarefa in self.__tarefas_dao.get_all():
+      if tarefa.nome_tarefa == dados_tarefa["nome_tarefa"]:
+        self.__tela_tarefa.mostra_mensagem("Uma tarefa com esse nome já existe!")
+        return
 
-      for tarefa in self.__lista_tarefas:
-        if tarefa.nome_tarefa == dados_tarefa["nome_tarefa"]:
-          self.__tela_tarefa.mostra_mensagem("Uma tarefa com esse nome já existe!")
-          return
+    if dados_tarefa["status_realizado"] == "sim":
+      dados_tarefa["status_realizado"] = True
+    elif dados_tarefa["status_realizado"] == "nao":
+      dados_tarefa["status_realizado"] = False
 
-      if dados_tarefa["status_realizado"] == "sim":
-        dados_tarefa["status_realizado"] = True
-      elif dados_tarefa["status_realizado"] == "nao":
-        dados_tarefa["status_realizado"] = False
-
-      #checa matéria correspondente
-      if dados_tarefa["materia_correspondente"] == "":
-          materia_correspondente = None
-      else: 
-          materia_correspondente = self.__controlador_sistema.controlador_materia.pega_materia_por_codigo(dados_tarefa["materia_correspondente"])
-          if materia_correspondente == None:
-            self.__tela_tarefa.mostra_mensagem("Código não existente\nCriando Tarefa sem Matéria")
-          else:
-            materia_correspondente = materia_correspondente.codigo
-      
-      tarefa = Tarefa(dados_tarefa["nome_tarefa"], dados_tarefa["data_prazo"], dados_tarefa["horario_prazo"], dados_tarefa["descricao"], dados_tarefa["status_realizado"], materia_correspondente, dados_tarefa["peso"], dados_tarefa["nota"])
-      self.__lista_tarefas.append(tarefa)
-      self.__tela_tarefa.mostra_mensagem("Tarefa criada! :)")
+    #checa matéria correspondente
+    if dados_tarefa["materia_correspondente"] == "":
+        materia_correspondente = None
+    else: 
+        materia_correspondente = self.__controlador_sistema.controlador_materia.pega_materia_por_codigo(dados_tarefa["materia_correspondente"]) # implementar DAO no pega_materia_por_codigo
+        if materia_correspondente == None:
+          self.__tela_tarefa.mostra_mensagem("Código não existente\nCriando Tarefa sem Matéria")
+        else:
+          materia_correspondente = materia_correspondente.codigo
+    
+    self.__id_tarefa = len(self.__tarefas_dao.get_all())
+    tarefa = Tarefa(dados_tarefa["nome_tarefa"], dados_tarefa["data_prazo"], dados_tarefa["horario_prazo"], dados_tarefa["descricao"], dados_tarefa["status_realizado"], self.__id_tarefa, materia_correspondente, dados_tarefa["peso"], dados_tarefa["nota"])
+    self.__tarefas_dao.add(tarefa)
+    self.__tela_tarefa.mostra_mensagem("Tarefa criada! :)")
 
 #-----------TRATA RECEBIMENTO NOTA--------------
   def trata_recebimento_nota(self, dados_tarefa: dict):
@@ -67,38 +68,37 @@ class ControladorTarefa():
 
 #-----------LISTA TODAS AS TAREFAS--------------
   def listar_tarefas(self):
-    if self.__lista_tarefas == []:
+    if self.__tarefas_dao.get_all() == []:
       self.__tela_tarefa.mostra_mensagem("A lista de tarefas está vazia !")
-    else:
-      seleciona = self.__tela_tarefa.seleciona_tarefa(self.dados_lista_tarefas())
-      if seleciona != None:
-        tarefa = self.pega_tarefa_por_id(seleciona)
-        mostra_tarefa = self.__tela_tarefa.mostra_dados(tarefa)
-        return mostra_tarefa
-      return
+
+    seleciona = self.__tela_tarefa.seleciona_tarefa(self.dados_lista_tarefas())
+    if seleciona != None:
+      tarefa = self.pega_tarefa_por_id(seleciona)
+      mostra_tarefa = self.__tela_tarefa.mostra_dados(tarefa)
 
 #-----------PEGA TAEFA PELO ID---------------
   def pega_tarefa_por_id(self, id):
-    for tarefa in self.__lista_tarefas:
+    for tarefa in self.__tarefas_dao.get_all():
       if tarefa.id_tarefa == id:
         return tarefa
 
 #-----------RETORNA DADOS ID E NOME DAS TAREFAS---------------
   def dados_lista_tarefas(self):
-      return [f'ID: {tarefa.id_tarefa} Nome: {tarefa.nome_tarefa}' for tarefa in self.__lista_tarefas]
+      return [f'ID: {tarefa.id_tarefa} Nome: {tarefa.nome_tarefa}' for tarefa in self.__tarefas_dao.get_all()] 
 
 #-----------EXCLUI UMA TAREFA---------------
   def excluir_tarefa(self):
-    if self.__lista_tarefas == []:
+    if self.__tarefas_dao.get_all() == []:
       self.__tela_tarefa.mostra_mensagem("A lista de tarefas está vazia !")
       return
     
     id = self.__tela_tarefa.seleciona_tarefa(self.dados_lista_tarefas())
-    tarefa = self.pega_tarefa_por_id(id)
+    #tarefa = self.pega_tarefa_por_id(id); antes do dao
 
-    if(tarefa is not None):
-      self.__lista_tarefas.remove(tarefa)
+    if(id is not None):
+      self.__tarefas_dao.remove(id)
       self.__tela_tarefa.mostra_mensagem("Tarefa removida!")
+
 
 #-----------RETORNA---------------
   def retornar(self):
@@ -106,38 +106,38 @@ class ControladorTarefa():
 
 #-----------LISTA TAREFAS FEITAS---------------
   def listar_feito(self):
-    if self.__lista_tarefas == []:
+    if self.__tarefas_dao.get_all() == []:
       self.__tela_tarefa.mostra_mensagem("A lista de tarefas está vazia !")
     else:
       lista = []
-      for tarefa in self.__lista_tarefas:
+      for tarefa in self.__tarefas_dao.get_all():
         if tarefa.status_realizado == True:
           lista += [[f'ID: {tarefa.id_tarefa} Nome: {tarefa.nome_tarefa}']]
       self.__tela_tarefa.mostra_lista(lista)
 
 #-----------LISTA TAREFAS NÃO FEITAS---------------
   def listar_a_fazer(self):
-    if self.__lista_tarefas == []:
+    if self.__tarefas_dao.get_all() == []:
       self.__tela_tarefa.mostra_mensagem("A lista de tarefas está vazia !")
     else:
       lista = []
-      for tarefa in self.__lista_tarefas:
+      for tarefa in self.__tarefas_dao.get_all():
         if tarefa.status_realizado == False:
           lista += [[f'ID: {tarefa.id_tarefa} Nome: {tarefa.nome_tarefa}']]
       self.__tela_tarefa.mostra_lista(lista)
 
 #-----------PEGA TAREFAS POR MATERIA---------------
   def pegar_por_materia(self, materia):
-    if self.__lista_tarefas == []:
+    if self.__tarefas_dao.get_all() == []:
       self.__tela_tarefa.mostra_mensagem("A lista de tarefas está vazia !")
       return
 
     lista_tarefa_da_materia = []
     vazio = 1
-    for tarefa in self.__lista_tarefas:
+    for tarefa in self.__tarefas_dao.get_all():
       if tarefa.materia_correspondente == materia:
         vazio = 0
-        lista_tarefa_da_materia.append(tarefa)
+        lista_tarefa_da_materia.append(tarefa) # implementar DAO; lista_tarefa_da_materia.append(tarefa)
     if vazio == 1:
       return None
     else:
@@ -145,7 +145,7 @@ class ControladorTarefa():
 
 #-----------ALTERA UMA TAREFA--------------- 
   def alterar_tarefa(self):
-    if self.__lista_tarefas == []:
+    if self.__tarefas_dao.get_all() == []: # implementar DAO; self.__lista_tarefas
       self.__tela_tarefa.mostra_mensagem("A lista de tarefas está vazia !")
       return
 
@@ -169,6 +169,7 @@ class ControladorTarefa():
         tarefa.peso = novos_dados_tarefa["peso"]
         tarefa.nota = novos_dados_tarefa["nota"]
         self.__tela_tarefa.mostra_mensagem("Tarefa alterada!")
+        self.__tarefas_dao.add(tarefa)
         return
       return
 
