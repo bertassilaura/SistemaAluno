@@ -167,18 +167,3 @@ class TelaMateria(TelaAbstrata):
         window.close()
         return values
 
-    
-        
-'''def selecionar_materia(self):
-
-        layout = [
-            [sg.Text('Insira o código da matéria que deseja selecionar', font=fonte_texto, size=tamanho_texto)],
-            [sg.Text('Código', font=fonte_texto, size=tamanho_texto), sg.InputText('', size=(15,1), key='codigo')],
-            [sg.Submit('Confirmar', font=fonte_texto, size=tamanho_texto), sg.Cancel('Cancelar e retornar', font=fonte_texto, size=tamanho_texto)]
-        ]
-
-        window = sg.Window('Selecionar materias', grab_anywhere=True).Layout(layout)
-        button, codigo = window.Read()
-        codigo = codigo['codigo']#.upper()
-        window.close()
-        return codigo'''

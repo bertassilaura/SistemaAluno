@@ -62,7 +62,6 @@ class ContorladorMateria():
             return
         
         codigo_materia = self.__tela_materia.selecionar_materia(self.dados_lista_materias())
-        #materia = self.pega_materia_por_codigo(codigo_materia)
 
         if(codigo_materia is not None):
             self.__materia_dao.remove(codigo_materia)
@@ -153,6 +152,7 @@ class ContorladorMateria():
                 materia.criterio_de_presenca = novos_dados_materia["criterio_de_presenca"]
                 materia.numero_avaliacoes = novos_dados_materia["numero_avaliacoes"]
                 self.__tela_materia.mostra_mensagem("Matéria alterada!")
+                self.__materia_dao.add(materia)
                 return
             return
 

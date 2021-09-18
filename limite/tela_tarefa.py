@@ -28,6 +28,7 @@ class TelaTarefa(TelaAbstrata):
         window = sg.Window('Tela Tarefa', size=tamanho_janela, element_justification="c", grab_anywhere=True, default_element_size=(40, 1)).Layout(layout)
         button, values = window.Read()
         window.close()
+        print(button)
         return button
 
     def pega_dados(self):

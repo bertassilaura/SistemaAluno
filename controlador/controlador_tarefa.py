@@ -91,14 +91,12 @@ class ControladorTarefa():
     if self.__tarefas_dao.get_all() == []:
       self.__tela_tarefa.mostra_mensagem("A lista de tarefas está vazia !")
       return
-    
+
     id = self.__tela_tarefa.seleciona_tarefa(self.dados_lista_tarefas())
-    #tarefa = self.pega_tarefa_por_id(id); antes do dao
 
     if(id is not None):
       self.__tarefas_dao.remove(id)
       self.__tela_tarefa.mostra_mensagem("Tarefa removida!")
-
 
 #-----------RETORNA---------------
   def retornar(self):
@@ -137,7 +135,7 @@ class ControladorTarefa():
     for tarefa in self.__tarefas_dao.get_all():
       if tarefa.materia_correspondente == materia:
         vazio = 0
-        lista_tarefa_da_materia.append(tarefa) # implementar DAO; lista_tarefa_da_materia.append(tarefa)
+        lista_tarefa_da_materia.append(tarefa)
     if vazio == 1:
       return None
     else:
@@ -145,7 +143,7 @@ class ControladorTarefa():
 
 #-----------ALTERA UMA TAREFA--------------- 
   def alterar_tarefa(self):
-    if self.__tarefas_dao.get_all() == []: # implementar DAO; self.__lista_tarefas
+    if self.__tarefas_dao.get_all() == []:
       self.__tela_tarefa.mostra_mensagem("A lista de tarefas está vazia !")
       return
 

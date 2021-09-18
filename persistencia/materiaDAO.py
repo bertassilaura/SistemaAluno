@@ -17,5 +17,3 @@ class MateriaDAO(DAO):
     def get(self, key: str):
         if isinstance(key, str):
             return super().get(key)
-    
-    #materiadao
