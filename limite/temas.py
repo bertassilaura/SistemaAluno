@@ -10,3 +10,5 @@ tamanho_fonte_aviso = (20, 2)
 fundo_listas = "white"
 cor_titulo = "white"
 fundo_titulo = "#8360C3"
+tamanho_texto_mostra_dados = (50,1)
+tamanho_texto_pega_dados_tarefa = (25,1)

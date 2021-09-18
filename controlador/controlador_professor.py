@@ -23,8 +23,6 @@ class ControladorProfessor():
         professor = Professor(dados_professor["nome"], dados_professor["email"], dados_professor["telefone"], self.__id_professor)
         self.__professores_dao.add(professor)
 
-       
-    
     #listar professores e seus atributos
     def listar_professores(self):
         if self.__professores_dao.get_all() == []:
@@ -87,9 +85,7 @@ class ControladorProfessor():
         #professor = self.pega_professor_por_id(id)
 
         if(id is not None):
-            print(self.__professores_dao.get_all())
             self.__professores_dao.remove(id)
-            print(self.__professores_dao.get_all())
             self.__tela_professor.mostra_mensagem("Professor excluído!")
             return
     
