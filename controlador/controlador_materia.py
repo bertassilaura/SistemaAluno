@@ -1,3 +1,4 @@
+from PySimpleGUI.PySimpleGUI import main
 from limite.tela_materia import TelaMateria
 from entidade.materia import Materia
 from persistencia.materiaDAO import MateriaDAO
@@ -8,6 +9,7 @@ class ContorladorMateria():
         self.__controlador_sistema = controlador_sistema
         self.__tela_materia = TelaMateria()
         self.__materia_dao = MateriaDAO()
+        self.__id_materia = 0
     
     def adicionar_materia(self):
         dados_materia = self.__tela_materia.pega_dados()
@@ -26,8 +28,15 @@ class ContorladorMateria():
                     self.__tela_materia.mostra_mensagem("Professor não existente\nCriando matéria sem professor")
                 else:
                     professor = professor.nome
+            
+            maior = 0
+            for materia in self.__materia_dao.get_all():
+                if materia.id_materia > maior:
+                    maior = materia.id_materia
 
-            materia = Materia(dados_materia['nome'], dados_materia['semestre'], dados_materia["codigo"], dados_materia['dia_da_semana'], dados_materia['horario'], dados_materia['link'], dados_materia['classificacao'], dados_materia['criterio_de_presenca'], dados_materia['numero_avaliacoes'], professor)
+            self.__id_materia = maior + 1
+
+            materia = Materia(dados_materia['nome'], dados_materia['semestre'], dados_materia["codigo"], dados_materia['dia_da_semana'], dados_materia['horario'], dados_materia['link'], dados_materia['classificacao'], dados_materia['criterio_de_presenca'], dados_materia['numero_avaliacoes'], self.__id_materia, professor)
             self.__tela_materia.mostra_mensagem("Matéria adicionada! :)")
             self.__materia_dao.add(materia)
 
@@ -38,21 +47,20 @@ class ContorladorMateria():
         else:
             seleciona = self.__tela_materia.selecionar_materia(self.dados_lista_materias())
             if seleciona != None:
-                materia = self.pega_materia_por_codigo(seleciona)
+                materia = self.pega_materia_por_id(seleciona)
                 mostra_materia = self.__tela_materia.mostra_dados(materia)
                 return mostra_materia
             return
 
 #-----------PEGA MATERIA POR CODIGO---------------        
-    def pega_materia_por_codigo(self, codigo: str):
+    def pega_materia_por_id(self, id):
         for materia in self.__materia_dao.get_all():
-            if materia.codigo == codigo:
+            if materia.id_materia == id:
                 return materia
-        return None
     
 #-----------RETORNA CODIGO E NOME DAS MATERIAS---------------
     def dados_lista_materias(self):
-        return [f'Codigo: {materia.codigo} Nome: {materia.nome}' for materia in self.__materia_dao.get_all()]
+        return [f'ID: {materia.id_materia} Nome: {materia.nome}' for materia in self.__materia_dao.get_all()]
 
 #-----------EXCLUI MATERIAS---------------
     def excluir_materia(self):
@@ -60,10 +68,10 @@ class ContorladorMateria():
             self.__tela_materia.mostra_mensagem("Ainda não existem matérias !")
             return
         
-        codigo_materia = self.__tela_materia.selecionar_materia(self.dados_lista_materias())
+        id = self.__tela_materia.selecionar_materia(self.dados_lista_materias())
 
-        if(codigo_materia is not None):
-            self.__materia_dao.remove(codigo_materia)
+        if(id is not None):
+            self.__materia_dao.remove(id)
             self.__tela_materia.mostra_mensagem("Matéria excluída!")
 
 #-----------LISTA MATERIAS POR SEMESTRE---------------  
@@ -108,14 +116,14 @@ class ContorladorMateria():
             nota_total = 0
             peso_total = 0
             
-            codigo_materia = self.__tela_materia.selecionar_materia(self.dados_lista_materias())
-            materia = self.pega_materia_por_codigo(codigo_materia)
+            id = self.__tela_materia.selecionar_materia(self.dados_lista_materias())
+            materia = self.pega_materia_por_id(id)
 
             if materia == None:
-                self.__tela_materia.mostra_mensagem("Não existe matéria com esse código!")
+                self.__tela_materia.mostra_mensagem("Não existe matéria com esse ID!")
                 return
             
-            tarefas_materia = self.__controlador_sistema.controlador_tarefa.pegar_por_materia(codigo_materia)
+            tarefas_materia = self.__controlador_sistema.controlador_tarefa.pegar_por_materia(id)
 
             if tarefas_materia == None:
                 self.__tela_materia.mostra_mensagem("Não existem tarefas dessa matéria")
@@ -134,8 +142,8 @@ class ContorladorMateria():
             self.__tela_materia.mostra_mensagem("Ainda não existem matérias!")
             return
             
-        codigo = self.__tela_materia.selecionar_materia(self.dados_lista_materias())
-        materia = self.pega_materia_por_codigo(codigo)
+        id = self.__tela_materia.selecionar_materia(self.dados_lista_materias())
+        materia = self.pega_materia_por_id(id)
 
         if(materia is not None):
             novos_dados_materia = self.__tela_materia.pega_dados()

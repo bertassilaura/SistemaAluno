@@ -65,6 +65,7 @@ class TelaMateria(TelaAbstrata):
         materias = [
             [sg.Text('Nome: {}'.format(materia.nome), font=fonte_texto, size=tamanho_texto_mostra_dados)],
             [sg.Text('Semestre: {}'.format(materia.semestre), font=fonte_texto, size=tamanho_texto_mostra_dados)],
+            [sg.Text("ID: {}".format(materia.id_materia), font=fonte_texto, size=tamanho_texto_mostra_dados)],
             [sg.Text('ID do professor: {}'.format(materia.professor), font=fonte_texto, size=tamanho_texto_mostra_dados)],
             [sg.Text('Código: {}'.format(materia.codigo), font=fonte_texto, size=tamanho_texto_mostra_dados)],
             [sg.Text('Horário: {}'.format(materia.horario), font=fonte_texto, size=tamanho_texto_mostra_dados)],
@@ -79,6 +80,7 @@ class TelaMateria(TelaAbstrata):
         layout = [
             [sg.Image(logo2, size=(110, 110))],
             [sg.Text('Listando matéria', font=fonte_titulo, size=(0,1), text_color=cor_titulo, background_color=fundo_titulo)],
+            [sg.Text("")],
             [materias],
             [sg.Text('')],
             [sg.Cancel('Retornar', font=fonte_texto, size=tamanho_texto)]

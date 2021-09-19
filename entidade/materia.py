@@ -2,7 +2,7 @@ from entidade.professor import Professor
 
 class Materia():
 
-  def __init__(self, nome: str, semestre: str, codigo: str, dia_da_semana: str, horario: str, link: str, classificacao: str, criterio_de_presenca: str, numero_avaliacoes: str, professor: Professor = None):
+  def __init__(self, nome: str, semestre: str, codigo: str, dia_da_semana: str, horario: str, link: str, classificacao: str, criterio_de_presenca: str, numero_avaliacoes: str, id_materia: int, professor: Professor = None):
     self.__nome = nome
     self.__semestre = semestre
     self.__codigo = codigo
@@ -12,6 +12,7 @@ class Materia():
     self.__classificacao = classificacao
     self.__criterio_de_presenca = criterio_de_presenca
     self.__numero_avaliacoes = numero_avaliacoes
+    self.__id_materia = id_materia
     self.__professor = professor
       
   @property
@@ -103,3 +104,7 @@ class Materia():
   def codigo(self, codigo: str):
     if isinstance(codigo, str):
       self.__codigo = codigo
+
+  @property
+  def id_materia(self):
+    return self.__id_materia

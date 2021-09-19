@@ -8,12 +8,12 @@ class MateriaDAO(DAO):
   
   def add(self, materia: Materia):
     if (materia is not None) and isinstance(materia, Materia):
-      super().add(materia.codigo, materia)
+      super().add(materia.id_materia, materia)
   
-  def remove(self, key: str):
-    if isinstance(key, str):
+  def remove(self, key: int):
+    if isinstance(key, int):
       return super().remove(key)
 
-  def get(self, key: str):
-    if isinstance(key, str):
+  def get(self, key: int):
+    if isinstance(key, int):
       return super().get(key)

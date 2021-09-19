@@ -30,7 +30,7 @@ class ControladorTarefa():
     if dados_tarefa["materia_correspondente"] == "":
         materia_correspondente = None
     else: 
-        materia_correspondente = self.__controlador_sistema.controlador_materia.pega_materia_por_codigo(dados_tarefa["materia_correspondente"]) 
+        materia_correspondente = self.__controlador_sistema.controlador_materia.pega_materia_por_id(dados_tarefa["materia_correspondente"]) 
         if materia_correspondente == None:
           self.__tela_tarefa.mostra_mensagem("Código não existente\nCriando Tarefa sem Matéria")
         else:
