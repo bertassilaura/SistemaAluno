@@ -56,8 +56,9 @@ class ContorladorMateria():
 #-----------PEGA MATERIA POR CODIGO---------------        
     def pega_materia_por_id(self, id):
         for materia in self.__materia_dao.get_all():
-            if materia.id_materia == id:
+            if materia.id_materia == int(id):
                 return materia
+        return None
     
 #-----------RETORNA CODIGO E NOME DAS MATERIAS---------------
     def dados_lista_materias(self):
@@ -145,9 +146,10 @@ class ContorladorMateria():
             
         id = self.__tela_materia.selecionar_materia(self.dados_lista_materias())
         materia = self.pega_materia_por_id(id)
+        list_box_professor = self.__controlador_sistema.controlador_professor.dados_listar_professores()
 
         if(materia is not None):
-            novos_dados_materia = self.__tela_materia.pega_dados()
+            novos_dados_materia = self.__tela_materia.pega_dados(list_box_professor)
             if novos_dados_materia != None:
                 materia.nome = novos_dados_materia["nome"]
                 materia.semestre = novos_dados_materia["semestre"]

@@ -38,7 +38,6 @@ class TelaMateria(TelaAbstrata):
             [sg.Listbox(lista_id_prof)]
             
         ]
-
         
         layout = [
             [sg.Image(logo2, size=(110,110))],
