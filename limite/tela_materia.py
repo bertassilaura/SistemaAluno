@@ -32,7 +32,13 @@ class TelaMateria(TelaAbstrata):
         window.close()
         return button 
 
-    def pega_dados(self):
+    def pega_dados(self, lista_id_prof: list):
+
+        list_box_professor = [
+            [sg.Listbox(lista_id_prof)]
+            
+        ]
+
         
         layout = [
             [sg.Image(logo2, size=(110,110))],
@@ -40,7 +46,8 @@ class TelaMateria(TelaAbstrata):
             [sg.Text("")],
             [sg.Text('Nome:', font=fonte_texto, size=tamanho_texto), sg.InputText(key = 'nome')],
             [sg.Text('Semestre (ex: 21.1):', font=fonte_texto, size=tamanho_texto), sg.InputText(key = 'semestre')],
-            [sg.Text('ID do professor:', font=fonte_texto, size=tamanho_texto), sg.InputText(key = 'professor')],
+            [list_box_professor],
+            [sg.Text('ID do professor:', font=fonte_texto, size=tamanho_texto), sg.InputText(font=fonte_texto, size=tamanho_texto, key = 'professor')], #sg.Text('ID do professor:', font=fonte_texto, size=tamanho_texto), sg.InputText(key = 'professor')
             [sg.Text('Código:', font=fonte_texto, size=tamanho_texto), sg.InputText(key = 'codigo')],
             [sg.Text('Horário:', font=fonte_texto, size=tamanho_texto), sg.InputText(key = 'horario')],
             [sg.Text('Link:', font=fonte_texto, size=tamanho_texto), sg.InputText(key = 'link')],

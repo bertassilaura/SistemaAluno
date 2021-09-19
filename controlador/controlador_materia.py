@@ -12,7 +12,8 @@ class ContorladorMateria():
         self.__id_materia = 0
     
     def adicionar_materia(self):
-        dados_materia = self.__tela_materia.pega_dados()
+        list_box_professor = self.__controlador_sistema.controlador_professor.dados_listar_professores()
+        dados_materia = self.__tela_materia.pega_dados(list_box_professor)
         if (dados_materia == None):
             return
         else:
