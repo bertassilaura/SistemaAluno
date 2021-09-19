@@ -29,7 +29,11 @@ class TelaTarefa(TelaAbstrata):
       window.close()
       return button
 
-    def pega_dados(self):
+    def pega_dados(self, list_id_materia: list):
+
+      list_box_materia = [
+        [sg.Listbox(list_id_materia)]
+      ]
 
       layout = [
         [sg.Image(logo2, size=(110,110))],
@@ -41,7 +45,8 @@ class TelaTarefa(TelaAbstrata):
         [sg.Text('Horário do prazo:', font=fonte_texto, size=tamanho_texto), sg.InputText(key = 'horario_prazo')],
         [sg.Text('Descrição:', font=fonte_texto, size=tamanho_texto), sg.Multiline(key = 'descricao')],
         [sg.Text('Está feita ou não?', font=fonte_texto, size=tamanho_texto), sg.InputCombo(('sim', 'não'),default_value='selecione', size=(9,1),key = 'status_realizado')],
-        [sg.Text('Código da matéria:', font=fonte_texto, size=tamanho_texto), sg.InputText('Se não criou a materia, deixe em branco',  key = 'materia_correspondente')],
+        [sg.Text('Id da matéria:', font=fonte_texto, size=tamanho_texto), sg.InputText('Se não criou a materia, deixe em branco',  key = 'materia_correspondente')],
+        [list_box_materia],
         [sg.Text('Peso:', font=fonte_texto, size=tamanho_texto), sg.InputText(key = 'peso') ], 
         [sg.Text('Nota:', font=fonte_texto, size=tamanho_texto), sg.InputText(key = 'nota')],
         [sg.Text("")],

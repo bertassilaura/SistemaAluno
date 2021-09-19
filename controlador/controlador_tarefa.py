@@ -12,7 +12,8 @@ class ControladorTarefa():
 
 #-----------ADICIONA UMA TAREFA---------------
   def adicionar_tarefa(self):
-    dados_tarefa = self.__tela_tarefa.pega_dados()
+    list_box_materia = self.__controlador_sistema.controlador_materia.dados_lista_materias()
+    dados_tarefa = self.__tela_tarefa.pega_dados(list_box_materia)
     if (dados_tarefa == None) or (self.trata_recebimento_nota(dados_tarefa) == None) or (self.trata_recebimento_peso(dados_tarefa) == None):
       return
 
