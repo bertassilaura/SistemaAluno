@@ -33,7 +33,6 @@ class TelaMateria(TelaAbstrata):
         return button 
 
     def pega_dados(self):
-
         
         layout = [
             [sg.Image(logo2, size=(110,110))],
@@ -109,8 +108,9 @@ class TelaMateria(TelaAbstrata):
         button, materia = window.Read()
         window.close()
         if button == 'Confirmar':
-            codigo = (materia['materia'][0].split())[1]
-            return codigo
+            id = (materia['materia'][0].split())[1]
+            id = int(id)
+            return id
         return
     
     def mostra_mensagem(self, msg):
