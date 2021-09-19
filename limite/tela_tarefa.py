@@ -12,7 +12,9 @@ class TelaTarefa(TelaAbstrata):
 
       layout  = [
         [sg.Image(logo2, size=(110, 110))],
-        [sg.Text('Tarefa', font=fonte_titulo, size=(0,1), text_color=cor_titulo, background_color=fundo_titulo)],
+        [sg.Text('Você está na página Tarefa!', font=fonte_titulo, size=(0,1), text_color=cor_titulo, background_color=fundo_titulo)],
+        [sg.Text('O que deseja fazer?', font=fonte_titulo, size=(0,1), text_color=cor_titulo, background_color=fundo_titulo)],
+        [sg.Text("")],
         [sg.Button('Adicionar Tarefa', font=fonte_texto, size=tamanho_texto, key=1)],
         [sg.Button('Excluir Tarefa', font=fonte_texto, size=tamanho_texto, key=2)],
         [sg.Button('Listar Tarefas', font=fonte_texto, size=tamanho_texto, key=3)],
@@ -22,7 +24,7 @@ class TelaTarefa(TelaAbstrata):
         [sg.Exit('Retornar', font=fonte_texto, size=tamanho_texto, key=7)]
       ]
 
-      window = sg.Window('Tela Tarefa', size=tamanho_janela, element_justification="c", grab_anywhere=True, default_element_size=(40, 1)).Layout(layout)
+      window = sg.Window('Tarefa', size=tamanho_janela2, element_justification="c", grab_anywhere=True, default_element_size=(40, 1)).Layout(layout)
       button, values = window.Read()
       window.close()
       return button
@@ -33,19 +35,20 @@ class TelaTarefa(TelaAbstrata):
         [sg.Image(logo2, size=(110,110))],
         [sg.Text("")],
         [sg.Text('Recebendo dados de Tarefa', font=fonte_titulo, size=(0,1), text_color=cor_titulo, background_color=fundo_titulo)],
-        [sg.Text('Nome', font=fonte_texto, size=tamanho_texto), sg.InputText(key = 'nome_tarefa')],
-        [sg.Text('Data prazo', font=fonte_texto, size=tamanho_texto), sg.InputText(key = 'data_prazo')], 
-        [sg.Text('Horário prazo', font=fonte_texto, size=tamanho_texto), sg.InputText(key = 'horario_prazo')],
-        [sg.Text('Descrição', font=fonte_texto, size=tamanho_texto), sg.Multiline(key = 'descricao')],
+        [sg.Text("")],
+        [sg.Text('Nome:', font=fonte_texto, size=tamanho_texto), sg.InputText(key = 'nome_tarefa')],
+        [sg.Text('Data do prazo:', font=fonte_texto, size=tamanho_texto), sg.InputText(key = 'data_prazo')], 
+        [sg.Text('Horário do prazo:', font=fonte_texto, size=tamanho_texto), sg.InputText(key = 'horario_prazo')],
+        [sg.Text('Descrição:', font=fonte_texto, size=tamanho_texto), sg.Multiline(key = 'descricao')],
         [sg.Text('Está feita ou não?', font=fonte_texto, size=tamanho_texto), sg.InputCombo(('sim', 'não'),default_value='selecione', size=(9,1),key = 'status_realizado')],
-        [sg.Text('Código da matéria', font=fonte_texto, size=tamanho_texto), sg.InputText('Se não criou a materia, ou nao possui materia, deixe em branco',  key = 'materia_correspondente')],
-        [sg.Text('Peso', font=fonte_texto, size=tamanho_texto), sg.InputText(key = 'peso') ], 
-        [sg.Text('Nota', font=fonte_texto, size=tamanho_texto), sg.InputText(key = 'nota')],
+        [sg.Text('Código da matéria:', font=fonte_texto, size=tamanho_texto), sg.InputText('Se não criou a materia, deixe em branco',  key = 'materia_correspondente')],
+        [sg.Text('Peso:', font=fonte_texto, size=tamanho_texto), sg.InputText(key = 'peso') ], 
+        [sg.Text('Nota:', font=fonte_texto, size=tamanho_texto), sg.InputText(key = 'nota')],
         [sg.Text("")],
         [sg.Submit('Confirmar', font=fonte_texto, size=tamanho_texto), sg.Cancel('Cancelar e retornar', font=fonte_texto, size=tamanho_texto)]
       ]
 
-      window = sg.Window('Dados da tarefa', grab_anywhere=True).Layout(layout)
+      window = sg.Window('Tarefa', grab_anywhere=True).Layout(layout)
       button, dados_tarefa = window.Read()
       window.close()
       if button == 'Confirmar':

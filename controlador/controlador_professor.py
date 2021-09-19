@@ -19,9 +19,18 @@ class ControladorProfessor():
             if professor.nome == dados_professor["nome"]:
                 self.__tela_professor.mostra_mensagem("Professor já existente!")
                 return
-        self.__id_professor = len(self.__professores_dao.get_all())
+
+        maior = 0
+
+        for professor in self.__professores_dao.get_all():
+            if professor.id_professor > maior:
+                maior = professor.id_professor
+
+        self.__id_professor = maior + 1
+
         professor = Professor(dados_professor["nome"], dados_professor["email"], dados_professor["telefone"], self.__id_professor)
         self.__professores_dao.add(professor)
+        self.__tela_professor.mostra_mensagem("Professor criado! :)")
 
     #listar professores e seus atributos
     def listar_professores(self):
@@ -50,10 +59,12 @@ class ControladorProfessor():
 
     #pega professor por ID
     def pega_professor_por_id(self, id):
-        try:
-            return self.__professores_dao.get(id)
-        except ValueError:
-            self.__tela_professor.mostra_mensagem("Nenhum professor econtrado!")
+        if id == "":
+            return None
+        for professor in self.__professores_dao.get_all():
+            if (professor.id_professor == int(id)):
+                return professor
+        return None
 
     #alterar dados do professor
     def alterar_professor(self):

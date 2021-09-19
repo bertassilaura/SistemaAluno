@@ -5,6 +5,7 @@ fonte_texto = ("tahoma", 10)
 tamanho_texto= (20, 1)
 fonte_titulo = ("tahoma", 12)
 tamanho_janela = (450, 480)
+tamanho_janela2 = (450, 515)
 tamanho_aviso = (200, 100)
 tamanho_fonte_aviso = (20, 2)
 fundo_listas = "white"

@@ -90,6 +90,7 @@ class TelaProfessor(TelaAbstrata):
         window.close()
         return msg
 
+
     def seleciona_professor(self, professores):
 
         professores = [

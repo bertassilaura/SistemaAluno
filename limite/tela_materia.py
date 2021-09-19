@@ -1,6 +1,7 @@
 from PySimpleGUI.PySimpleGUI import Sizer
 from entidade.materia import Materia
 from limite.tela_abstrata import TelaAbstrata
+from limite.tela_professor import TelaProfessor
 from controlador.controlador_professor import ControladorProfessor
 import PySimpleGUI as sg 
 from limite.temas import *
@@ -12,9 +13,10 @@ class TelaMateria(TelaAbstrata):
     def tela_opcoes(self):
 
         layout  = [
-            [sg.Image(logo2, size=(180, 180))],
+            [sg.Image(logo2, size=(110, 110))],
             [sg.Text('Você está na página Matéria!', font=fonte_titulo, size=(0,1), text_color=cor_titulo, background_color=fundo_titulo)],
             [sg.Text('O que deseja fazer?', font=fonte_titulo, size=(0,1), text_color=cor_titulo, background_color=fundo_titulo)],
+            [sg.Text("")],
             [sg.Button('Adicionar Matéria', font=fonte_texto, size=tamanho_texto, key=1)],
             [sg.Button('Excluir Matéria', font=fonte_texto, size=tamanho_texto, key=2)],
             [sg.Button('Matérias por semestre', font=fonte_texto, size=tamanho_texto, key=3)],
@@ -25,26 +27,29 @@ class TelaMateria(TelaAbstrata):
             [sg.Exit('Retornar', font=fonte_texto, size=tamanho_texto, key=8)]
         ]
 
-        window = sg.Window('Matéria', size=(450, 520),  element_justification="c", grab_anywhere=True, default_element_size=(40, 1)).Layout(layout)
+        window = sg.Window('Matéria', size=tamanho_janela2,  element_justification="c", grab_anywhere=True, default_element_size=(40, 1)).Layout(layout)
         button, values = window.Read()
         window.close()
         return button 
 
     def pega_dados(self):
+
         
         layout = [
             [sg.Image(logo2, size=(110,110))],
             [sg.Text('Recebendo dados', font=fonte_titulo, size=(0,1), text_color=cor_titulo, background_color=fundo_titulo)],
-            [sg.Text('Nome', font=fonte_texto, size=tamanho_texto), sg.InputText(key = 'nome')],
-            [sg.Text('Semestre (ex: 21.1)', font=fonte_texto, size=tamanho_texto), sg.InputText(key = 'semestre')],
-            [sg.Text('ID do professor', font=fonte_texto, size=tamanho_texto), sg.InputText(key = 'professor')],
-            [sg.Text('Codigo', font=fonte_texto, size=tamanho_texto), sg.InputText(key = 'codigo')],
-            [sg.Text('Horario', font=fonte_texto, size=tamanho_texto), sg.InputText(key = 'horario')],
-            [sg.Text('Link', font=fonte_texto, size=tamanho_texto), sg.InputText(key = 'link')],
-            [sg.Text('Classificacao', font=fonte_texto, size=tamanho_texto), sg.InputCombo(('Assincrona', 'Sincrona'), default_value='selecione', key = 'classificacao')],
-            [sg.Text('Criterio de presenca', font=fonte_texto, size=tamanho_texto), sg.InputText(key = 'criterio_de_presenca')],
-            [sg.Text('Numero de avaliacoes', font=fonte_texto, size=tamanho_texto), sg.Spin([i for i in range(0,101)], initial_value='selecione', key = 'numero_avaliacoes')],
-            [sg.Text('Dia da semana', font=fonte_texto, size=tamanho_texto), sg.InputCombo(('Segunda', 'Terca', 'Quarta', 'Quinta', 'Sexta'), key = 'dia_da_semana')],
+            [sg.Text("")],
+            [sg.Text('Nome:', font=fonte_texto, size=tamanho_texto), sg.InputText(key = 'nome')],
+            [sg.Text('Semestre (ex: 21.1):', font=fonte_texto, size=tamanho_texto), sg.InputText(key = 'semestre')],
+            [sg.Text('ID do professor:', font=fonte_texto, size=tamanho_texto), sg.InputText(key = 'professor')],
+            [sg.Text('Código:', font=fonte_texto, size=tamanho_texto), sg.InputText(key = 'codigo')],
+            [sg.Text('Horário:', font=fonte_texto, size=tamanho_texto), sg.InputText(key = 'horario')],
+            [sg.Text('Link:', font=fonte_texto, size=tamanho_texto), sg.InputText(key = 'link')],
+            [sg.Text('Classificação:', font=fonte_texto, size=tamanho_texto), sg.InputCombo(('Assincrona', 'Sincrona'), default_value='selecione', key = 'classificacao')],
+            [sg.Text('Critério de presença:', font=fonte_texto, size=tamanho_texto), sg.InputText(key = 'criterio_de_presenca')],
+            [sg.Text('Número de avaliações:', font=fonte_texto, size=tamanho_texto), sg.Spin([i for i in range(0,101)], initial_value='selecione', key = 'numero_avaliacoes')],
+            [sg.Text('Dia da semana:', font=fonte_texto, size=tamanho_texto), sg.InputCombo(('Segunda', 'Terca', 'Quarta', 'Quinta', 'Sexta'), key = 'dia_da_semana')],
+            [sg.Text("")],
             [sg.Submit('Confirmar', font=fonte_texto, size=tamanho_texto), sg.Cancel('Cancelar e retornar', font=fonte_texto, size=tamanho_texto)]
         ]
 
@@ -61,12 +66,12 @@ class TelaMateria(TelaAbstrata):
             [sg.Text('Nome: {}'.format(materia.nome), font=fonte_texto, size=tamanho_texto_mostra_dados)],
             [sg.Text('Semestre: {}'.format(materia.semestre), font=fonte_texto, size=tamanho_texto_mostra_dados)],
             [sg.Text('ID do professor: {}'.format(materia.professor), font=fonte_texto, size=tamanho_texto_mostra_dados)],
-            [sg.Text('Codigo: {}'.format(materia.codigo), font=fonte_texto, size=tamanho_texto_mostra_dados)],
-            [sg.Text('Horario: {}'.format(materia.horario), font=fonte_texto, size=tamanho_texto_mostra_dados)],
+            [sg.Text('Código: {}'.format(materia.codigo), font=fonte_texto, size=tamanho_texto_mostra_dados)],
+            [sg.Text('Horário: {}'.format(materia.horario), font=fonte_texto, size=tamanho_texto_mostra_dados)],
             [sg.Text('Link: {}'.format(materia.link), font=fonte_texto, size=tamanho_texto_mostra_dados)],
-            [sg.Text('Classificacao: {}'.format(materia.classificacao), font=fonte_texto, size=tamanho_texto_mostra_dados)],
-            [sg.Text('Criterio de presenca: {}'.format(materia.criterio_de_presenca), font=fonte_texto, size=tamanho_texto_mostra_dados)],
-            [sg.Text('Numero de avaliacoes: {}'.format(materia.numero_avaliacoes), font=fonte_texto, size=tamanho_texto_mostra_dados)],
+            [sg.Text('Classificação: {}'.format(materia.classificacao), font=fonte_texto, size=tamanho_texto_mostra_dados)],
+            [sg.Text('Critério de presença: {}'.format(materia.criterio_de_presenca), font=fonte_texto, size=tamanho_texto_mostra_dados)],
+            [sg.Text('Número de avaliações: {}'.format(materia.numero_avaliacoes), font=fonte_texto, size=tamanho_texto_mostra_dados)],
             [sg.Text('Dia da semana: {}'.format(materia.dia_da_semana), font=fonte_texto, size=tamanho_texto_mostra_dados)],
             [sg.Text('')]
         ]
@@ -153,7 +158,7 @@ class TelaMateria(TelaAbstrata):
 
         layout = [
             [sg.Image(logo2, size=(110, 110))],
-            [sg.Text('Listando matéritas', font=fonte_titulo, size=(0,1), text_color=cor_titulo, background_color=fundo_titulo)],
+            [sg.Text('Listando matérias', font=fonte_titulo, size=(0,1), text_color=cor_titulo, background_color=fundo_titulo)],
             [tarefas],
             [sg.Text('')],
             [sg.Cancel('Retornar', font=fonte_texto, size=tamanho_texto)]

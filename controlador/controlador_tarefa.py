@@ -30,13 +30,19 @@ class ControladorTarefa():
     if dados_tarefa["materia_correspondente"] == "":
         materia_correspondente = None
     else: 
-        materia_correspondente = self.__controlador_sistema.controlador_materia.pega_materia_por_codigo(dados_tarefa["materia_correspondente"]) # implementar DAO no pega_materia_por_codigo
+        materia_correspondente = self.__controlador_sistema.controlador_materia.pega_materia_por_codigo(dados_tarefa["materia_correspondente"]) 
         if materia_correspondente == None:
           self.__tela_tarefa.mostra_mensagem("Código não existente\nCriando Tarefa sem Matéria")
         else:
-          materia_correspondente = materia_correspondente.codigo
+          materia_correspondente = materia_correspondente.nome
     
-    self.__id_tarefa = len(self.__tarefas_dao.get_all())
+    maior = 0
+    for tarefa in self.__tarefas_dao.get_all():
+      if tarefa.id_tarefa > maior:
+        maior = tarefa.id_tarefa
+    
+    self.__id_tarefa = maior + 1
+    
     tarefa = Tarefa(dados_tarefa["nome_tarefa"], dados_tarefa["data_prazo"], dados_tarefa["horario_prazo"], dados_tarefa["descricao"], dados_tarefa["status_realizado"], self.__id_tarefa, materia_correspondente, dados_tarefa["peso"], dados_tarefa["nota"])
     self.__tarefas_dao.add(tarefa)
     self.__tela_tarefa.mostra_mensagem("Tarefa criada! :)")

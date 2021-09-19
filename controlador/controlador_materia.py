@@ -9,7 +9,6 @@ class ContorladorMateria():
         self.__tela_materia = TelaMateria()
         self.__materia_dao = MateriaDAO()
     
-#-----------ADICIONA MATERIAS---------------
     def adicionar_materia(self):
         dados_materia = self.__tela_materia.pega_dados()
         if (dados_materia == None):
@@ -32,7 +31,7 @@ class ContorladorMateria():
             self.__tela_materia.mostra_mensagem("Matéria adicionada! :)")
             self.__materia_dao.add(materia)
 
-#-----------LISTA MATERIAS---------------
+
     def listar_materias(self):
         if self.__materia_dao.get_all() == []:
             self.__tela_materia.mostra_mensagem("A lista de matérias está vazia !")
@@ -62,7 +61,6 @@ class ContorladorMateria():
             return
         
         codigo_materia = self.__tela_materia.selecionar_materia(self.dados_lista_materias())
-        #materia = self.pega_materia_por_codigo(codigo_materia)
 
         if(codigo_materia is not None):
             self.__materia_dao.remove(codigo_materia)
@@ -79,7 +77,7 @@ class ContorladorMateria():
             for materia in self.__materia_dao.get_all():
                 if materia.semestre == qual_semestre:
                     existe = 1
-                    lista += [[f'Código: {materia.codigo} Nome: {materia.nome} Semestre: {materia.semestre}']]
+                    lista += [f'Código: {materia.codigo} | Nome: {materia.nome} | Semestre: {materia.semestre}']
             if existe == 1:
                 self.__tela_materia.mostra_lista(lista)
             else:
@@ -96,7 +94,7 @@ class ContorladorMateria():
             for materia in self.__materia_dao.get_all():
                 if materia.dia_da_semana == qual_dia:
                     existe = 1
-                    lista += [[f'Código: {materia.codigo} Nome: {materia.nome} Dia da semana: {materia.dia_da_semana}']]
+                    lista += [f'Código: {materia.codigo} | Nome: {materia.nome} | Dia da semana: {materia.dia_da_semana}']
             if existe == 1:
                 self.__tela_materia.mostra_lista(lista)
             else:
@@ -153,6 +151,7 @@ class ContorladorMateria():
                 materia.criterio_de_presenca = novos_dados_materia["criterio_de_presenca"]
                 materia.numero_avaliacoes = novos_dados_materia["numero_avaliacoes"]
                 self.__tela_materia.mostra_mensagem("Matéria alterada!")
+                self.__materia_dao.add(materia)
                 return
             return
 
