@@ -35,7 +35,7 @@ class ControladorTarefa():
         if materia_correspondente == None:
           self.__tela_tarefa.mostra_mensagem("Código não existente\nCriando Tarefa sem Matéria")
         else:
-          materia_correspondente = materia_correspondente.nome
+          materia_correspondente = materia_correspondente
     
     maior = 0
     for tarefa in self.__tarefas_dao.get_all():
@@ -119,7 +119,7 @@ class ControladorTarefa():
       lista = []
       for tarefa in self.__tarefas_dao.get_all():
         if tarefa.status_realizado == True:
-          lista += [[f'ID: {tarefa.id_tarefa} Nome: {tarefa.nome_tarefa}']]
+          lista += [f'ID: {tarefa.id_tarefa} Nome: {tarefa.nome_tarefa}']
       self.__tela_tarefa.mostra_lista(lista)
 
 #-----------LISTA TAREFAS NÃO FEITAS---------------
@@ -130,11 +130,11 @@ class ControladorTarefa():
       lista = []
       for tarefa in self.__tarefas_dao.get_all():
         if tarefa.status_realizado == False:
-          lista += [[f'ID: {tarefa.id_tarefa} Nome: {tarefa.nome_tarefa}']]
+          lista += [f'ID: {tarefa.id_tarefa} Nome: {tarefa.nome_tarefa}']
       self.__tela_tarefa.mostra_lista(lista)
 
 #-----------PEGA TAREFAS POR MATERIA---------------
-  def pegar_por_materia(self, materia):
+  def pegar_por_materia(self, id):
     if self.__tarefas_dao.get_all() == []:
       self.__tela_tarefa.mostra_mensagem("A lista de tarefas está vazia !")
       return
@@ -142,7 +142,7 @@ class ControladorTarefa():
     lista_tarefa_da_materia = []
     vazio = 1
     for tarefa in self.__tarefas_dao.get_all():
-      if tarefa.materia_correspondente == materia:
+      if tarefa.materia_correspondente.id_materia == id:
         vazio = 0
         lista_tarefa_da_materia.append(tarefa) # implementar DAO; lista_tarefa_da_materia.append(tarefa)
     if vazio == 1:
@@ -158,16 +158,17 @@ class ControladorTarefa():
 
     id = self.__tela_tarefa.seleciona_tarefa(self.dados_lista_tarefas())
     tarefa = self.pega_tarefa_por_id(id)
+    list_id_materia = self.__controlador_sistema.controlador_materia.dados_lista_materias()
 
     if(tarefa is not None):
-      novos_dados_tarefa = self.__tela_tarefa.pega_dados()
+      novos_dados_tarefa = self.__tela_tarefa.pega_dados(list_id_materia)
       if novos_dados_tarefa != None:
         tarefa.nome_tarefa = novos_dados_tarefa["nome_tarefa"]
         tarefa.data_prazo = novos_dados_tarefa["data_prazo"]
         tarefa.horario_prazo = novos_dados_tarefa["horario_prazo"]
         tarefa.descricao = novos_dados_tarefa["descricao"]
-        tarefa.materia_correspondente = novos_dados_tarefa["materia_correspondente"]
-
+        tarefa.materia_correspondente = self.__controlador_sistema.controlador_materia.pega_materia_por_id(novos_dados_tarefa["materia_correspondente"])
+  
         if novos_dados_tarefa["status_realizado"] == "sim":
           tarefa.status_realizado = True
         else:

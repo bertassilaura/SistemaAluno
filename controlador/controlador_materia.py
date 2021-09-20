@@ -28,7 +28,7 @@ class ContorladorMateria():
                 if professor == None:
                     self.__tela_materia.mostra_mensagem("Professor não existente\nCriando matéria sem professor")
                 else:
-                    professor = professor.nome
+                    professor = professor
             
             maior = 0
             for materia in self.__materia_dao.get_all():
@@ -153,7 +153,7 @@ class ContorladorMateria():
             if novos_dados_materia != None:
                 materia.nome = novos_dados_materia["nome"]
                 materia.semestre = novos_dados_materia["semestre"]
-                materia.professor = novos_dados_materia["professor"]
+                materia.professor = self.__controlador_sistema.controlador_professor.pega_professor_por_id(novos_dados_materia["professor"])
                 materia.codigo = novos_dados_materia["codigo"]
                 materia.dia_da_semana = novos_dados_materia["dia_da_semana"]
                 materia.horario = novos_dados_materia["horario"]

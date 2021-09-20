@@ -55,8 +55,7 @@ class Tarefa:
   
   @nota.setter
   def nota(self, nota: float):
-      if isinstance(nota, float):
-          self.__nota = nota
+        self.__nota = nota
   
   @property
   def materia_correspondente(self):
