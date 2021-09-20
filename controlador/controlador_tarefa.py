@@ -10,7 +10,7 @@ class ControladorTarefa():
     self.__controlador_sistema = controlador_sistema
     self.__id_tarefa = 0
 
-#-----------ADICIONA UMA TAREFA---------------
+  #cadstra uma tarefa
   def adicionar_tarefa(self):
     list_box_materia = self.__controlador_sistema.controlador_materia.dados_lista_materias()
     dados_tarefa = self.__tela_tarefa.pega_dados(list_box_materia)
@@ -48,7 +48,7 @@ class ControladorTarefa():
     self.__tarefas_dao.add(tarefa)
     self.__tela_tarefa.mostra_mensagem("Tarefa criada! :)")
 
-#-----------TRATA RECEBIMENTO NOTA--------------
+
   def trata_recebimento_nota(self, dados_tarefa: dict):
     try:
       nota = dados_tarefa['nota']
@@ -60,7 +60,8 @@ class ControladorTarefa():
       self.__tela_tarefa.mostra_mensagem("Valor de nota inválido: Insira uma valor numérico, inteiro ou decimal !!")
     if (type(nota) == float):
       return nota
-#-----------TRATA RECEBIMENTO PESO--------------
+
+
   def trata_recebimento_peso(self, dados_tarefa: dict):
     try:
       peso = dados_tarefa['peso']
@@ -73,7 +74,7 @@ class ControladorTarefa():
     if (type(peso) == float):
       return peso
 
-#-----------LISTA TODAS AS TAREFAS--------------
+  #lista todas as tarefas
   def listar_tarefas(self):
     if self.__tarefas_dao.get_all() == []:
       self.__tela_tarefa.mostra_mensagem("A lista de tarefas está vazia !")
@@ -83,35 +84,33 @@ class ControladorTarefa():
       tarefa = self.pega_tarefa_por_id(seleciona)
       mostra_tarefa = self.__tela_tarefa.mostra_dados(tarefa)
 
-#-----------PEGA TAEFA PELO ID---------------
+
   def pega_tarefa_por_id(self, id):
     for tarefa in self.__tarefas_dao.get_all():
       if tarefa.id_tarefa == id:
         return tarefa
 
-#-----------RETORNA DADOS ID E NOME DAS TAREFAS---------------
+
   def dados_lista_tarefas(self):
       return [f'ID: {tarefa.id_tarefa} Nome: {tarefa.nome_tarefa}' for tarefa in self.__tarefas_dao.get_all()] 
 
-#-----------EXCLUI UMA TAREFA---------------
+
   def excluir_tarefa(self):
     if self.__tarefas_dao.get_all() == []:
       self.__tela_tarefa.mostra_mensagem("A lista de tarefas está vazia !")
       return
     
     id = self.__tela_tarefa.seleciona_tarefa(self.dados_lista_tarefas())
-    #tarefa = self.pega_tarefa_por_id(id); antes do dao
 
     if(id is not None):
       self.__tarefas_dao.remove(id)
       self.__tela_tarefa.mostra_mensagem("Tarefa removida!")
 
 
-#-----------RETORNA---------------
   def retornar(self):
     self.__controlador_sistema.abre_tela()
 
-#-----------LISTA TAREFAS FEITAS---------------
+  #lista tarefas feitas (true)
   def listar_feito(self):
     if self.__tarefas_dao.get_all() == []:
       self.__tela_tarefa.mostra_mensagem("A lista de tarefas está vazia !")
@@ -122,7 +121,7 @@ class ControladorTarefa():
           lista += [f'ID: {tarefa.id_tarefa} Nome: {tarefa.nome_tarefa}']
       self.__tela_tarefa.mostra_lista(lista)
 
-#-----------LISTA TAREFAS NÃO FEITAS---------------
+  #lista tarefas a fazer (false)
   def listar_a_fazer(self):
     if self.__tarefas_dao.get_all() == []:
       self.__tela_tarefa.mostra_mensagem("A lista de tarefas está vazia !")
@@ -133,7 +132,7 @@ class ControladorTarefa():
           lista += [f'ID: {tarefa.id_tarefa} Nome: {tarefa.nome_tarefa}']
       self.__tela_tarefa.mostra_lista(lista)
 
-#-----------PEGA TAREFAS POR MATERIA---------------
+
   def pegar_por_materia(self, id):
     if self.__tarefas_dao.get_all() == []:
       self.__tela_tarefa.mostra_mensagem("A lista de tarefas está vazia !")
@@ -144,15 +143,15 @@ class ControladorTarefa():
     for tarefa in self.__tarefas_dao.get_all():
       if tarefa.materia_correspondente.id_materia == id:
         vazio = 0
-        lista_tarefa_da_materia.append(tarefa) # implementar DAO; lista_tarefa_da_materia.append(tarefa)
+        lista_tarefa_da_materia.append(tarefa)
     if vazio == 1:
       return None
     else:
       return lista_tarefa_da_materia
 
-#-----------ALTERA UMA TAREFA--------------- 
+  #altera uma tarefa
   def alterar_tarefa(self):
-    if self.__tarefas_dao.get_all() == []: # implementar DAO; self.__lista_tarefas
+    if self.__tarefas_dao.get_all() == []: 
       self.__tela_tarefa.mostra_mensagem("A lista de tarefas está vazia !")
       return
 
@@ -181,7 +180,7 @@ class ControladorTarefa():
         return
       return
 
-#-----------ABRE TELA---------------
+
   def abre_tela(self):
     lista_opcoes = {1: self.adicionar_tarefa, 2: self.excluir_tarefa, 3: self.listar_tarefas, 4: self.listar_feito, 5: self.listar_a_fazer, 6: self.alterar_tarefa, 7: self.retornar}
     

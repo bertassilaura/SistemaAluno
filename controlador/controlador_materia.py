@@ -11,6 +11,7 @@ class ContorladorMateria():
         self.__materia_dao = MateriaDAO()
         self.__id_materia = 0
     
+    #cadastra uma matéria
     def adicionar_materia(self):
         list_box_professor = self.__controlador_sistema.controlador_professor.dados_listar_professores()
         dados_materia = self.__tela_materia.pega_dados(list_box_professor)
@@ -41,7 +42,7 @@ class ContorladorMateria():
             self.__tela_materia.mostra_mensagem("Matéria adicionada! :)")
             self.__materia_dao.add(materia)
 
-
+    #lista todas as matérias
     def listar_materias(self):
         if self.__materia_dao.get_all() == []:
             self.__tela_materia.mostra_mensagem("A lista de matérias está vazia !")
@@ -52,19 +53,20 @@ class ContorladorMateria():
                 mostra_materia = self.__tela_materia.mostra_dados(materia)
                 return mostra_materia
             return
-
-#-----------PEGA MATERIA POR CODIGO---------------        
+        
     def pega_materia_por_id(self, id):
+        if id == "" or id ==  None:
+            return None
+
         for materia in self.__materia_dao.get_all():
             if materia.id_materia == int(id):
                 return materia
         return None
-    
-#-----------RETORNA CODIGO E NOME DAS MATERIAS---------------
+
     def dados_lista_materias(self):
         return [f'ID: {materia.id_materia} Nome: {materia.nome}' for materia in self.__materia_dao.get_all()]
 
-#-----------EXCLUI MATERIAS---------------
+    #exclui uma matéria
     def excluir_materia(self):
         if self.__materia_dao.get_all() == []:
             self.__tela_materia.mostra_mensagem("Ainda não existem matérias !")
@@ -76,7 +78,7 @@ class ContorladorMateria():
             self.__materia_dao.remove(id)
             self.__tela_materia.mostra_mensagem("Matéria excluída!")
 
-#-----------LISTA MATERIAS POR SEMESTRE---------------  
+    #lista matérias por semestre
     def listar_por_semestre(self):
         if self.__materia_dao.get_all() == []:
             self.__tela_materia.mostra_mensagem("Ainda não existem matérias!")
@@ -93,12 +95,14 @@ class ContorladorMateria():
             else:
                 self.__tela_materia.mostra_mensagem("Nenhuma matéria nesse semestre.")
 
-#-----------LISTA MATERIAS POR DIA DA SEMANA--------------- 
+    #lista matérias por dia da semana
     def listar_por_dia_da_semana(self):
         if self.__materia_dao.get_all() == []:
             self.__tela_materia.mostra_mensagem("Ainda não existem matérias!")
         else:
             qual_dia = self.__tela_materia.dias_da_semana()
+            if qual_dia == None or qual_dia == "":
+                return
             existe = 0
             lista = []
             for materia in self.__materia_dao.get_all():
@@ -110,7 +114,7 @@ class ContorladorMateria():
             else:
                 self.__tela_materia.mostra_mensagem("Nenhuma matéria nesse dia.")
 
-#-----------CALCULA MEDIA FINAL DE UMA MATERIA---------------    
+    #calcula média final de uma matéria    
     def calcular_media_final(self): 
         if self.__materia_dao.get_all() == []:
             self.__tela_materia.mostra_mensagem("Ainda não existem matérias!")
@@ -122,7 +126,6 @@ class ContorladorMateria():
             materia = self.pega_materia_por_id(id)
 
             if materia == None:
-                self.__tela_materia.mostra_mensagem("Não existe matéria com esse ID!")
                 return
             
             tarefas_materia = self.__controlador_sistema.controlador_tarefa.pegar_por_materia(id)
@@ -138,7 +141,7 @@ class ContorladorMateria():
             media_final = nota_total / peso_total
             self.__tela_materia.mostra_mensagem(f"Sua nota final na matéria desejada é {media_final:.2f}")
     
-#-----------ALTERA MATERIAS---------------
+    #altera uma matéria
     def alterar_materia(self):
         if self.__materia_dao.get_all() == []:
             self.__tela_materia.mostra_mensagem("Ainda não existem matérias!")
@@ -166,11 +169,9 @@ class ContorladorMateria():
                 return
             return
 
-#-----------RETORNA---------------
     def retornar(self):
         self.__controlador_sistema.abre_tela()
 
-#-----------ABRE TELA---------------
     def abre_tela(self):
         lista_opcoes = {1: self.adicionar_materia, 2: self.excluir_materia, 3: self.listar_por_semestre, 4: self.calcular_media_final, 5: self.listar_materias, 6: self.alterar_materia, 7: self.listar_por_dia_da_semana, 8: self.retornar}
 

@@ -19,7 +19,7 @@ class TelaMateria(TelaAbstrata):
             [sg.Text("")],
             [sg.Button('Adicionar Matéria', font=fonte_texto, size=tamanho_texto, key=1)],
             [sg.Button('Excluir Matéria', font=fonte_texto, size=tamanho_texto, key=2)],
-            [sg.Button('Matérias por semestre', font=fonte_texto, size=tamanho_texto, key=3)],
+            [sg.Button('Listar por semestre', font=fonte_texto, size=tamanho_texto, key=3)],
             [sg.Button('Calcular Média final', font=fonte_texto, size=tamanho_texto, key=4)],
             [sg.Button('Ver matérias', font=fonte_texto, size=tamanho_texto, key=5)],
             [sg.Button('Alterar Materia', font=fonte_texto, size=tamanho_texto, key=6)],
@@ -57,7 +57,7 @@ class TelaMateria(TelaAbstrata):
             [sg.Submit('Confirmar', font=fonte_texto, size=tamanho_texto), sg.Cancel('Cancelar e retornar', font=fonte_texto, size=tamanho_texto)]
         ]
 
-        window = sg.Window('Dados da matéria', grab_anywhere=True).Layout(layout)
+        window = sg.Window('Dados da Matéria', grab_anywhere=True).Layout(layout)
         button, dados_materia = window.Read()
         window.close()
         if button == 'Confirmar':
@@ -109,7 +109,7 @@ class TelaMateria(TelaAbstrata):
             [sg.Submit('Confirmar', font=fonte_texto, size=tamanho_texto), sg.Cancel('Cancelar e retornar', font=fonte_texto, size=tamanho_texto)]
         ]
 
-        window = sg.Window('Selecionar materias', size=tamanho_janela, element_justification="c", grab_anywhere=True).Layout(layout)
+        window = sg.Window('Selecionar Matéria', size=tamanho_janela, element_justification="c", grab_anywhere=True).Layout(layout)
         button, materia = window.Read()
         window.close()
         if button == 'Confirmar':
@@ -133,7 +133,7 @@ class TelaMateria(TelaAbstrata):
     def dias_da_semana(self):
 
         layout = [
-            [sg.Text('Dias da semana', font=fonte_texto, size=tamanho_texto)],
+            [sg.Text('Dias da semana:', font=fonte_texto, size=tamanho_texto)],
             [sg.InputCombo(('Segunda', 'Terca', 'Quarta', 'Quinta', 'Sexta'), key = 'dia_da_semana')],
             [sg.Submit('Confirmar', font=fonte_texto, size=tamanho_texto), sg.Cancel('Cancelar e retornar', font=fonte_texto, size=tamanho_texto)]
         ]
@@ -152,7 +152,7 @@ class TelaMateria(TelaAbstrata):
             [sg.Submit('Confirmar', font=fonte_texto, size=tamanho_texto), sg.Cancel('Cancelar e retornar', font=fonte_texto, size=tamanho_texto)]
         ]
 
-        window = sg.Window('Recebe semestre', grab_anywhere=True).Layout(layout)
+        window = sg.Window('Semestre', grab_anywhere=True).Layout(layout)
         button, semestre = window.Read()
         semestre = semestre['semestre']
         window.close()
@@ -171,7 +171,7 @@ class TelaMateria(TelaAbstrata):
             [sg.Cancel('Retornar', font=fonte_texto, size=tamanho_texto)]
         ]
 
-        window = sg.Window('Lista de materias', size=tamanho_janela, element_justification="c", grab_anywhere=True).Layout(layout)
+        window = sg.Window('Matérias', size=tamanho_janela, element_justification="c", grab_anywhere=True).Layout(layout)
         button, values = window.Read()
         window.close()
         return values

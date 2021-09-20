@@ -44,11 +44,11 @@ class TelaTarefa(TelaAbstrata):
         [sg.Text('Data do prazo:', font=fonte_texto, size=tamanho_texto), sg.InputText(key = 'data_prazo')], 
         [sg.Text('Horário do prazo:', font=fonte_texto, size=tamanho_texto), sg.InputText(key = 'horario_prazo')],
         [sg.Text('Descrição:', font=fonte_texto, size=tamanho_texto), sg.Multiline(key = 'descricao')],
-        [sg.Text('Está feita ou não?', font=fonte_texto, size=tamanho_texto), sg.InputCombo(('sim', 'não'),default_value='selecione', size=(9,1),key = 'status_realizado')],
-        [sg.Text('ID da matéria:', font=fonte_texto, size=tamanho_texto), sg.InputText(key = 'materia_correspondente')],
+        [sg.Text('Está feita ou não?', font=fonte_texto, size=tamanho_texto), sg.InputCombo(('sim', 'nao'),default_value='selecione', size=(9,1),key = 'status_realizado')],
         [list_box_materia],
-        [sg.Text('Peso:', font=fonte_texto, size=tamanho_texto), sg.InputText(key = 'peso') ], 
-        [sg.Text('Nota:', font=fonte_texto, size=tamanho_texto), sg.InputText(key = 'nota')],
+        [sg.Text('ID da matéria:', font=fonte_texto, size=tamanho_texto), sg.InputText(key = 'materia_correspondente')],
+        [sg.Text('Peso(se não há,digite 0):', font=fonte_texto, size=tamanho_texto), sg.InputText(key = 'peso') ], 
+        [sg.Text('Nota(se não há,digite 0):', font=fonte_texto, size=tamanho_texto), sg.InputText(key = 'nota')],
         [sg.Text("")],
         [sg.Submit('Confirmar', font=fonte_texto, size=tamanho_texto), sg.Cancel('Cancelar e retornar', font=fonte_texto, size=tamanho_texto)]
       ]
@@ -130,8 +130,9 @@ class TelaTarefa(TelaAbstrata):
       ]
 
       layout = [
-        [sg.Image(logo2, size=(180, 180))],
-        [sg.Text('Listando tarefas', font=('Arial Rounded MT Bold', 10), size=(0, 1), text_color='white')],
+        [sg.Image(logo2, size=(110, 110))],
+        [sg.Text('Listando tarefas', font=fonte_texto, size=(0,1), text_color=cor_titulo, background_color=fundo_titulo)],
+        [sg.Text("")],
         [tarefas],
         [sg.Text('')],
         [sg.Cancel('Retornar', font=fonte_texto, size=tamanho_texto)]

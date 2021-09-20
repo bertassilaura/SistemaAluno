@@ -59,7 +59,7 @@ class ControladorProfessor():
 
     #pega professor por ID
     def pega_professor_por_id(self, id):
-        if id == "":
+        if id == "" or id == None:
             return None
         for professor in self.__professores_dao.get_all():
             if (professor.id_professor == int(id)):
@@ -83,7 +83,6 @@ class ControladorProfessor():
             self.__tela_professor.mostra_mensagem("Professor alterado!")
             self.__professores_dao.add(professor)
             return
-
         return
 
     #excluir professor
@@ -93,7 +92,6 @@ class ControladorProfessor():
             return
 
         id = self.__tela_professor.seleciona_professor(self.dados_listar_professores())
-        #professor = self.pega_professor_por_id(id)
 
         if(id is not None):
             self.__professores_dao.remove(id)
